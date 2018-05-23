@@ -19,14 +19,34 @@
         http://www.springframework.org/schema/aop/spring-aop-4.0.xsd"  default-autowire="byName">
     
      <!-- 消费方应用名称信息，这个相当于起一个名字，我们dubbo管理页面比较清晰是哪个应用调用的,保持唯一性 -->  
-     <dubbo:application name="dubbo_consumer"  />   
+     <dubbo:application name="dubbo_consumer_api"  />
        
-     <!-- 使用zookeeper注册中心发现暴露的服务地址 -->    
-     <dubbo:registry address="zookeeper://127.0.0.1:2181" />     
-       
-     <!-- 生成远程服务代理，可以和本地bean一样使用demoService，该interface需要与服务端暴露的服务interface保持一致，该id已注入Spring -->    
-	 <dubbo:reference id="UserService" interface="com.four.service.UserService"    />
+     <!-- 使用zookeeper注册中心发现暴露的服务地址 192.168.116.1-->
+     <dubbo:registry address="zookeeper://192.168.116.1:2181" />
+       <!--192.168.31.211-->
+     <!-- 生成远程服务代理，可以和本地bean一样使用demoService，该interface需要与服务端暴露的服务interface保持一致，该id已注入Spring -->
+	<dubbo:reference id="userService" interface="com.four.service.IUserService"    timeout="60000"/>
+	<dubbo:reference id="solrService" interface="com.four.service.SolrService"    timeout="60000"/>
+	<dubbo:reference id="ossService" interface="com.four.service.IOssService"    timeout="60000"/>
+	<dubbo:reference id="loginService" interface="com.four.service.ILoginService"    timeout="60000"/>
+	<dubbo:reference id="treeService" interface="com.four.service.IServiceTree"    timeout="60000"/>
+	<dubbo:reference id="roleService" interface="com.four.service.RoleService"    timeout="60000"/>
+	<dubbo:reference id="companyService" interface="com.four.service.CompanyService"    timeout="60000"/>
+	<dubbo:reference id="deptService" interface="com.four.service.IDeptService"    timeout="60000"/>
+	<dubbo:reference id="photoService" interface="com.four.service.IPhotoService"    timeout="60000"/>
+	<dubbo:reference id="salarService" interface="com.four.service.ISalaryService"    timeout="60000"/>
+	<dubbo:reference id="jiuyeService" interface="com.four.service.JiuYeService"    timeout="60000"/>
+	<dubbo:reference id="postService" interface="com.four.service.PostService"    timeout="60000"/>
+	<dubbo:reference id="typeService" interface="com.four.service.TypeService"    timeout="60000"/>
+	<dubbo:reference id="wgqService" interface="com.four.service.WGQService"    timeout="60000"/>
+	<dubbo:reference id="noticeService" interface="com.four.service.INoticeService"    timeout="60000"/>
+	<dubbo:reference id="jianLiService" interface="com.four.service.JianLiService"    timeout="60000"/>
+	<dubbo:reference id="bosssService" interface="com.four.service.BosssService"    timeout="60000"/>
+	<dubbo:reference id="gongsiService" interface="com.four.service.GongsiService"    timeout="60000"/>
+	<dubbo:reference id="newService" interface="com.four.service.NewService"    timeout="60000"/>
+	<dubbo:reference id="treesService" interface="com.four.service.TreesService"    timeout="60000"/>
+	<dubbo:reference id="usersService" interface="com.four.service.UsersService"    timeout="60000"/>
+	<dubbo:reference id="zhiweiService" interface="com.four.service.ZhiweiService"    timeout="60000"/>
 
 
-	 
-</beans>  
+</beans>

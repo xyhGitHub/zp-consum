@@ -20,6 +20,124 @@
   </properties>
 
   <dependencies>
+
+    <!--阿里短信-->
+    <!--<dependency>-->
+      <!--<groupId>com.aliyun</groupId>-->
+      <!--<artifactId>aliyun-java-sdk-core</artifactId>-->
+      <!--<version>3.7.1</version>-->
+      <!--&lt;!&ndash;注：如提示报错，先升级基础包版，无法解决可联系技术支持&ndash;&gt;-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>com.aliyun</groupId>-->
+      <!--<artifactId>aliyun-java-sdk-dysmsapi</artifactId>-->
+      <!--<version>1.1.0</version>-->
+    <!--</dependency>-->
+
+
+    <dependency>
+      <groupId>com.github.bingoohuang</groupId>
+      <artifactId>patchca</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+
+    <!--solr-->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework.data</groupId>-->
+      <!--<artifactId>spring-data-solr</artifactId>-->
+    <!--</dependency>-->
+
+      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+          <version>2.4.6</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>2.4.6</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-annotations</artifactId>
+          <version>2.4.6</version>
+      </dependency>
+
+    <!--引入fastjson对应的jar包 -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.23</version>
+    </dependency>
+
+    <!--   邮件jar包 -->
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4.5</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+
+    <!--oss-->
+    <dependency>
+      <groupId>com.aliyun.oss</groupId>
+      <artifactId>aliyun-sdk-oss</artifactId>
+      <version>2.8.2</version>
+    </dependency>
+
+
+    <!--8、shiro相关包 -->
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-core</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-web</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-ehcache</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-spring</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+    <!--shiro-quartz依赖-->
+    <dependency>
+      <groupId>org.apache.shiro</groupId>
+      <artifactId>shiro-quartz</artifactId>
+      <version>1.2.2</version>
+    </dependency>
+    <!-- shiro整合util方法需要 -->
+    <dependency>
+      <groupId>com.google.collections</groupId>
+      <artifactId>google-collections</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>19.0</version>
+    </dependency>
+    <!-- 9、lombok 包-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.16</version>
+    </dependency>
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>dubbo</artifactId>
@@ -173,11 +291,11 @@
       <artifactId>ojdbc6</artifactId>
       <version>11.2.0</version>
     </dependency>
-    <dependency>
-      <groupId>com.oracle</groupId>
-      <artifactId>ojdbc6-1</artifactId>
-      <version>11.2.1</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>com.oracle</groupId>-->
+      <!--<artifactId>ojdbc6-1</artifactId>-->
+      <!--<version>11.2.1</version>-->
+    <!--</dependency>-->
     <!-- oracle驱动需要官方授权，不能再中央仓库直接下载 -->
     <!-- <dependency> <groupId>com.oracle</groupId> <artifactId>ojdbc6</artifactId>
         <version>11.2.0</version> <scope>system</scope> <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ojdbc6.jar</systemPath>
@@ -302,6 +420,26 @@
       <artifactId>json-lib</artifactId>
       <version>2.4</version>
     </dependency>
+      <dependency>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-commons</artifactId>
+          <version>2.0.6.RELEASE</version>
+      </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-mongodb</artifactId>
+      <version>2.0.6.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>2.0.6.RELEASE</version>
+    </dependency>
+      <dependency>
+          <groupId>redis.clients</groupId>
+          <artifactId>jedis</artifactId>
+          <version>2.9.0</version>
+      </dependency>
   </dependencies>
 
   <build>
