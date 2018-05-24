@@ -7,25 +7,21 @@
  */
 package com.four.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.alibaba.fastjson.JSONObject;
+import com.four.model.Role;
+import com.four.model.User;
+import com.four.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
-import com.four.model.Dept;
-import com.four.model.Role;
-import com.four.model.Type;
-import com.four.model.User;
-import com.four.service.IDeptService;
-import com.four.service.IUserService;
-import com.four.service.TypeService;;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
+;
 /**
  * <pre>
  * 项目名称：single_code    
@@ -45,12 +41,7 @@ public class UserController {
 
 	@Autowired
 	private IUserService userService;
-	//注入部门切面
-	@Autowired
-	private IDeptService deptService;
-	
-	@Autowired
-	private TypeService typeService;
+
 
 	// 查询+分页+条件查询
 	@RequestMapping("/queryUserList")
@@ -199,38 +190,7 @@ public class UserController {
 
 		return "success";
 	}
-	/**
-	 * <pre>queryDeptIdSelect(调用部门表查询部门列表)   
-	 * 创建人：刘文圣
-	 * 创建时间：2018年3月14日 下午5:30:42    
-	 * 修改人：刘文圣
-	 * 修改时间：2018年3月14日 下午5:30:42    
-	 * 修改备注： 
-	 * @return</pre>
-	 */
-	
-	@RequestMapping("/queryDeptIdSelect")
-	@ResponseBody
-	public Object queryDeptIdSelect() {
-		String str = "";
 
-		List<Dept> deptList = deptService.queryDeptName();
-
-//		str = JSON.toJSONString(deptList);
-		
-		return deptList;
-	}
-	
-	@RequestMapping("/queryUserTypeSelect")
-	@ResponseBody
-	public Object queryUserTypeSelect() {
-		
-		List<Type> typeList = typeService.queryType();
-		
-//		str = JSON.toJSONString(deptList);
-		
-		return typeList;
-	}
 	@RequestMapping("/queryUserResumeList")
 	public Object queryUserResumeList(Integer typeidcriteria,HttpServletRequest request) {
 		
