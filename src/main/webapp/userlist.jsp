@@ -27,7 +27,7 @@
 
 
 </table>
-<script type="text/javascript">0
+<script type="text/javascript">
     $(function(){
         $('#dg').datagrid({
             url:'<%=request.getContextPath()%>/userController/queryUserInfo.do',
