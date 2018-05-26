@@ -1,11 +1,13 @@
 package com.four.utils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PageModel<T> {
-	
-	
+public class PageModel<T> implements Serializable{
+
+
+	private static final long serialVersionUID = 4554860607833450755L;
 	//总条数
 	private   int   pageSum;
 	

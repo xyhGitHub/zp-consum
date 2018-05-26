@@ -1,6 +1,5 @@
 package com.four.utils;
 
-import redis.clients.jedis.Jedis;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -83,9 +82,6 @@ public class CheckImgUtil {
          }  
          //******将生成的四位验证码存到session中
          request.getSession().setAttribute("checkcode", sb.toString());
-        Jedis jedis = new Jedis("192.168.116.129",6379);
-        jedis.setex("checkcode",15000,sb.toString());
-        jedis.close();
          //对验证码图片样式的设置
          graphics.setColor(getRandColor(160, 200));  
          int x1;  
