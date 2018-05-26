@@ -35,15 +35,14 @@ public class SolrController {
 	
 	@RequestMapping("getsolrList")
 	@ResponseBody
-	public PageModel<ZhiweiLittle> getSolrList(String name,Integer pageNow,PageModel pageModel) throws Exception
-	{
+	public PageModel<ZhiweiLittle> getSolrList(String searchName,Integer pageNow,PageModel pageModel) throws Exception {
+
 		ZhiweiLittle zhiweiLittle = new ZhiweiLittle();
-		if(pageNow ==null)
-		{
+		if(pageNow ==null) {
 			pageNow=1;
 		}
+		zhiweiLittle.setName(searchName);
 
-		zhiweiLittle.setName(name);
 		PageModel<ZhiweiLittle> solrlist=	solrService.getSolrList(pageModel,zhiweiLittle);
 		
 	   return  solrlist; 

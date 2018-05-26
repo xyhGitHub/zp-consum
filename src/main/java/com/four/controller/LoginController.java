@@ -1,10 +1,10 @@
-/** 
- * <pre>项目名称:four_group 
- * 文件名称:LoginController.java 
- * 包名:com.four.controller 
- * 创建日期:2018年3月13日下午1:10:52 
- * Copyright (c) 2018, lxm_man@163.com All Rights Reserved.</pre> 
- */  
+/**
+ * <pre>项目名称:four_group
+ * 文件名称:LoginController.java
+ * 包名:com.four.controller
+ * 创建日期:2018年3月13日下午1:10:52
+ * Copyright (c) 2018, lxm_man@163.com All Rights Reserved.</pre>
+ */
 package com.four.controller;
 
 import com.four.model.LoginGs;
@@ -12,33 +12,25 @@ import com.four.model.LoginUser;
 import com.four.model.TongJi;
 import com.four.model.User;
 import com.four.service.ILoginService;
-import com.four.service.JiuYeService;
 import com.four.utils.CheckImgUtil;
-import com.four.utils.ValidateCodeUtil;
+import com.four.utils.util.sendsms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
 @RequestMapping("loginController")
 public class LoginController {
-	
+
 	@Autowired
 	private ILoginService loginService;
-	@Autowired
-	private JiuYeService jiuYeService;
-	
-	int mobile_code ;
-
 
 	/**
 	 * 刷新验证码
@@ -54,32 +46,69 @@ public class LoginController {
 		}
 	}
 
-	/**
-	 * 前台注销
-	 */
-	public void LaGouOut(HttpServletRequest req){
-		String sessionUserid = (String) req.getSession().getAttribute("sessionUserid");
-		String sessionComid = (String) req.getSession().getAttribute("sessionComid");
-		req.getSession().removeAttribute("sessionUserid");
-		req.getSession().removeAttribute("sessionComid");
-		Jedis jedis = new Jedis("192.168.116.129",6379);
-		jedis.del("sessionUserid");
-		jedis.del("sessionComid");
-		jedis.close();
-	}
-
 
 	/**
-	 * 前台注册
+	 * 前台注册用户和公司帐号
 	 * @param laGouUser
 	 * @return
 	 */
+
+	int mobile_code =123;
+	@RequestMapping("setPhone")
+	public void setPhone(String phone){
+		mobile_code= sendsms.mobile(phone);
+	}
 	@RequestMapping("laGouReg")
 	@ResponseBody
 	public Integer laGouReg(LoginUser laGouUser){
 
 		Integer regFlag = loginService.laGouReg(laGouUser);
 		return regFlag;
+	}
+
+	/**
+	 * 前台公司注册修改userid
+	 */
+	@RequestMapping("updateComIdByName")
+	@ResponseBody
+	public void queryComIdByName(String loginName){
+		loginService.queryComIdByName(loginName);
+	}
+
+
+	/**
+	 * 前台公司登录
+	 * @param laGouUser
+	 * @return
+	 */
+	@RequestMapping("laGouLoginGS")
+	@ResponseBody
+	public Integer laGouLoginGS(LoginUser laGouUser,HttpServletRequest req){
+		Integer loginFlag = 0;
+			if(mobile_code == Integer.parseInt(laGouUser.getCheckCode())) {
+				Map<String, Object> map = loginService.laGouLoginGS(laGouUser);
+				if (!map.isEmpty()) {
+					loginFlag = (Integer) map.get("loginGsFlag");
+					LoginUser laGouUsers = (LoginUser) map.get("laGouComs");
+					req.getSession().setAttribute("laGouComSession", laGouUsers);
+					return loginFlag;
+				} else {
+					loginFlag = 3;
+					return loginFlag;
+				}
+			}
+			return loginFlag;
+	}
+
+
+
+	/**
+	 * 前台注册修改userid
+	 */
+	@RequestMapping("updateUserIdByName")
+	@ResponseBody
+	public void queryIdByName(String loginName){
+		loginService.queryIdByName(loginName);
 	}
 
 	/**
@@ -96,44 +125,42 @@ public class LoginController {
 	}
 
 	/**
-	 * 前台登录
+	 * 前台用户登录
 	 * @param laGouUser
 	 * @return
 	 */
 	@RequestMapping("laGouLogin")
 	@ResponseBody
 	public Integer laGouLogin(LoginUser laGouUser,HttpServletRequest req){
+		Integer loginFlag = 0;
+		if(mobile_code == Integer.parseInt(laGouUser.getCheckCode())) {
 
-		Integer loginFlag = loginService.laGouLogin(laGouUser);
+			Map<String, Object> map = loginService.laGouLogin(laGouUser);
+			if (!map.isEmpty()) {
+				loginFlag = (Integer) map.get("loginFlag");
+				LoginUser laGouUsers = (LoginUser) map.get("laGouUsers");
+				req.getSession().setAttribute("laGouUserSession", laGouUsers);
+				return loginFlag;
+			}else{
+				loginFlag = 3;
 
-		Jedis jedis = new Jedis("192.168.116.129",6379);
-		//这里肯定是都能取到的
-		String userid = jedis.get(laGouUser.getUserid().toString());
-			req.getSession().setAttribute("sessionUserid",userid);
-
-		String comid = jedis.get(laGouUser.getComid().toString());
-			req.getSession().setAttribute("sessionComid",comid);
-
-			jedis.close();
-
+				return loginFlag;
+			}
+		}
 		return loginFlag;
 	}
 
-//	@RequestMapping("setPhone")
-//	public void setPhone(String phone){
-//
-//		mobile_code=sendsms.mobile(phone);
-//	}
-	
-	//注销用户
+
+
+	//后台注销用户
 	@RequestMapping("loginOut")
 	public String loginOut(HttpServletRequest request){
-		
+
 		request.getSession().removeAttribute("user");
 
 		return "outLogin";
 	}
-	//注册用户
+	//后台注册用户
 	@RequestMapping("addUser")
 	@ResponseBody
 	public String addUser(User user){
@@ -149,10 +176,10 @@ public class LoginController {
 			return lg;
 		}
 
-			
+
 		}
 
-	//用户登录
+	//后台用户登录
 	@RequestMapping("login")
 	@ResponseBody
 	public Integer login(User user,HttpServletRequest request){
@@ -173,13 +200,6 @@ public class LoginController {
 
 				User userLogin = loginService.getResourcesRoleList(login);
 				request.getSession().setAttribute("user", userLogin);
-//				//判断登录的用户类型
-//				if(login.getTypeid() == 1){
-//					//求职者
-//					return flag = 1;
-//				}else if(login.getTypeid() == 0){
-//					//招聘者
-//				}
 				return flag = 1;
 			}else{
 				flag=0;
@@ -189,35 +209,34 @@ public class LoginController {
 			e.printStackTrace();
 			return flag;
 		}
-//				return flag;
 	}
 
-	
-	
-	/** 
-	 * 响应验证码页面 
-	 * @return 
-	 */  
-	/*@RequestMapping(value="/login")  
-	public String login(HttpServletRequest request,HttpServletResponse response) throws Exception{  
+
+
+	/**
+	 * 响应验证码页面
+	 * @return
+	 */
+	/*@RequestMapping(value="/login")
+	public String login(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		String resultStr = "login";
-		String code = request.getParameter("code");  
-		HttpSession session = request.getSession();  
-		String sessionCode = (String) session.getAttribute("code");  
-		if (!StringUtils.equalsIgnoreCase(code, sessionCode)) {  //忽略验证码大小写  
+		String code = request.getParameter("code");
+		HttpSession session = request.getSession();
+		String sessionCode = (String) session.getAttribute("code");
+		if (!StringUtils.equalsIgnoreCase(code, sessionCode)) {  //忽略验证码大小写
 			model.addAttribute("validateFlag", 2);
 			resultStr = "login";
-//		    throw new RuntimeException("验证码对应不上code=" + code + "  sessionCode=" + sessionCode);  
+//		    throw new RuntimeException("验证码对应不上code=" + code + "  sessionCode=" + sessionCode);
 		} else {
 			model.addAttribute("validateFlag", 1);
 			resultStr = "index";
 		}
 		return resultStr;
 	}*/
-	
-	
-	
-	
+
+
+
+
 	//手机验证
 /*	@RequestMapping("yanzheng")
 	public void yz(String shoujihao,HttpServletRequest request,HttpServletResponse response){
@@ -230,38 +249,6 @@ public class LoginController {
 		session.setAttribute("cc", cc);
 		System.out.println(cc+"---------");
 //		给前台返回
-
-	}
-	
-	
-	
-	
-	*/
-	//验证码
-	@RequestMapping("/validateCode")
-	public void validateCode(HttpServletRequest request,HttpServletResponse response){
-		// 设置响应的类型格式为图片格式  
-	    response.setContentType("image/jpeg");  
-	    //禁止图像缓存。  
-	    response.setHeader("Pragma", "no-cache");  
-	    response.setHeader("Cache-Control", "no-cache");  
-	    response.setDateHeader("Expires", 0);  
-	    
-	    //获取session对象
-	    HttpSession session = request.getSession();
-	    
-	    //获取验证码图片以及验证码code值
-	    ValidateCodeUtil vCode = new ValidateCodeUtil(120,40,4,50);
-	    System.out.println(vCode.getCode());
-	    //将验证码code值存入session当中
-	    session.setAttribute("code", vCode.getCode());
-	    
-	    try {
-	    	//将验证码图片写入到jsp页面
-			vCode.write(response.getOutputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 	}
 
@@ -285,7 +272,7 @@ public class LoginController {
 	 */
 	@RequestMapping("loginGS")
 	@ResponseBody
-	public Integer loginGS(LoginGs loginGs){
+	public Integer loginGS(LoginGs loginGs,HttpServletRequest req){
 		Integer GsFlag = loginService.loginGS(loginGs);
 		return GsFlag;
 	}
@@ -302,6 +289,25 @@ public class LoginController {
 		return GsFlag;
 	}
 
+	/**
+	 * 前台公司注销
+	 * @param req
+	 */
+	@RequestMapping("zhuXiaoGs")
+	@ResponseBody
+	public void zhuXiaoGs(HttpServletRequest req){
+		req.getSession().removeAttribute("laGouComSession");
+	}
+
+	/**
+	 * 前台用户注销
+	 * @param req
+	 */
+	@RequestMapping("zhuXiao")
+	@ResponseBody
+	public void zhuXiao(HttpServletRequest req){
+		req.getSession().removeAttribute("laGouUserSession");
+	}
 
 
 }
