@@ -20,7 +20,8 @@ import java.io.Serializable;
  * @create 2018/5/21
  * @since 1.0.0
  */
-public class ZhiweiGreat implements Serializable {
+public class
+ZhiweiGreat implements Serializable {
 
     private static final long serialVersionUID = -1521846746072971811L;
     private Integer id;

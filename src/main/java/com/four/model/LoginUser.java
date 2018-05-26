@@ -1,15 +1,13 @@
 package com.four.model;
 
-import org.springframework.data.annotation.Transient;
-
 import java.io.Serializable;
 
 /**
  * Created by Administrator on 2018/5/19.
  */
 public class LoginUser implements Serializable{
-    private static final long serialVersionUID = -3046511348793405834L;
 
+    private static final long serialVersionUID = 7456506081120323373L;
     //登录表
     private Integer loginId;
     private String loginName;
@@ -18,11 +16,11 @@ public class LoginUser implements Serializable{
     private Integer userid;
     private Integer comid;
     private String createtime;
-    @Transient
+    //    @Transient
     private String checkCode;
-    @Transient
-    private String nums;
-    @Transient
+    //    @Transient
+    private Integer nums;
+    //    @Transient
     private String names;
 
     public Integer getLoginId() {
@@ -57,14 +55,6 @@ public class LoginUser implements Serializable{
         this.userType = userType;
     }
 
-    public String getCheckCode() {
-        return checkCode;
-    }
-
-    public void setCheckCode(String checkCode) {
-        this.checkCode = checkCode;
-    }
-
     public Integer getUserid() {
         return userid;
     }
@@ -89,14 +79,22 @@ public class LoginUser implements Serializable{
         this.createtime = createtime;
     }
 
-    public String getNums() {
+    public String getCheckCode() {
+        return checkCode;
+    }
+
+    public void setCheckCode(String checkCode) {
+        this.checkCode = checkCode;
+    }
+    //    @Transient
+    public Integer getNums() {
         return nums;
     }
 
-    public void setNums(String nums) {
+    public void setNums(Integer nums) {
         this.nums = nums;
     }
-
+    //    @Transient
     public String getNames() {
         return names;
     }

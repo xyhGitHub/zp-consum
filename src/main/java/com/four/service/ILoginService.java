@@ -13,6 +13,7 @@ import com.four.model.TongJi;
 import com.four.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 /** 
  * <pre>项目名称：four_group    
@@ -60,11 +61,19 @@ public interface ILoginService {
 
 	Integer laGouRegCheck(LoginUser laGouUser);
 
-	Integer laGouLogin(LoginUser laGouUser);
+	Map<String,Object> laGouLogin(LoginUser laGouUser);
 
 	List<TongJi> tongJiRegNum();
 
 	Integer loginGS(LoginGs loginGs);
 
 	Integer addRegGS(LoginGs loginGs);
+
+    void queryIdByName(String loginName);
+
+	void queryComIdByName(String loginName);
+
+	Integer laGouRegGSCheck(LoginUser laGouUser);
+
+	Map<String,Object> laGouLoginGS(LoginUser laGouUser);
 }
