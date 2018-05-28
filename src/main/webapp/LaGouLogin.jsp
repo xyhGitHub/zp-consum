@@ -63,8 +63,10 @@
         <form id="loginForm">
             <input type="text" id="loginName" name="loginName" placeholder="请输入用户名" style="width: 300px"/>
             <input type="password" id="loginPwd" name="loginPwd" placeholder="请输入密码" style="width: 300px"/>
-            <img id="checkImg" src="${pageContext.request.contextPath}/loginController/checkImg.do" onclick="change()" title="点击更换验证码">
-            <input type="text"  id="checkCode" name="checkCode" placeholder="请输入验证码"  style="width: 150px"/>
+            <input type="button"  id="addSendCode" value="获取验证码" style="width:100px;height:40px"/>
+            <input type="text" id="checkCode" name="checkCode" placeholder="测试时默认0" style="width: 200px"/>
+        <%--<img id="checkImg" src="${pageContext.request.contextPath}/loginController/checkImg.do" onclick="change()" title="点击更换验证码">--%>
+            <%--<input type="text"  id="checkCode" name="checkCode" placeholder="请输入验证码"  style="width: 150px"/>--%>
             <span class="error" style="display:none;" id="beError"></span>
             <%--<label class="fl" for="remember"><input type="checkbox" id="remember" value="" checked="checked" name="autoLogin" /> 记住我</label>--%>
             <a href="#" class="fr" target="_blank">忘记密码？</a>
@@ -80,9 +82,11 @@
         <div class="login_right">
             <div>还没有拉勾帐号？</div>
             <a  href="LaGouReg.jsp"  class="registor_now">立即注册</a>
-            <div class="login_others">使用以下帐号直接登录:</div>
-            <a  href="https://weibo.com/"  target="_blank" class="icon_wb" title="使用新浪微博帐号登录"></a>
-            <a  href="h/ologin/auth/qq.html"  class="icon_qq" target="_blank" title="使用腾讯QQ帐号登录"></a>
+            <div class="login_others">企业用户请前往:</div>
+            <a href="GsLaGouLogin.jsp" class="registor_now">企业登陆</a>
+            <%--<a  href="LaGouReg.jsp"  class="registor_now">企业注册</a>--%>
+            <%--<a  href="https://weibo.com/"  target="_blank" class="icon_wb" title="使用新浪微博帐号登录"></a>--%>
+            <%--<a  href="h/ologin/auth/qq.html"  class="icon_qq" target="_blank" title="使用腾讯QQ帐号登录"></a>--%>
         </div>
     </div>
     <div class="login_box_btm"></div>
@@ -100,91 +104,50 @@
                 //验证表单
                 var loginName = $("#loginName").val();
                 var loginPwd = $("#loginPwd").val();
-                var checkCode = $("#checkCode").val();
-
-                if(loginName != null | loginPwd != null | checkCode != null){
+//                var checkCode = $("#checkCode").val();
+                if(loginName != null & loginPwd != null ){
                     $.ajax({
                         type:'POST',
                         data:$("#loginForm").serialize(),
                         url:"<%=request.getContextPath()%>/loginController/laGouLogin.do",
-                        Success:function (result) {
+                        success:function (result) {
                             if(result!=0){
                                 if(result==2){
-                                    window.location.href="<%=request.getContextPath()%>/index.jsp";
+                                    window.location.href="<%=request.getContextPath()%>/QiantaiShow.jsp";
                                 }else if(result ==1){
                                     $('#beError').text("请输入正确的帐号或密码").show();
+                                }else if(result ==3){
+                                    $('#beError').text("验证码错误").show();
                                 }
                             }else{
                                 $('#beError').text("请填写帐号和密码").show();
                             }
                         },
                         error:function () {
+                            alert("报错了");
                         }
                     })
                 }else{
                     $('#beError').text("请填写完整").show();
                 }
             }
+//发送验证码
+    $("#addSendCode").click(function(){
+        var phone = $("#loginName").val();
+        $.ajax({
+            url:"<%=request.getContextPath()%>/loginController/setPhone.do",
+            data:{"phone":phone},
+            type:"post",
+            dataType:"json",
+            success:function () {
+                alert("成功");
+            },
+            error:function () {
+                alert("发送失败");
+            }
 
-    <%--$(function(){--%>
-        <%--//验证表单--%>
-        <%--$("#loginForm").validate({--%>
-            <%--/* onkeyup: false,--%>
-             <%--focusCleanup:true, */--%>
-            <%--rules: {--%>
-                <%--email: {--%>
-                    <%--required: true,--%>
-                    <%--email: true--%>
-                <%--},--%>
-                <%--password: {--%>
-                    <%--required: true--%>
-                <%--}--%>
-            <%--},--%>
-            <%--messages: {--%>
-                <%--email: {--%>
-                    <%--required: "请输入用户名",--%>
-<%--//                    email: "请输入有效的邮箱地址，如：vivi@lagou.com"--%>
-                <%--},--%>
-                <%--password: {--%>
-                    <%--required: "请输入密码"--%>
-                <%--}--%>
-            <%--},--%>
-            <%--submitHandler:function(form){--%>
-                <%--if($('#remember').prop("checked")){--%>
-                    <%--$('#remember').val(1);--%>
-                <%--}else{--%>
-                    <%--$('#remember').val(null);--%>
-                <%--}--%>
-                <%--var email = $('#email').val();--%>
-                <%--var password = $('#password').val();--%>
-                <%--var remember = $('#remember').val();--%>
-
-                <%--var callback = $('#callback').val();--%>
-                <%--var authType = $('#authType').val();--%>
-                <%--var signature = $('#signature').val();--%>
-                <%--var timestamp = $('#timestamp').val();--%>
-
-                <%--$(form).find(":submit").attr("disabled", true);--%>
-
-                <%--$.ajax({--%>
-                    <%--type:'POST',--%>
-                    <%--data:$("#loginForm").serialize(),--%>
-                    <%--url:"<%=request.getContextPath()%>/loginController/laGouLogin.do",--%>
-                <%--}).done(function(result) {--%>
-                    <%--if(result!=0){--%>
-                        <%--if(result==2){--%>
-                            <%--window.location.href="<%=request.getContextPath()%>/index.jsp";--%>
-                        <%--}else if(result ==1){--%>
-                            <%--$('#beError').text("请输入正确的帐号或密码").show();--%>
-                        <%--}--%>
-                    <%--}else{--%>
-                        <%--$('#beError').text("请填写帐号和密码").show();--%>
-                    <%--}--%>
-                    <%--$(form).find(":submit").attr("disabled", false);--%>
-                <%--});--%>
-            <%--}--%>
-        <%--});--%>
-    <%--})--%>
+        })
+    })
 </script>
 
 </body>

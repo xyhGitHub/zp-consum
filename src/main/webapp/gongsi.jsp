@@ -53,8 +53,13 @@
             }
             ,{
                 field: 'comphoto',
-                title: '公司头像'
-            },{
+                title: '公司头像',
+                width:100,align:'center',
+                formatter: function(value,row,index) {
+                    //如下的写法太复杂了,注意只有数字才这么写.
+                    return '<img width="120px" height="60px" border="0" src ="comphoto"/>';
+                }
+                },{
                 field: 'comjieshao',
                 title: '公司介绍'
             }, {

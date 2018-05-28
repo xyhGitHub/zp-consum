@@ -37,20 +37,20 @@
                 <li>
                     <a rel="nofollow" href="">简历管理</a>
                 </li>
-                <li><a rel="nofollow" href="create.html">发布职位</a></li>
+                <li><a rel="nofollow" href="creatzhiwei.jsp">发布职位</a></li>
             </ul>
             <dl class="collapsible_menu">
                 <dt>
-                    <span>谁的企业显示谁&nbsp;</span>
+                    <span>${laGouComSession.loginName}&nbsp;</span>
                     <span class="red dn" id="noticeDot-1"></span>
                     <i></i>
                 </dt>
-                <dd><a href="positions.html">我发布的职位</a></dd>
+                <dd><a href="creatzhiwei.jsp">我发布的职位</a></dd>
                 <dd><a href="">我收到的简历</a></dd>
-                <dd class="btm"><a href="myhome.html">我的公司主页</a></dd>
-                <dd><a href="jianli.html">我要找工作</a></dd>
-                <dd><a href="accountBind.html">帐号设置</a></dd>
-                <dd class="logout"><a rel="nofollow" href="login.html">退出</a></dd>
+                <dd class="btm"><a href="myhome.jsp">我的公司主页</a></dd>
+                <%--<dd><a href="jianli.jsp">我要找工作</a></dd>--%>
+                <%--<dd><a href="accountBind.html">帐号设置</a></dd>--%>
+                <dd class="logout"><a rel="nofollow" onclick="tuichu()">退出</a></dd>
             </dl>
         </div>
     </div><!-- end #header -->
@@ -58,24 +58,27 @@
         <div class="clearfix">
             <div class="content_l">
                 <div class="c_detail">
-                    <div style="background-color:#fff;" class="c_logo">
-                        <img width="190" height="190" alt="公司logo" src="" >
-                    </div>
+                    <div style="background-color:#fff;" class="c_logo" id="editshow">
 
+                        <a title="上传公司LOGO" id="logoShow" class="inline cboxElement" href="#logoUploader">
+                            <img width="190" height="190" alt="公司logo" src="${com.list.comphoto}">
+
+                        </a>
+                    </div>
                     <div class="c_box companyName">
-                        <h2 title="平潭协创进出口贸易有限公司">平潭协创进出口贸易有限公司</h2>
+                        <h2 title="${com.list.comname}">${com.list.comname}</h2>
 
                         <em class="unvalid"></em>
-                        <span class="va dn">拉勾未认证企业</span>
-                        <a target="_blank" class="applyC" href="http://www.lagou.com/c/auth.html">申请认证</a>
-                        <div class="clear"></div>
+                        <span class="va dn" id="shenhe" ></span>
 
-                        <h1 title="福建平潭协创进出口贸易有限公司" class="fullname">福建平潭协创进出口贸易有限公司</h1>
+                        <a target="_blank" class="applyC" href="renzheng.jsp">${com.list.comshenhe}</a>
 
-                        <form class="clear editDetail dn" id="editDetailForm">
-                            <input type="text" placeholder="请输入公司简称" maxlength="15" value="平潭协创进出口贸易有限公司" name="companyShortName" id="companyShortName">
-                            <input type="text" placeholder="一句话描述公司优势，核心价值，限50字" maxlength="50" value="测试的发打发打发大范德萨发" name="companyFeatures" id="companyFeatures">
-                            <input type="hidden" value="25927" id="companyId" name="companyId">
+                        <div class="clear">${com.list.comshenhe}</div>
+
+                        <form class="clear editDetail dn"  href="<%=request.getContextPath()%>/gongsiController/editgongshiname.do" id="editDetailForm">
+                            <input  type="text" placeholder="请输入公司简称" maxlength="15" value="${com.list.comshenhe}" name="comname" id="companyShortName">
+                        <br/>公司规模 <input type="text" placeholder="一句话描述公司优势，核心价值，限50字" maxlength="50" value="${com.list.comguimo}" name="comguimo" id="companyFeatures">
+                            <input type="hidden" value="${com.list.comid}"  name="comid">
                             <input type="submit" value="保存" id="saveDetail" class="btn_small">
                             <a id="cancelDetail" class="btn_cancel_s" >取消</a>
                         </form>
@@ -91,7 +94,7 @@
                         </ul>
                         <div class="dn" id="addLabels">
                             <a id="changeLabels" class="change" href="javascript:void(0)">换一换</a>
-                            <input type="hidden" value="1" id="labelPageNo">
+                            <input type="hidden" value="${laGouComSession.comid}" id="labelPageNo">
                             <input type="submit" value="贴上" class="fr" id="add_label">
                             <input type="text" placeholder="添加自定义标签" name="label" id="label" class="label_form fr">
                             <div class="clear"></div>
@@ -105,84 +108,6 @@
                 </div>
 
                 <div class="c_breakline"></div>
-
-                <div id="Product">
-
-                    <div class="product_wrap">
-
-                        <!--无产品 -->
-                        <dl class="c_section dn">
-                            <dt>
-                            <h2><em></em>公司产品</h2>
-                            </dt>
-                            <dd>
-                                <div class="addnew">
-                                    酒香不怕巷子深已经过时啦！<br>
-                                    把自己优秀的产品展示出来吸引人才围观吧！<br>
-                                    <a class="product_edit" href="javascript:void(0)">+添加公司产品</a>
-                                </div>
-                            </dd>
-                        </dl>
-
-                        <!--产品编辑-->
-                        <dl id="newProduct" class="newProduct dn">
-                            <dt>
-                            <h2><em></em>公司产品</h2>
-                            </dt>
-                            <dd>
-                                <form method="post" class="productForm">
-                                    <div class="new_product">
-
-                                        <div class="product_upload dn productNo">
-                                            <div>
-                                                <span>上传产品图片</span>
-                                                <br>
-                                                尺寸：380*220px  	大小：小于5M
-                                            </div>
-                                        </div>
-                                        <div class="product_upload productShow">
-                                            <img width="380" height="220" src="style/images/product_default.png">
-                                            <span>更换产品图片<br>380*220px 小于5M</span>
-                                        </div>
-
-                                        <input type="file" title="支持jpg、jpeg、gif、png格式，文件小于5M" onchange="product_check(this,'http://www.lagou.com/c/upload.json','productNo','productShow','type','productInfos');" name="myfiles" id="myfiles0">
-                                        <input type="hidden" value="3" name="type" class="type">
-                                        <input type="hidden" value="images/product_default.png" name="productPicUrl" class="productInfos">
-                                    </div>
-
-                                    <div class="cp_intro">
-                                        <input type="text" placeholder="请输入产品名称" value="发大发" name="product">
-                                        <input type="text" placeholder="请输入产品网址" value="http://www.weimob.com" name="productUrl">
-                                        <textarea placeholder="请简短描述该产品定位、产品特色、用户群体等" maxlength="500" value="发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf" class="s_textarea" name="productProfile">发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf</textarea>
-                                        <div class="word_count fr">你还可以输入 <span>500</span> 字</div>
-                                        <div class="clear"></div>
-                                        <input type="submit" value="保存" class="btn_small">
-                                        <a class="btn_cancel_s product_delete" href="javascript:void(0)">删除</a>
-                                        <input type="hidden" value="11867" class="product_id">
-                                    </div>
-                                </form>
-                            </dd>
-                        </dl>
-                        <!--有产品-->
-                        <dl class="c_product">
-                            <dt>
-                            <h2><em></em>公司产品</h2>
-                            </dt>
-                            <dd>
-                                <img width="380" height="220" alt="发大发" src="style/images/product_default.png">
-                                <div class="cp_intro">
-                                    <h3><a target="_blank" href="http://www.weimob.com">发大发 </a></h3>
-                                    <div class="scroll-pane" style="overflow: hidden; padding: 0px; width: 260px;">
-
-                                        <div class="jspContainer" style="width: 260px; height: 140px;"><div class="jspPane" style="padding: 0px; top: 0px; width: 260px;"><div>发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf发达发生的faf</div></div></div></div>
-                                </div>
-                                <a title="编辑公司产品" class="c_edit product_edit" href="javascript:void(0)"></a>
-                                <a title="新增公司产品" class="c_add product_add" href="javascript:void(0)"></a>
-                            </dd>
-                        </dl>
-
-                    </div>
-                </div>   <!-- end #Product -->
 
                 <div id="Profile">
                     <div class="profile_wrap">
@@ -205,7 +130,8 @@
                             </dt>
                             <dd>
                                 <form id="companyDesForm">
-                                    <textarea placeholder="请分段详细描述公司简介、企业文化等" name="companyProfile" id="companyProfile">该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎</textarea>
+                                    <textarea placeholder="请分段详细描述公司简介、企业文化等" name="comjieshao" id="comjieshao">
+                                    </textarea>
                                     <div class="word_count fr">你还可以输入 <span>1000</span> 字</div>
                                     <div class="clear"></div>
                                     <input type="submit" value="保存" id="submitProfile" class="btn_small">
@@ -220,7 +146,8 @@
                             <h2><em></em>公司介绍</h2>
                             </dt>
                             <dd>
-                                <div class="c_intro">该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎该方法嘎嘎</div>
+                                <div class="c_intro">                                                                           ${com.list.comjieshao}
+                                </div>
                                 <a title="编辑公司介绍" id="editIntro" class="c_edit" href="javascript:void(0)"></a>
                             </dd>
                         </dl>
@@ -255,22 +182,14 @@
                         <table>
                             <tbody><tr>
                                 <td width="45">地点</td>
-                                <td>上海</td>
+                                <td>  ${com.list.comaddress}</td>
                             </tr>
-                            <tr>
-                                <td>领域</td><!-- 支持多选 -->
-                                <td title="移动互联网">移动互联网</td>
-                            </tr>
+
                             <tr>
                                 <td>规模</td>
-                                <td>150-500人</td>
+                                <td>  ${com.list.comguimo}</td>
                             </tr>
-                            <tr>
-                                <td>主页</td>
-                                <td>
-                                    <a rel="nofollow" title="http://www.weimob.com" target="_blank" href="http://www.weimob.com">http://www.weim...</a>
-                                </td>
-                            </tr>
+
                             </tbody></table>
                         <a id="editTags" class="c_edit" href="javascript:void(0)"></a>
                     </div>
@@ -280,25 +199,14 @@
                                 <tbody><tr>
                                     <td>地点</td>
                                     <td>
-                                        <input type="text" placeholder="请输入地点" value="上海" name="city" id="city">
+                                        <input type="text" placeholder="请输入地点" value="${com.list.comaddress}" name="comaddress" id="city">
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>领域</td><!-- 支持多选 -->
-                                    <td>
-                                        <input type="hidden" value="移动互联网" id="industryField" name="industryField">
-                                        <input type="button" style="background:none;cursor:default;border:none !important;" disable="disable" value="移动互联网" id="select_ind" class="select_tags">
-                                        <!-- <div id="box_ind" class="selectBox dn">
-                                            <ul class="reset">
-                                                                                                                                                            <li class="current">移动互联网</li>
-                                                                                                                                                </ul>
-                                        </div>	 -->
-                                    </td>
-                                </tr>
+
                                 <tr>
                                     <td>规模</td>
                                     <td>
-                                        <input type="hidden" value="150-500人" id="companySize" name="companySize">
+                                        <input type="hidden" value=" ${com.list.comguimo}" id="companySize" name="comguimo">
                                         <input type="button" value="150-500人" id="select_sca" class="select_tags">
                                         <div class="selectBox dn" id="box_sca" style="display: none;">
                                             <ul class="reset">
@@ -312,108 +220,15 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>主页</td>
-                                    <td>
-                                        <input type="text" placeholder="请输入网址" value="http://www.weimob.com" name="companyUrl" id="companyUrl">
-                                    </td>
-                                </tr>
+
                                 </tbody></table>
-                            <input type="hidden" id="comCity" value="上海">
-                            <input type="hidden" id="comInd" value="移动互联网">
-                            <input type="hidden" id="comSize" value="150-500人">
-                            <input type="hidden" id="comUrl" value="http://www.zmtpost.com">
+
                             <input type="submit" value="保存" id="submitFeatures" class="btn_small">
                             <a id="cancelFeatures" class="btn_cancel_s" href="javascript:void(0)">取消</a>
                             <div class="clear"></div>
                         </form>
                     </div>
                 </div><!-- end #Tags -->
-
-                <dl class="c_section c_stages">
-                    <dt>
-                    <h2><em></em>融资阶段</h2>
-                    <a title="编辑融资阶段" class="c_edit" href="javascript:void(0)"></a>
-                    </dt>
-                    <dd>
-                        <ul class="reset stageshow">
-                            <li>目前阶段：<span class="c5">天使轮</span></li>
-                        </ul>
-                        <form class="dn" id="stageform">
-                            <div class="stageSelect">
-                                <label>目前阶段</label>
-                                <input type="hidden" value="天使轮" id="financeStage" name="financeStage">
-                                <input type="button" value="天使轮" id="select_fin" class="select_tags_short fl">
-                                <div class="selectBoxShort dn" id="box_fin" style="display: none;">
-                                    <ul class="reset">
-
-                                        <li>未融资</li>
-
-
-                                        <li class="current">天使轮</li>
-
-
-                                        <li>A轮</li>
-
-
-                                        <li>B轮</li>
-
-
-                                        <li>C轮</li>
-
-
-                                        <li>D轮及以上</li>
-
-
-                                        <li>上市公司</li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                            <ul id="stagesList" class="reset">
-                                <li>
-                                    <label>融资阶段</label>
-                                    <input type="hidden" class="select_invest_hidden" name="select_invest_hidden">
-                                    <input type="button" value="融资阶段" class="select_tags_short select_invest">
-                                    <div class="selectBoxShort dn" style="display: none;">
-                                        <ul class="reset">
-                                            <li>天使轮</li>
-                                            <li>A轮</li>
-                                            <li>B轮</li>
-                                            <li>C轮</li>
-                                            <li>D轮及以上</li>
-                                            <li>上市公司</li>
-                                        </ul>
-                                    </div>
-                                    <label>投资机构</label>
-                                    <input type="text" placeholder="如真格基金" name="stageorg" value="">
-                                </li>
-                            </ul>
-                            <input type="submit" value="保存" class="btn_small">
-                            <a id="cancelStages" class="btn_cancel_s" href="javascript:void(0)">取消</a>
-                            <div class="clear"></div>
-
-                            <div class="dn" id="cloneInvest">
-                                <label>融资阶段</label>
-                                <input type="hidden" class="select_invest_hidden" name="select_invest_hidden">
-                                <input type="button" value="发展阶段" class="select_tags_short select_invest">
-                                <div class="selectBoxShort dn" style="display: none;">
-                                    <ul class="reset">
-                                        <li>天使轮</li>
-                                        <li>A轮</li>
-                                        <li>B轮</li>
-                                        <li>C轮</li>
-                                        <li>D轮及以上</li>
-                                        <li>上市公司</li>
-                                    </ul>
-                                </div>
-                                <label>投资机构</label>
-                                <input type="text" placeholder="如真格基金" name="stageorg">
-                            </div>
-                        </form>
-                    </dd>
-                </dl><!-- end .c_stages -->
-
 
                 <div id="Member">
                     <!--有创始团队-->
@@ -454,12 +269,12 @@
                                         <input type="text" placeholder="请输入创始人姓名" value="孙泰英" name="name">
                                         <input type="text" placeholder="请输入创始人当前职位" value="ceo" name="position">
                                         <input type="text" placeholder="请输入创始人新浪微博地址" value="http://weimob.weibo.com" name="weibo">
-                                        <textarea placeholder="请输入创始人个人简介" maxlength="500" class="s_textarea" name="remark">发放的发达范德萨范德萨范德萨发的复大发大水发生的</textarea>
+                                        <textarea placeholder="请输入创始人个人简介" maxlength="500" class="s_textarea" name="remark">写一个个人的查询，放到session，显示简介</textarea>
                                         <div class="word_count fr">你还可以输入 <span>500</span> 字</div>
                                         <div class="clear"></div>
                                         <input type="submit" value="保存" class="btn_small">
                                         <a class="btn_cancel_s member_delete" href="javascript:void(0)">删除</a>
-                                        <input type="hidden" value="11493" class="leader_id">
+                                        <input type="hidden" value=" ${com.list.comid}" class="leader_id">
                                     </form>
                                 </div>
 
@@ -468,7 +283,7 @@
                                     <a title="编辑创始人" class="c_edit member_edit" href="javascript:void(0)"></a>
                                     <div class="m_portrait">
                                         <div></div>
-                                        <img width="120" height="120" alt="孙泰英" src="style/images/leader_default.png">
+                                        <img width="120" height="120" alt=" ${com.list.comguimo}" src="style/images/leader_default.png">
                                     </div>
                                     <div class="m_name">
                                         孙泰英
@@ -545,34 +360,71 @@
         <!-------------------------------------弹窗lightbox  ----------------------------------------->
         <div style="display:none;">
             <div style="width:650px;height:470px;" class="popup" id="logoUploader">
-                <object width="650" height="470" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="FlashID">
-                    <param value="../../flash/avatar.swf?url=http://www.lagou.com/cd/saveProfileLogo.json" name="movie">
-                    <param value="high" name="quality">
-                    <param value="opaque" name="wmode">
-                    <param value="111.0.0.0" name="swfversion">
-                    <!-- 此 param 标签提示使用 Flash Player 6.0 r65 和更高版本的用户下载最新版本的 Flash Player。如果您不想让用户看到该提示，请将其删除。 -->
-                    <param value="../../Scripts/expressInstall.swf" name="expressinstall">
-                    <!-- 下一个对象标签用于非 IE 浏览器。所以使用 IECC 将其从 IE 隐藏。 -->
-                    <!--[if !IE]>-->
-                    <object width="650" height="470" data="../../flash/avatar.swf?url=http://www.lagou.com/cd/saveProfileLogo.json" type="application/x-shockwave-flash">
-                        <!--<![endif]-->
-                        <param value="high" name="quality">
-                        <param value="opaque" name="wmode">
-                        <param value="111.0.0.0" name="swfversion">
-                        <param value="../../Scripts/expressInstall.swf" name="expressinstall">
-                        <!-- 浏览器将以下替代内容显示给使用 Flash Player 6.0 和更低版本的用户。 -->
-                        <div>
-                            <h4>此页面上的内容需要较新版本的 Adobe Flash Player。</h4>
-                            <p><a href="http://www.adobe.com/go/getflashplayer"><img width="112" height="33" src="style/images/get_flash_player.gif" alt="获取 Adobe Flash Player"></a></p>
-                        </div>
-                        <!--[if !IE]>-->
-                    </object>
-                    <!--<![endif]-->
-                </object>
+
+
+                公司头像：<img width="190" height="190" alt="公司logo" src="${com.list.comphoto}">
+
+                <input type="file" id="file" name="image">
+                <input type="hidden" id="comid" value="${com.list.comid}" name="id">
+
+                <div id="show"></div>
+
             </div><!-- #logoUploader -->
         </div>
         <!------------------------------------- end ----------------------------------------->
+        <script type="text/javascript" src="<%=request.getContextPath()%>/jquery/uploadify/jquery.uploadify.min.js"></script>
+        <link  rel="stylesheet"  href="<%=request.getContextPath()%>/jquery/uploadify/uploadify.css"/>
+        <script type="text/javascript">
+            $("#file").uploadify({
+                //插件自带  不可忽略的参数
+                'swf': '${pageContext.request.contextPath}/jquery/uploadify/uploadify.swf',
+                //前台请求后台上传文件的url  不可忽略的参数
+                'uploader': '${pageContext.request.contextPath}/uploadController/uploadFile.do',
+                //给div的进度条加背景  参数为<div>id属性值  不可忽略
+                'queueID': 'fileQueue',
+                //上传文件文件名   和file文件域的name属性一致   和后台接受的属性名对应
+                'fileObjName' : 'image',
+                //给上传按钮设置文字
+                'buttonText': '上传',
+                //如果为true 为自动上传  在选择文件后, 为false 那么它就要我们自己手动点上传按钮
+                'auto': true,
+                //可以同时选择多个文件 默认为true  不可忽略
+                'multi': false,
+                //上传后队列是否消失
+                'removeCompleted': true,
+                //队列消失时间
+                'removeTimeout' : 1,
+                //最大上传文件数量
+                'uploadLimit':  10,
+                //制定可以文件上传
+                'fileExt': '*.jpg;*.jpeg;*.gif;*.png;*.doc;*.docx;*.xls;*.xlsx;*.pdf;*.txt',
+                'onUploadSuccess' : function(file, data, response) {
+                    var html = ' <img width="190" height="190" alt="公司logo"src='+data+'>';
+                   var comid= $("#comid").val(); //取value值
+                    alert(data)
+                        $("#show").append(html);
+                    $("[name='fileid']").val(data);
+                        var photo =data;
+                    $.ajax({
+                        url:"<%=request.getContextPath()%>/gongsiController/gongsieditphoto.do?comid="+comid,
+                        data:{"photo":photo},
+                        type:"post",
+                        dataType :"json",
+                        success:function(){
+                            alert("修改图片成功")
+                       //     BootstrapDialog.closeAll();
+                        },
+                        error:function () {
+                            alert("错误")
 
+                        }
+                    })
+
+                }
+
+            })
+
+        </script>
         <script src="style/js/company.min.js" type="text/javascript"></script>
         <script>
             var avatar = {};
@@ -584,6 +436,7 @@
                 }
             };
         </script>
+
         <div class="clear"></div>
         <input type="hidden" value="d1035b6caa514d869727cff29a1c2e0c" id="resubmitToken">
         <a rel="nofollow" title="回到顶部" id="backtop" style="display: inline;"></a>
@@ -608,12 +461,47 @@
         url:"<%=request.getContextPath()%>/gongsiController/gongsilist.do",
         type:"post",
         dataType:"json",
-        async:false,
+        async:true,
         success:function(data){
-            value =data;
+
+        },
+        error:function () {
+            alert("错误")
+
         }
     })
 
+    /* 加载小类的所有商品 */
+    $.ajax({
+        url:"<%=request.getContextPath()%>/gongsiController/gongsilist.do",
+        type:"post",
+        dataType:"json",
+        async:true,
+        success:function(data){
+
+        },
+        error:function () {
+            alert("错误")
+
+        }
+    })
+
+
+
+
+        //注销
+    function tuichu() {
+        $.ajax({
+            url:"<%=request.getContextPath()%>/loginController/zhuXiaoGs.do",
+            type:"post",
+            success:function(data){
+                location.href="GsLaGouLogin.jsp";
+            },
+            error:function () {
+                alert("请重新注销")
+            }
+        })
+    }
 
 
 </script>

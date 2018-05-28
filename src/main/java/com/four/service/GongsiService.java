@@ -24,4 +24,9 @@ public interface GongsiService {
 
     void updatatongguo(Integer id);
 
+    void editgongshiname(GongSi gongSi);
+
+    void gongsieditphoto(Integer comid, String photo);
+
+    List<GongSi> querysshowbyidzhiwei();
 }

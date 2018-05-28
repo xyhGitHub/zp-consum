@@ -22,9 +22,6 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/uploadify/jquery.uploadify.min.js"></script>
 <link  rel="stylesheet"  href="<%=request.getContextPath()%>/js/uploadify/uploadify.css"/>
 
-<!-- 相册展示 -->
-<link href="<%=request.getContextPath()%>/js/css/back.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/move.js"></script>
 <!-- Echars 主题引用 -->
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Echars/customed.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Echars/echarts.min.js"></script>
@@ -33,12 +30,12 @@
 
 
 
-<body class="easyui-layout">
+<body class="easyui-layout" onload="historys()">
 
-   <div data-options="region:'north',title:'上边',split:true" style="height:150px;" >
+   <div data-options="region:'north',title:'上边',split:true" style="height:100px;" >
 	<div style="float:right">
 		<font size="3" >欢迎</font>&nbsp; 
-		<font size="6" color="red">${user.username }</font>
+		<font size="5" color="red">${user.username }</font>
 		&nbsp; <font size="3" >登陆</font>
 	   	<br>
 	   <button id="loginOut" class="easyui-linkbutton" data-options="iconCls:'icon-remove'"
@@ -53,20 +50,53 @@
 	          
               </div>  
 	    </div>   
-	    <div title="等待开发" data-options="iconCls:'icon-save'" style="overflow:auto;padding:10px;background-color:#b0e0e6">   
-	          <div id="tt2" class="easyui-tree">   
-              </div>  
-	    </div>   
+	    <%--<div title="等待开发" data-options="iconCls:'icon-save'" style="overflow:auto;padding:10px;background-color:#b0e0e6">--%>
+	          <%--<div id="tt2" class="easyui-tree">--%>
+              <%--</div>--%>
+	    <%--</div>--%>
 	       
 	</div>  
     </div>   
-    <div  data-options="region:'center',title:'中间'" style="padding:5px background-color:#b0e0e6">
-    	<div id="tabs" class="easyui-tabs" data-options="fit:true" style="background-color:#b0e0e6"></div>
+    <div  data-options="region:'center',title:'中间'" style="padding:5px;background-color:#b0e0e6">
+
+    	<div id="tabs" class="easyui-tabs" data-options="fit:true" style="background-color:#b0e0e6">
+			<table id="history">
+
+
+			</table>
+		</div>
     </div>
     
     
   
     <script type="text/javascript">
+
+        <%--$(function(){--%>
+            <%--$('#history').datagrid({--%>
+                <%--url:"<%=request.getContextPath()%>/loginController/getHistory.do",--%>
+                <%--fitColumns:true,--%>
+                <%--striped:true,--%>
+                <%--ctrlSelect:true,--%>
+                <%--pagination:true,--%>
+                <%--pagePosition:"bottom",//放在底部--%>
+                <%--pageNumber:1,--%>
+                <%--pageSize:3,--%>
+                <%--pageList: [3,8,12,16],--%>
+                <%--columns:[[--%>
+                    <%--{field:'title',title:'标题',width:100},--%>
+                    <%--{field:'pic',title:'图片',width:100,--%>
+                        <%--formatter:function(value,row,index){--%>
+                        <%--alert(row.pic);--%>
+                            <%--return "<img src='row.pic' width='80' height='80'>";--%>
+                        <%--}},--%>
+                    <%--{field:'des',title:'描述',width:150},--%>
+                    <%--{field:'lunar',title:'时间',width:100},--%>
+                <%--]]--%>
+            <%--});--%>
+
+        <%--})--%>
+
+
     $("#loginOut").click(function(){
     	 location.href="<%=request.getContextPath()%>/loginController/loginOut.do";
     })
@@ -94,8 +124,7 @@
     			    tools:[{    
     			        iconCls:'icon-mini-refresh',    
     			        handler:function(){    
-    			        	alert(refresh) 
-    			        }    
+    			        }
     			    }]    
     			}); 
     			}
@@ -106,7 +135,19 @@
     	   
       })
     
-    
+    <%--function historys() {--%>
+        <%--$.ajax({--%>
+            <%--url:"<%=request.getContextPath()%>/loginController/getHistory.do",--%>
+            <%--data:{"phone":phone},--%>
+            <%--type:"post",--%>
+            <%--dataType:"json",--%>
+            <%--success:function () {--%>
+                <%--$("#history").html();--%>
+            <%--},--%>
+        <%--})--%>
+    <%--}--%>
+
+
     </script>
 
 	

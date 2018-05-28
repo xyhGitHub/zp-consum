@@ -37,7 +37,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 
 <div class="top-buttons-agileinfo">
-    <a href="#"  class="active">登录</a><a href="HouTaiReg.jsp">注册</a>
+    <a href="xyh/HouTaiLoginGS.jsp"  class="active">公司登录</a>
+    <%--<a href="HouTaiReg.jsp">注册</a>--%>
 </div>
     <h1></h1>
 <div class="main-agileits">
@@ -45,7 +46,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="form-w3-agile">
         <h2 class="sub-agileits-w3layouts">欢迎登录</h2>
         <form id="dengluFrom">
-            <input type="text" name="loginname" placeholder="用户" required="" />
+            <input type="text" name="loginname" placeholder="用户名" required="" />
             <input type="password" name="pwd" placeholder="密码" required="" />
             <%--<a href="#" class="forgot-w3layouts">忘记密码 ?</a>--%>
             <p class="p-bottom-w3ls"><a href="HouTaiReg.jsp">点击注册</a>如果你没有一个帐户。.</p>

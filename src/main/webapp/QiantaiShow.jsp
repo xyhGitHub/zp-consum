@@ -6,10 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<head>
-    <title>Title</title>
-</head>
 <script id="allmobilize" charset="utf-8" src="style/js/allmobilize.min.js"></script>
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <link rel="alternate" media="handheld"  />
@@ -73,16 +71,24 @@
                 <img src="style/images/logo.png" width="229" height="43" alt="拉勾招聘-专注互联网招聘" />
             </a>
             <ul class="reset" id="navheader">
-                <li class="current"><a href="index.html">首页</a></li>
-                <li ><a href="companylist.html" >公司</a></li>
-                <li ><a href="h/toForum.html" target="_blank">论坛</a></li>
-                <li ><a href="jianli.html" rel="nofollow">我的简历</a></li>
-                <li ><a href="create.html" rel="nofollow">发布职位</a></li>
+                <li class="current"><a href="#">首页</a></li>
+                <li ><a href="jianli.jsp" rel="nofollow">我的简历</a></li>
             </ul>
             <ul class="loginTop">
-                <li><a href="login.html" rel="nofollow">登录</a></li>
+                <c:if test="${laGouUserSession.loginName == null }">
+                    <li><a href="LaGouLogin.jsp" rel="nofollow">登录</a></li>
+                </c:if>
+                <c:if test="${laGouUserSession.loginName != null}">
+                <li><a href="#" rel="nofollow">${laGouUserSession.loginName}</a></li>
+                </c:if>
                 <li>|</li>
-                <li><a href="register.html" rel="nofollow">注册</a></li>
+                <c:if test="${laGouUserSession.loginName == null}">
+                    <li><a href="LaGouReg.jsp" rel="nofollow">注册</a></li>
+                </c:if>
+                <c:if test="${laGouUserSession.loginName != null}">
+                    <li><a id="zhuxiao" rel="nofollow">注销</a></li>
+                </c:if>
+
             </ul>
         </div>
     </div><!-- end #header -->
@@ -140,85 +146,33 @@
                     }
                 });
 
-                    <%--url:"<%=request.getContextPath()%>/liebiaoAction!selectliebiao.action",--%>
-                    <%--type:"post",--%>
-                    <%--dataType:"json",--%>
-                    <%--success:function(dalei){--%>
-
-                        <%--$.ajax({--%>
-                            <%--url:"<%=request.getContextPath()%>/liebiaoAction!selectxiaolei.action",--%>
-                            <%--type:"post",--%>
-                            <%--dataType:"json",--%>
-                            <%--success:function(xiaolei){--%>
-                                <%--var str = "";--%>
-
-                                <%--for (var i = 0; i < dalei.length; i++) {--%>
-
-                                    <%--str += "<ul class='index_type_ul'><li><span>"+dalei[i].greatname+"<b>>></b></span>";--%>
-
-                                    <%--str+="<div class='nav_type_list'><ul>";--%>
-                                    <%--for (var j = 0; j < xiaolei.length; j++) {--%>
-
-                                        <%--if(xiaolei[j].greatid==dalei[i].greatid){--%>
-
-                                            <%--str +="<li><a href='javascript:void(0)' onclick='chaxunShangpin("+xiaolei[j].littleid+")' target='_blank'>"+xiaolei[j].littlename+"</a></li>";--%>
-
-                                        <%--}--%>
-                                    <%--}--%>
-                                    <%--str+="</ul></div>";--%>
-
-                                    <%--str+="</li></ul>";--%>
-                                <%--}--%>
-
-                                <%--$("#jiazaileixing").html(str);--%>
-
-                            <%--},erro:function(){--%>
-
-                                <%--alert("小类报错","查询失败");--%>
-                            <%--}--%>
-
-
-                        <%--})--%>
-
-                    <%--},--%>
-                    <%--error:function(){--%>
-                        <%--alert("大类报错","查询失败");--%>
-                    <%--}--%>
-
-                <%--})--%>
-
-
             </script>
 
-
-
-
-
-            <a class="subscribe" href="subscribe.html" target="_blank">订阅职位</a>
+            <a class="subscribe" href="#" target="_blank">拉过勾的职位</a>
         </div>
         <div class="content">
             <div id="search_box">
-                <form id="searchForm" name="searchForm" action="list.html" method="get">
+                <%--<form id="searchForm">--%>
                     <ul id="searchType">
                         <li data-searchtype="1" class="type_selected">职位</li>
                         <li data-searchtype="4">公司</li>
                     </ul>
                     <div class="searchtype_arrow"></div>
-                    <input type="text" id="search_input" name = "kd"  tabindex="1" value=""  placeholder="请输入职位名称，如：产品经理"  />
-                    <input type="hidden" name="spc" id="spcInput" value=""/>
-                    <input type="hidden" name="pl" id="plInput" value=""/>
-                    <input type="hidden" name="gj" id="gjInput" value=""/>
-                    <input type="hidden" name="xl" id="xlInput" value=""/>
-                    <input type="hidden" name="yx" id="yxInput" value=""/>
-                    <input type="hidden" name="gx" id="gxInput" value="" />
-                    <input type="hidden" name="st" id="stInput" value="" />
-                    <input type="hidden" name="labelWords" id="labelWords" value="" />
-                    <input type="hidden" name="lc" id="lc" value="" />
-                    <input type="hidden" name="workAddress" id="workAddress" value=""/>
-                    <input type="hidden" name="city" id="cityInput" value=""/>
-                    <input type="submit" id="search_button" value="搜索" />
+                    <input type="text" id="search_input"  placeholder="请输入职位名称，如：java攻城狮"  />
+                    <%--<input type="hidden" name="spc" id="spcInput" value=""/>--%>
+                    <%--<input type="hidden" name="pl" id="plInput" value=""/>--%>
+                    <%--<input type="hidden" name="gj" id="gjInput" value=""/>--%>
+                    <%--<input type="hidden" name="xl" id="xlInput" value=""/>--%>
+                    <%--<input type="hidden" name="yx" id="yxInput" value=""/>--%>
+                    <%--<input type="hidden" name="gx" id="gxInput" value="" />--%>
+                    <%--<input type="hidden" name="st" id="stInput" value="" />--%>
+                    <%--<input type="hidden" name="labelWords" id="labelWords" value="" />--%>
+                    <%--<input type="hidden" name="lc" id="lc" value="" />--%>
+                    <%--<input type="hidden" name="workAddress" id="workAddress" value=""/>--%>
+                    <%--<input type="hidden" name="city" id="cityInput" value=""/>--%>
 
-                </form>
+                <%--</form>--%>
+                <input type="submit" id="search_button" value="搜索" />
             </div>
             <style>
                 .ui-autocomplete{width:488px;background:#fafafa !important;position: relative;z-index:10;border: 2px solid #91cebe;}
@@ -381,14 +335,9 @@
         function  shenqing(id) {
             alert(id)
 
-
-
-
         }
 
             </script>
-
-
 
 
 
@@ -442,24 +391,6 @@
             </div>
         </div>
         <input type="hidden" value="" name="userid" id="userid" />
-        <!-- <div id="qrSide"><a></a></div> -->
-        <!--  -->
-
-        <!-- <div id="loginToolBar">
-            <div>
-                <em></em>
-                <img src="style/images/footbar_logo.png" width="138" height="45" />
-                <span class="companycount"></span>
-                <span class="positioncount"></span>
-                <a href="#loginPop" class="bar_login inline" title="登录"><i></i></a>
-                <div class="right">
-                    <a href="register.html?from=index_footerbar" onclick="_hmt.push(['_trackEvent', 'button', 'click', 'register'])" class="bar_register" id="bar_register" target="_blank"><i></i></a>
-                </div>
-                <input type="hidden" id="cc" value="16002" />
-                <input type="hidden" id="cp" value="96531" />
-            </div>
-        </div>
-         -->
         <!-------------------------------------弹窗lightbox  ----------------------------------------->
         <div style="display:none;">
             <!-- 登录框 -->
@@ -499,9 +430,59 @@
         <div class="copyright">&copy;2013-2014 Lagou <a target="_blank" href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a></div>
     </div>
 </div>
-
 <script type="text/javascript" src="style/js/core.min.js"></script>
 <script type="text/javascript" src="style/js/popup.min.js"></script>
+<script>
+
+    $("#search_button").click(function(){
+        var searchName = $("#search_input").val();
+        $.ajax({
+        url:"<%=request.getContextPath()%>/solr/getsolrList.do",
+        data:{"searchName":searchName},
+        type:"post",
+        async:false,
+        dataType:"json",
+        success:function(little){
+        var str = "";
+        for (var i = 0; i < great.length; i++) {
+            str += "<ul class='index_type_ul'><li><span>"+great[i].name+"<b></b></span>";
+            str+="<div class='nav_type_list'><ul>";
+
+            for (var j = 0; j < little.length; j++) {
+
+                if(great[i].id==little[j].greatid){
+
+                    str +="<li><a href='javascript:void(0)' onclick='chaxunShangpin("+little[j].id+")' target='_blank'>"+little[j].name+"</a></li>";
+
+                }
+            }
+
+                str+="</ul></div>";
+                 str+="</li></ul>";
+
+            }
+            $("#jiazaileixing").html(str);
+        },
+        error:function () {
+            alert("小类报错")
+
+        }
+    })
+    })
+
+    $("#zhuxiao").click(function(){
+        $.ajax({
+            url:"<%=request.getContextPath()%>/loginController/zhuXiao.do",
+            type:"post",
+            success:function () {
+                location.href="LaGouLogin.jsp";
+            },
+            error:function () {
+
+            }
+    })
+    })
+</script>
 
 <!-- <script src="style/js/wb.js" type="text/javascript" charset="utf-8"></script>
  -->

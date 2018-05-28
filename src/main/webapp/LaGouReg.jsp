@@ -45,19 +45,19 @@
     <input type="hidden" id="resubmitToken" value="9b207beb1e014a93bc852b7ba450db27" />
     <div class="login_box">
         <form id="loginForm">
-            <ul class="register_radio clearfix">
-                <li>
-                    找工作
-                    <input type="radio" value="0" name="userType" id="work"/>
-                </li>
-                <li>
-                    招人
-                    <input type="radio" value="1" name="userType" id="user"/>
-                </li>
-            </ul>
-            <input type="text" id="loginName" name="loginName" tabindex="1" placeholder="请输入常用邮箱地址/手机号" />
-            <span class="error" style="display:none;" id="beError"></span>
-            <input type="password" id="loginPwd" name="loginPwd" tabindex="2" placeholder="请输入密码" />
+            <%--<ul class="register_radio clearfix">--%>
+                <%--<li>--%>
+                    <%--找工作--%>
+                    <input type="hidden" value="0" name="userType" id="work"/>
+                <%--</li>--%>
+                <%--<li>--%>
+                    <%--招人--%>
+                    <%--<input type="radio" value="1" name="userType" id="user"/>--%>
+                <%--</li>--%>
+            <%--</ul>--%>
+            <input type="text" id="loginName" name="loginName" tabindex="1" placeholder="请输入常用邮箱地址/手机号" style="width: 300px"/><span class="error" style="display:none;" id="beError"></span>
+            <input type="password" id="loginPwd" name="loginPwd" tabindex="2" placeholder="请输入密码" style="width: 300px"/>
+            <input type="password" id="loginPwd2"  tabindex="3" placeholder="请再次输入密码" style="width: 300px"/>
             <label class="fl registerJianJu" for="checkbox">
                 <input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《拉勾用户协议》</a>
             </label>
@@ -149,25 +149,31 @@
 
                 $(form).find(":submit").attr("disabled", true);
 
-//                var work = $("#work").val();
-//                var user = $("#user").val();
-
-                alert($("#loginForm").serialize())
                 $.ajax({
                     type:'POST',
                     data: $("#loginForm").serialize(),
                     url:"<%=request.getContextPath()%>/loginController/laGouReg.do",
                     dataType:'json',
                     success:function (data) {
-                        if(data.regFlag==0){
+                        if(data==0){
                             alert("注册失败");
-                        }else if(data.regFlag==1){
-                            alert("注册成功");
-                            location.href="<%=request.getContextPath()%>/LaGouLogin.jsp";
+                        }else if(data==1){
+                            $.ajax({
+                                url:"<%=request.getContextPath()%>/loginController/updateUserIdByName.do",
+                                data:{loginName:loginName},
+                                success:function () {
+                                    location.href="<%=request.getContextPath()%>/LaGouLogin.jsp";
+                                },
+                                error:function () {
+                                    alert("修改失败");
+                                }
+
+                            })
                         }
                     },
                     error:function () {
 
+                        alert("注册失败");
                     }
                 }).done(function(result) {
                     $('#resubmitToken').val(result.resubmitToken);
@@ -181,6 +187,18 @@
                 }
         });
     });
+
+    //发送手机验证码
+    $("#addSendCode").click(function(){
+        var phone = $("#add_phone").val();
+        $.ajax({
+
+            url:"<%=request.getContextPath()%>/loginController/setPhone.do",
+            data:{"phone":phone},
+            type:"post",
+            dataType:"json",
+        })
+    })
 </script>
 </body>
 </html>

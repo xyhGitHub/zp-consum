@@ -12,7 +12,7 @@ import com.four.model.LoginUser;
 import com.four.model.TongJi;
 import com.four.model.User;
 import com.four.service.ILoginService;
-import com.four.utils.CheckImgUtil;
+import com.four.utils.HistoryTodayUtil;
 import com.four.utils.util.sendsms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,20 +32,6 @@ public class LoginController {
 	@Autowired
 	private ILoginService loginService;
 
-	/**
-	 * 刷新验证码
-	 * @param request
-	 * @param response
-	 */
-	@RequestMapping("checkImg")
-	public void checkImg(HttpServletRequest request,HttpServletResponse response){
-		try {
-			CheckImgUtil.checkImg(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 
 	/**
 	 * 前台注册用户和公司帐号
@@ -56,11 +42,13 @@ public class LoginController {
 	int mobile_code =123;
 	@RequestMapping("setPhone")
 	public void setPhone(String phone){
+
 		mobile_code= sendsms.mobile(phone);
 	}
+
 	@RequestMapping("laGouReg")
 	@ResponseBody
-	public Integer laGouReg(LoginUser laGouUser){
+	public Integer laGouReg(LoginUser laGouUser) throws Exception{
 
 		Integer regFlag = loginService.laGouReg(laGouUser);
 		return regFlag;
@@ -88,8 +76,8 @@ public class LoginController {
 			if(mobile_code == Integer.parseInt(laGouUser.getCheckCode())) {
 				Map<String, Object> map = loginService.laGouLoginGS(laGouUser);
 				if (!map.isEmpty()) {
-					loginFlag = (Integer) map.get("loginGsFlag");
-					LoginUser laGouUsers = (LoginUser) map.get("laGouComs");
+					loginFlag = (Integer) map.get("loginComFlag");
+					LoginUser laGouUsers = (LoginUser) map.get("laGouCom");
 					req.getSession().setAttribute("laGouComSession", laGouUsers);
 					return loginFlag;
 				} else {
@@ -100,6 +88,15 @@ public class LoginController {
 			return loginFlag;
 	}
 
+	/**
+	 * 前台公司注销
+	 * @param req
+	 */
+	@RequestMapping("zhuXiaoGs")
+	@ResponseBody
+	public void zhuXiaoGs(HttpServletRequest req){
+		req.getSession().removeAttribute("laGouComSession");
+	}
 
 
 	/**
@@ -150,7 +147,15 @@ public class LoginController {
 		return loginFlag;
 	}
 
-
+	/**
+	 * 前台用户注销
+	 * @param req
+	 */
+	@RequestMapping("zhuXiao")
+	@ResponseBody
+	public void zhuXiao(HttpServletRequest req){
+		req.getSession().removeAttribute("laGouUserSession");
+	}
 
 	//后台注销用户
 	@RequestMapping("loginOut")
@@ -212,46 +217,6 @@ public class LoginController {
 	}
 
 
-
-	/**
-	 * 响应验证码页面
-	 * @return
-	 */
-	/*@RequestMapping(value="/login")
-	public String login(HttpServletRequest request,HttpServletResponse response) throws Exception{
-		String resultStr = "login";
-		String code = request.getParameter("code");
-		HttpSession session = request.getSession();
-		String sessionCode = (String) session.getAttribute("code");
-		if (!StringUtils.equalsIgnoreCase(code, sessionCode)) {  //忽略验证码大小写
-			model.addAttribute("validateFlag", 2);
-			resultStr = "login";
-//		    throw new RuntimeException("验证码对应不上code=" + code + "  sessionCode=" + sessionCode);
-		} else {
-			model.addAttribute("validateFlag", 1);
-			resultStr = "index";
-		}
-		return resultStr;
-	}*/
-
-
-
-
-	//手机验证
-/*	@RequestMapping("yanzheng")
-	public void yz(String shoujihao,HttpServletRequest request,HttpServletResponse response){
-		 HttpSession session = request.getSession();
-		//		NEW出他的接口
-		sendsms sen=new sendsms();
-//		调用他的验证码类
-//		cc是那边返回的验证码
-		int cc = sen.aa(shoujihao);
-		session.setAttribute("cc", cc);
-		System.out.println(cc+"---------");
-//		给前台返回
-
-	}
-
 	/**
 	 * 统计注册用户
 	 * @return
@@ -290,24 +255,19 @@ public class LoginController {
 	}
 
 	/**
-	 * 前台公司注销
-	 * @param req
+	 * 获取历史上的今天
+	 * @return
 	 */
-	@RequestMapping("zhuXiaoGs")
+	@RequestMapping("getHistory")
 	@ResponseBody
-	public void zhuXiaoGs(HttpServletRequest req){
-		req.getSession().removeAttribute("laGouComSession");
-	}
+	public String getHistory(){
 
-	/**
-	 * 前台用户注销
-	 * @param req
-	 */
-	@RequestMapping("zhuXiao")
-	@ResponseBody
-	public void zhuXiao(HttpServletRequest req){
-		req.getSession().removeAttribute("laGouUserSession");
+		Date date = new Date();
+		int Months = date.getMonth() + 1;
+		int day = date.getDate();
+		String request1 = HistoryTodayUtil.getRequest1(Months, day);
+		System.out.println(request1);
+		return request1;
 	}
-
 
 }

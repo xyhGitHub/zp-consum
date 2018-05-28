@@ -10,10 +10,10 @@
  */
 package com.four.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.four.model.GongSi;
 import com.four.model.GongSiBoos;
 import com.four.service.GongsiService;
-import com.four.utils.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,10 +41,17 @@ public class GongSiController {
         private GongsiService gongsiService;
 
         @RequestMapping("gongsilist")
-        public  String  selectgongshilist(){
+        @ResponseBody
+        public JSONObject selectgongshilist(HttpServletRequest request){
+            JSONObject boj= new JSONObject();
+            List<GongSi>  list = gongsiService.selectgongsi();
+            for (int i=0;i<list.size();i++){
 
-            List<GongSi> list = gongsiService.selectgongsi();
-            return JSONUtil.toJson(list);
+            }
+            boj.put("list", list.get(0)  );
+            request.getSession().setAttribute("com",boj);
+          //  request.setAttribute("com",boj);
+            return boj;
         }
 
     @RequestMapping("gongsilistu")
@@ -99,5 +106,39 @@ public class GongSiController {
 
         return "2";
     }
+
+    /**
+     * 修改公司页面的name
+     * @param gongSi
+     * @param comid
+     * @return
+     */
+    @RequestMapping("editgongshiname")
+    public String editgongshiname(GongSi gongSi,Integer comid){
+
+        gongsiService.editgongshiname(gongSi);
+
+        return  "gongsi";
+    }
+
+
+    @RequestMapping("gongsieditphoto")
+    @ResponseBody
+    public String  gongsieditphoto(Integer comid,String photo){
+
+        gongsiService.gongsieditphoto(comid,photo);
+        return "1";
+    }
+
+
+    @RequestMapping("querysshowbyidzhiwei")
+    @ResponseBody
+    public List<GongSi> querysshowbyidzhiwei(){
+
+        List<GongSi> list =gongsiService.querysshowbyidzhiwei();
+
+        return list;
+    }
+
 
 }

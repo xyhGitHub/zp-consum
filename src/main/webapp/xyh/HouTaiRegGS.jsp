@@ -14,9 +14,9 @@
     <meta name="keywords" content="Internship Sign In & Sign Up Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
     <%--<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>--%>
     <!-- Custom Theme files -->
-    <link href="./houtai/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
-    <link href="./houtai/css/snow.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="./houtai/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/houtai/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/houtai/css/snow.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="/houtai/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <!-- //Custom Theme files -->
     <!-- web font -->
     <!--<link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
@@ -35,14 +35,14 @@
 </div>
 
 <div class="top-buttons-agileinfo">
-    <a href="xyh/HouTaiLoginGS.jsp">企业登录</a><a href="#" class="active">企业注册</a>
+    <a href="HouTaiLoginGS.jsp">企业登录</a><a href="#" class="active">企业注册</a>
 </div>
 <div class="main-agileits">
     <!--form-stars-here-->
     <div class="form-w3-agile">
         <h2 class="sub-agileits-w3layouts">企业注册</h2>
         <form id="zhuceForm">
-            <input type="text" name="loginTel" id="loginTel" placeholder="用户名" required="" />
+            <input type="text" name="loginTel" id="loginTel" placeholder="手机号" required="" />
             <input type="password" name="loginPwd" id="loginPwd" placeholder="密码" required="" />
             <input type="password" name="pwd2" id="pwd2" placeholder="确认密码" required="" />
         </form>
@@ -57,7 +57,7 @@
     <p> © 2018 Internship Sign In & Sign Up Form . All rights reserved | Design by <a href="#" target="_blank">W4</a></p>
 </div>
 <!-- //copyright -->
-<script type="text/javascript" src="./houtai/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/houtai/js/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
     $("#zhuce").click(function(){
         var pwd = $("#loginPwd").val();
@@ -73,7 +73,7 @@
                         alert("填写错误")
                         location.reload();
                     }else if(datas==1){
-                        location.href="xyh/HouTaiLoginGS.jsp";
+                        location.href="HouTaiLoginGS.jsp";
                     }
                 }
             })
