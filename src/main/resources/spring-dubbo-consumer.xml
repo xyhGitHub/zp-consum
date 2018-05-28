@@ -40,5 +40,5 @@
 	<dubbo:reference id="treesService" interface="com.four.service.TreesService"  check="false"  timeout="60000"/>
 	<dubbo:reference id="usersService" interface="com.four.service.UsersService"   check="false" timeout="60000"/>
 	<dubbo:reference id="zhiweiService" interface="com.four.service.ZhiweiService"  check="false"  timeout="60000"/>
-
+	<dubbo:reference id="logService" interface="com.four.service.LogService"   timeout="60000" />
 </beans>
