@@ -439,11 +439,13 @@
         type:"post",
         async:false,
         dataType:"json",
-        success:function(little){
+        success:function(data){
             //替换之前的职位展示
-//            alert( little[0].zhiweiname);
-//            alert( little[0].id);
-//            alert( little[0].comid);
+            var str="";
+            for (var i=0 ;i<data.length;i++){
+                str+="<li class='clearfix'><div class='hot_pos_l'><div class='mb10'><a href='#' target='_blank'>"+data[i].zhiweiname+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class='c9'>"+data[i].city+"</span> &nbsp;&nbsp;&nbsp;<span><em class='c7'> 薪资情况:</em>"+data[i].xinzi+"</span> &nbsp;&nbsp;&nbsp; <span><em class='c7'>工作经验:</em>"+data[i].jingyan+"</span> &nbsp;&nbsp;<br/><span><em class='c7'>最低学历： </em>"+data[i].xueli+"</span></div> <div class='hot_pos_r'><div class='mb10 recompany'><div  class='jianli_apply'><a  href='javascript:void(0)' onclick='shenqing("+data[i].id+")'>立即申请</a></div></div><span><em class='c7'>公司名：</em>"+data[i].comname+"</span><br/>    <span><em class='c7'>性质:</em>"+data[i].xingzhi+"</span> </div> <span>----------------------------------------------------</span></li>";
+            }
+            $("#hotList").html(str);
         },
         error:function () {
             alert("报错")
