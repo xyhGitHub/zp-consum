@@ -25,6 +25,7 @@ public class Zhiwei  implements Serializable{
     private static final long serialVersionUID = 3249773949331623106L;
     private  Integer id;
     private  Integer comid;
+    private  String zhiweiname;    //职位名字
     private  Integer zhiweigreatid;
     private  String xingzhi;
     private  String xinzi;
@@ -35,13 +36,22 @@ public class Zhiwei  implements Serializable{
     private  String name;
     private String comname;
 
-    public String getComname() {
-
-        return comname;
-    }
-
-    public void setComname(String comname) {
-        this.comname = comname;
+    @Override
+    public String toString() {
+        return "Zhiwei{" +
+                "id=" + id +
+                ", comid=" + comid +
+                ", zhiweiname='" + zhiweiname + '\'' +
+                ", zhiweigreatid=" + zhiweigreatid +
+                ", xingzhi='" + xingzhi + '\'' +
+                ", xinzi='" + xinzi + '\'' +
+                ", city='" + city + '\'' +
+                ", jingyan='" + jingyan + '\'' +
+                ", xueli='" + xueli + '\'' +
+                ", youhuo='" + youhuo + '\'' +
+                ", name='" + name + '\'' +
+                ", comname='" + comname + '\'' +
+                '}';
     }
 
     public Integer getId() {
@@ -58,6 +68,14 @@ public class Zhiwei  implements Serializable{
 
     public void setComid(Integer comid) {
         this.comid = comid;
+    }
+
+    public String getZhiweiname() {
+        return zhiweiname;
+    }
+
+    public void setZhiweiname(String zhiweiname) {
+        this.zhiweiname = zhiweiname;
     }
 
     public Integer getZhiweigreatid() {
@@ -124,20 +142,11 @@ public class Zhiwei  implements Serializable{
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Zhiwei{" +
-                "id=" + id +
-                ", comid=" + comid +
-                ", zhiweigreatid=" + zhiweigreatid +
-                ", xingzhi='" + xingzhi + '\'' +
-                ", xinzi='" + xinzi + '\'' +
-                ", city='" + city + '\'' +
-                ", jingyan='" + jingyan + '\'' +
-                ", xueli='" + xueli + '\'' +
-                ", youhuo='" + youhuo + '\'' +
-                ", name='" + name + '\'' +
-                ", comname='" + comname + '\'' +
-                '}';
+    public String getComname() {
+        return comname;
+    }
+
+    public void setComname(String comname) {
+        this.comname = comname;
     }
 }

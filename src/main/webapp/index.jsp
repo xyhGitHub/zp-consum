@@ -9,6 +9,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>公司后台系统</title>
     <%@include file="bootstrapjs.txt"%>
+	<%@ include file="link/link.jsp" %>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/layer/layer.js"></script>
+
 </head>
 <body>
 

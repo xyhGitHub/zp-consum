@@ -7,24 +7,26 @@
  */  
 package com.four.controller;
 
-import com.four.model.ZhiweiLittle;
+import com.four.model.PageModel;
+import com.four.model.Zhiwei;
 import com.four.service.SolrService;
-import com.four.utils.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/** 
- * <pre>项目名称：ssmsolrdemo    
- * 类名称：SolrController    
- * 类描述：    
- * 创建人：周录军     
- * 创建时间：2018年5月10日 下午7:16:38    
- * 修改人：周录军 
- * 修改时间：2018年5月10日 下午7:16:38    
- * 修改备注：       
- * @version </pre>    
+import java.util.List;
+
+/**
+ * <pre>项目名称：ssmsolrdemo
+ * 类名称：SolrController
+ * 类描述：
+ * 创建人：周录军
+ * 创建时间：2018年5月10日 下午7:16:38
+ * 修改人：周录军
+ * 修改时间：2018年5月10日 下午7:16:38
+ * 修改备注：
+ * @version </pre>
  */
 @RequestMapping("solr")
 @Controller
@@ -32,30 +34,34 @@ public class SolrController {
 
 	@Autowired
 	private SolrService solrService;
-	
+
 	@RequestMapping("getsolrList")
 	@ResponseBody
-	public PageModel<ZhiweiLittle> getSolrList(String searchName,Integer pageNow,PageModel pageModel) throws Exception {
+	public List<Zhiwei> getSolrList(String searchName,Integer pageNow,PageModel pageModel) throws Exception {
 
-		ZhiweiLittle zhiweiLittle = new ZhiweiLittle();
+		Zhiwei zhiweiLittle = new Zhiwei();
 		if(pageNow ==null) {
 			pageNow=1;
 		}
-		zhiweiLittle.setName(searchName);
+		zhiweiLittle.setZhiweiname(searchName);
 
-		PageModel<ZhiweiLittle> solrlist=	solrService.getSolrList(pageModel,zhiweiLittle);
-		
-	   return  solrlist; 
-	   
+		PageModel<Zhiwei> solrlist=	solrService.getSolrList(pageModel,zhiweiLittle);
+
+		List<Zhiwei> pageList = solrlist.getPageList();
+
+		return  pageList;
+
 	}
-	@RequestMapping("delete")
+
+	@RequestMapping("deleteSolrIndexById")
 	public void deletesolr(String id ) {
-		
+
 		solrService.deletesolr(id);
 	}
+
 	@RequestMapping("addsolr")
 	public void addsolr(String id ) {
-		ZhiweiLittle productAndCate = new ZhiweiLittle();
+		Zhiwei productAndCate = new Zhiwei();
 		productAndCate.setId(3);
 //		productAndCate.setP_specifications("周录军111111");
 //		productAndCate.setP_statues("合格");

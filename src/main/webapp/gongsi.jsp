@@ -17,7 +17,6 @@
 <table class="table table-striped table-bordered table-hover" id="gongsi-table" >
 </table>
 
-
 <script type="text/javascript">
     /*$("gsjibeninfo").click(function(){
      alert("ds")
@@ -56,8 +55,9 @@
                 title: '公司头像',
                 width:100,align:'center',
                 formatter: function(value,row,index) {
+//                    alert(row.comphoto)
                     //如下的写法太复杂了,注意只有数字才这么写.
-                    return '<img width="120px" height="60px" border="0" src ="comphoto"/>';
+                    return "<img width='120px' height='60px' border='0' src ='"+row.comphoto+"'/>";
                 }
                 },{
                 field: 'comjieshao',
@@ -67,16 +67,10 @@
                     var st= JSON.stringify(row);
                     var result = "";
                     if (value==2){
-                        result +='<button  onclick=" butongguo ('+row.comid+')" type="button" class="btn btn-danger" data-toggle ="modal" '+
-
-                            '<i class="glyphicon glyphicon-trash"></i>已经通过审核 </button>';
+                        result +='已经通过审核';
                     }
                     if (value==1){
-                        result += '<button  onclick=" tongguo (' + row.comid + ' )" type="button" class="btn btn-danger" data-toggle= "modal" ' +
-
-                            '<i class="glyphicon glyphicon-trash"></i>审核未通过 </button>';
-                        alert("dsds")
-
+                        result += '审核未通过';
                     }
                     return result;
                 }
