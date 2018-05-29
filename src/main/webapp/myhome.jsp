@@ -401,7 +401,7 @@
                 'onUploadSuccess' : function(file, data, response) {
                     var html = ' <img width="190" height="190" alt="公司logo"src='+data+'>';
                    var comid= $("#comid").val(); //取value值
-                    alert(data)
+//                    alert(data)
                         $("#show").append(html);
                     $("[name='fileid']").val(data);
                         var photo =data;

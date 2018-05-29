@@ -443,28 +443,12 @@
         async:false,
         dataType:"json",
         success:function(little){
-        var str = "";
-        for (var i = 0; i < great.length; i++) {
-            str += "<ul class='index_type_ul'><li><span>"+great[i].name+"<b></b></span>";
-            str+="<div class='nav_type_list'><ul>";
 
-            for (var j = 0; j < little.length; j++) {
-
-                if(great[i].id==little[j].greatid){
-
-                    str +="<li><a href='javascript:void(0)' onclick='chaxunShangpin("+little[j].id+")' target='_blank'>"+little[j].name+"</a></li>";
-
-                }
-            }
-
-                str+="</ul></div>";
-                 str+="</li></ul>";
-
-            }
-            $("#jiazaileixing").html(str);
+            alert( little[0].name);
+            alert( little[0].id);
         },
         error:function () {
-            alert("小类报错")
+            alert("报错")
 
         }
     })
