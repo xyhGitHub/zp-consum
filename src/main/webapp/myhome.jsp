@@ -18,21 +18,22 @@
 <script src="style/js/jquery.lib.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="style/js/ajaxfileupload.js"></script>
 <script src="style/js/additional-methods.js" type="text/javascript"></script>
-<body>
+<body onload="checkLogin()">
 <script type="text/javascript">
     var youdao_conv_id = 271546;
 </script>
 <script src="style/js/conv.js" type="text/javascript"></script>
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script>
 <div id="body">
+    <input type="hidden" value="${laGouComSession.loginName}" id="ifLoginGs">
     <div id="header">
         <div class="wrapper">
-            <a class="logo" href="index.html">
+            <a class="logo" href="#">
                 <img width="229" height="43" alt="拉勾招聘-专注互联网招聘" src="style/images/logo.png">
             </a>
             <ul id="navheader" class="reset">
-                <li><a href="index.html">首页</a></li>
-                <li class="current"><a href="companylist.html">公司</a></li>
+                <%--<li><a href="#">首页</a></li>--%>
+                <li class="current"><a href="companylist.jsp">公司</a></li>
                 <li><a target="_blank" href="">论坛</a></li>
                 <li>
                     <a rel="nofollow" href="">简历管理</a>
@@ -454,6 +455,18 @@
 
 <script src="style/js/core.min.js" type="text/javascript"></script>
 <script src="style/js/popup.min.js" type="text/javascript"></script>
+
+<%--页面加载判断是否登陆--%>
+<script>
+    function checkLogin(){
+        var val = $("#ifLoginGs").val();
+        if(!val){
+            alert("您未登录,请您前往登录!");
+            location.href="GsLaGouLogin.jsp";
+        }
+    }
+
+</script>
 
 <script type="text/javascript">
 

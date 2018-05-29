@@ -119,7 +119,7 @@
                                 <td><span class="redstar">*</span></td>
                                 <td>职位名称</td>
                                 <td>
-                                    <input type="text" placeholder="请输入职位名称，如：产品经理" value="" name="name" id="name">
+                                    <input type="text" placeholder="请输入职位名称，如：产品经理" value="" name="zhiweiname" id="name">
                                 </td>
                             </tr>
                             </tbody></table>
