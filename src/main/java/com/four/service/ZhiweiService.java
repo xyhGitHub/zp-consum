@@ -1,5 +1,6 @@
 package com.four.service;
 
+import com.four.model.User;
 import com.four.model.Zhiwei;
 import com.four.model.ZhiweiGreat;
 import com.four.model.ZhiweiLittle;
@@ -21,4 +22,6 @@ public interface ZhiweiService {
 
 
     List<Zhiwei> queryzhiweishowlist();
+
+    List<User> quaryTouDilist(Integer comid);
 }
