@@ -77,7 +77,8 @@ public class User implements Serializable{
 	
 	//用户邮箱,用于发送面试通知邮件
 	private String  email;
-	
+	private String  zhiweiname;
+
 
 	private List<Role> list;
 	
@@ -100,6 +101,14 @@ public class User implements Serializable{
 	
 	//登录名称条件查询
 	private Integer loginnamecriteria;
+
+	public String getZhiweiname() {
+		return zhiweiname;
+	}
+
+	public void setZhiweiname(String zhiweiname) {
+		this.zhiweiname = zhiweiname;
+	}
 
 	public Integer getUserTtpe() {
 		return userTtpe;
@@ -484,6 +493,7 @@ public class User implements Serializable{
 				", checkcode='" + checkcode + '\'' +
 				", checkPhone=" + checkPhone +
 				", email='" + email + '\'' +
+				", zhiweiname='" + zhiweiname + '\'' +
 				", list=" + list +
 				", resources=" + resources +
 				", roles=" + roles +

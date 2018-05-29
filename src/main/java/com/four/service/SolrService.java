@@ -7,8 +7,11 @@
  */  
 package com.four.service;
 
-import com.four.model.PageModel;
+
 import com.four.model.Zhiwei;
+import com.four.model.ZhiweiLittle;
+import com.four.model.PageModel;
+
 
 /** 
  * <pre>项目名称：ssmsolrdemo    
@@ -29,11 +32,13 @@ public interface SolrService {
 	 * 修改人：周录军 
 	 * 修改时间：2018年5月10日 下午7:19:02    
 	 * 修改备注： 
-	 * @param zhiweiLittle 
-	 * @param pageModel 
-	 * @return</pre>    
+	 * @param pageModel
+	 * @param zhiwei
+	 * @return</pre>
 	 */
-	PageModel<Zhiwei> getSolrList(PageModel pageModel, Zhiwei zhiweiLittle) throws Exception;
+
+	PageModel<Zhiwei> getSolrList(PageModel pageModel, Zhiwei zhiwei) throws Exception;
+
 
 	/** <pre>deletesolr(这里用一句话描述这个方法的作用)   
 	 * 创建人：周录军     
@@ -50,8 +55,9 @@ public interface SolrService {
 	 * 创建时间：2018年5月10日 下午9:26:46    
 	 * 修改人：周录军 
 	 * 修改时间：2018年5月10日 下午9:26:46    
-	 * 修改备注： 
-	 * @param zhiweiLittle</pre>    
+	 * 修改备注：
+	 * @param zhiweiLittle</pre>
+	 * @param zhiweiLittle
 	 */
 	void addsolr(Zhiwei zhiweiLittle);
 

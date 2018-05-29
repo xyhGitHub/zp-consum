@@ -11,16 +11,21 @@
 package com.four.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.four.model.User;
 import com.four.model.Zhiwei;
 import com.four.model.ZhiweiGreat;
 import com.four.model.ZhiweiLittle;
 import com.four.service.SolrService;
 import com.four.service.ZhiweiService;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -129,7 +134,26 @@ public class ZhiweiController {
 
     }
 
+    @RequestMapping("quaryTouDilist")
+    @ResponseBody
+    public void quaryFollowlist(Integer comid) throws IOException, TemplateException {
+        List<User> list=  zhiweiService.quaryTouDilist(comid);
 
+        Configuration configuration = new Configuration();
+        configuration.setDirectoryForTemplateLoading(new File("F:\\idea-workspace\\zp-consum\\src\\main\\webapp\\templates"));
+        configuration.setDefaultEncoding("UTF-8");
+        freemarker.template.Template template =configuration.getTemplate("HRZhiWei.ftl");
+        template.setEncoding("UTF-8");
+        Writer out = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("F:\\idea-workspace\\zp-consum\\src\\main\\webapp\\HRsmnZhiWei.html"), "UTF-8"));
+
+        Map root=new  HashMap();
+        root.put("list", list);
+
+        template.process(root, out);
+        out.flush();
+        out.close();
+    }
 
 
 }
