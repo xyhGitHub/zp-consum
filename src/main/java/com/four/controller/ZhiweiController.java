@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.four.model.Zhiwei;
 import com.four.model.ZhiweiGreat;
 import com.four.model.ZhiweiLittle;
+import com.four.service.SolrService;
 import com.four.service.ZhiweiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,10 @@ public class ZhiweiController {
 
     @Autowired
     private ZhiweiService zhiweiService;
+
+
+    @Autowired
+    private SolrService solrService;
 
     @RequestMapping("querygreatzw")
     @ResponseBody
@@ -114,16 +119,14 @@ public class ZhiweiController {
         return  list;
     }
 
-
-
-
-
     @RequestMapping("savezhiwei")
-    public String savezhiwei(Zhiwei zhiwei){
+    public void savezhiwei(Zhiwei zhiwei){
 
         zhiweiService.savezhiwei(zhiwei);
 
-        return  "myhome";
+        //因此处表设计错误,无法新增索引,遂手动更新
+//        solrService.addsolr();
+
     }
 
 

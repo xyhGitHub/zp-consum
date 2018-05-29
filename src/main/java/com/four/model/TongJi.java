@@ -1,7 +1,5 @@
 package com.four.model;
 
-import org.springframework.data.annotation.Transient;
-
 import java.io.Serializable;
 
 /**
@@ -11,10 +9,10 @@ public class TongJi implements Serializable {
 
     private static final long serialVersionUID = 6772603962573605099L;
 
-    @Transient
+//    @Transient
     private Integer nums;
 
-    @Transient
+//    @Transient
     private String names;
 
     public Integer getNums() {
