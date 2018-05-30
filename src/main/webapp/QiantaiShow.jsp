@@ -169,13 +169,48 @@
             <dl class="hotSearch">
             </dl>
 
+        <%--    <div id="home_banner">
+                <ul class="banner_bg">
+                    <li  class="banner_bg_1 current" >
+                        <a href="h/subject/s_buyfundation.html?utm_source=DH__lagou&utm_medium=banner&utm_campaign=haomai" target="_blank"><img src="style/images/d05a2cc6e6c94bdd80e074eb05e37ebd.jpg" width="612" height="160" alt="好买基金——来了就给100万" /></a>
+                    </li>
+                    <li  class="banner_bg_2" >
+                        <a href="h/subject/s_worldcup.html?utm_source=DH__lagou&utm_medium=home&utm_campaign=wc" target="_blank"><img src="style/images/c9d8a0756d1442caa328adcf28a38857.jpg" width="612" height="160" alt="世界杯放假看球，老板我也要！" /></a>
+                    </li>
+                    <li  class="banner_bg_3" >
+                        <a href="h/subject/s_xiamen.html?utm_source=DH__lagou&utm_medium=home&utm_campaign=xiamen" target="_blank"><img src="style/images/d03110162390422bb97cebc7fd2ab586.jpg" width="612" height="160" alt="出北京记——第一站厦门" /></a>
+                    </li>
+                </ul>
+                <div class="banner_control">
+                    <em></em>
+                    <ul class="thumbs">
+                        <li  class="thumbs_1 current" >
+                            <i></i>
+                            <img src="style/images/4469b1b83b1f46c7adec255c4b1e4802.jpg" width="113" height="42" />
+                        </li>
+                        <li  class="thumbs_2" >
+                            <i></i>
+                            <img src="style/images/381b343557774270a508206b3a725f39.jpg" width="113" height="42" />
+                        </li>
+                        <li  class="thumbs_3" >
+                            <i></i>
+                            <img src="style/images/354d445c5fd84f1990b91eb559677eb5.jpg" width="113" height="42" />
+                        </li>
+                    </ul>
+                </div>
+            </div><!--/#main_banner-->--%>
+
+
             <ul id="da-thumbs" class="da-thumbs">
 
             </ul>
             <ul class="da-thumbs">
 
             </ul>
+            <ul class="da-thumbs">
 
+            </ul>
+           
             <ul class="reset hotabbing">
                 <li class="current">全部职位</li>
             </ul>
@@ -184,6 +219,43 @@
                     <a href="list.html?city=%E5%85%A8%E5%9B%BD" class="btn fr" target="_blank">查看更多</a>
                 </ul>
             </div>
+
+
+            <script type="text/javascript">
+                $.ajax({
+                    url:"<%=request.getContextPath()%>/guanggaoController/queryGuangGaoQianTai.do",
+                    type:"post",
+//                    data:{"dataId":dataId},
+                    dataType:"json",
+//                    dataType:"json",
+                    async:false,
+                    success:function(queryData){
+//                        alert(queryData[0].guangGaoName)
+                        var str = "";
+                        $(queryData).each(function(query){
+//                            alert(this.guangGaoGuanWang)
+                            str += "<li>"+
+                                "<a href="+this.guangGaoGuanWang+" target='_blank'>"+
+                                "<img src="+this.guangGaoPhoto+" width="+queryData.guangGaoWidth+" height="+this.guangGaoHeight+" alt="+this.guangGaoName+"/>"+
+                                "<div class='hot_info'>"+
+                                "<h2 title="+this.guangGaoName+">"+this.guangGaoName+"</h2>"+
+                                "<em></em>"+
+                                "<p title="+this.guangGaoShuoMing+">"+this.guangGaoShuoMing+"</p>"+
+                                "</div>"+
+                                "</a>"+
+                                "</li>"
+
+                        })
+                        console.info(str)
+                        $("#da-thumbs").html(str);
+
+
+                    },
+                    error:function(){
+                        alert("服务器繁忙!请稍后再试")
+                    }
+                });
+            </script>
 
 
             <script type="text/javascript">
