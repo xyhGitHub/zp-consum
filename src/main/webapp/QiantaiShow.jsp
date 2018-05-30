@@ -152,22 +152,10 @@
                 <%--<form id="searchForm">--%>
                     <ul id="searchType">
                         <li data-searchtype="1" class="type_selected">职位</li>
-                        <%--<li data-searchtype="4">公司</li>--%>
                     </ul>
-                    <div class="searchtype_arrow"></div>
                     <input type="text" id="search_input" name="" placeholder="请输入职位名称，如：java攻城狮"  />
-                    <%--<input type="hidden" name="spc" id="spcInput" value=""/>--%>
-                    <%--<input type="hidden" name="pl" id="plInput" value=""/>--%>
-                    <%--<input type="hidden" name="gj" id="gjInput" value=""/>--%>
-                    <%--<input type="hidden" name="xl" id="xlInput" value=""/>--%>
-                    <%--<input type="hidden" name="yx" id="yxInput" value=""/>--%>
-                    <%--<input type="hidden" name="gx" id="gxInput" value="" />--%>
-                    <%--<input type="hidden" name="st" id="stInput" value="" />--%>
-                    <%--<input type="hidden" name="labelWords" id="labelWords" value="" />--%>
-                    <%--<input type="hidden" name="lc" id="lc" value="" />--%>
-                    <%--<input type="hidden" name="workAddress" id="workAddress" value=""/>--%>
-                    <%--<input type="hidden" name="city" id="cityInput" value=""/>--%>
-
+                    <%--当前页--%>
+                    <input type="hidden" name="pageNow" id="pageIndexId" value="1"/>
                 <%--</form>--%>
                 <input type="submit" id="search_button" value="搜索" />
             </div>
@@ -177,7 +165,7 @@
                 .ui-menu-item{ *width:439px;vertical-align: middle;position: relative;margin: 0px;margin-right: 50px !important;background:#fff;border-right: 1px dashed #ededed;}
                 .ui-menu-item a{display:block;overflow:hidden;}
             </style>
-            <script type="text/javascript" src="style/js/search.min.js"></script>
+            <%--<script type="text/javascript" src="style/js/search.min.js"></script>--%>
             <dl class="hotSearch">
             </dl>
 
@@ -357,25 +345,32 @@
 
     $("#search_button").click(function(){
         var searchName = $("#search_input").val();
-        $.ajax({
-        url:"<%=request.getContextPath()%>/solr/getsolrList.do",
-        data:{"searchName":searchName},
-        type:"post",
-        async:false,
-        dataType:"json",
-        success:function(data){
-            //替换之前的职位展示
-            var str="";
-            for (var i=0 ;i<data.length;i++){
-                str+="<li class='clearfix'><div class='hot_pos_l'><div class='mb10'><a href='#' target='_blank'>"+data[i].zhiweiname+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class='c9'>"+data[i].city+"</span> &nbsp;&nbsp;&nbsp;<span><em class='c7'> 薪资情况:</em>"+data[i].xinzi+"</span> &nbsp;&nbsp;&nbsp; <span><em class='c7'>工作经验:</em>"+data[i].jingyan+"</span> &nbsp;&nbsp;<br/><span><em class='c7'>最低学历： </em>"+data[i].xueli+"</span></div> <div class='hot_pos_r'><div class='mb10 recompany'><div  class='jianli_apply'><a  href='javascript:void(0)' onclick='shenqing("+data[i].id+")'>立即申请</a></div></div><span><em class='c7'>公司名：</em>"+data[i].comname+"</span><br/>    <span><em class='c7'>性质:</em>"+data[i].xingzhi+"</span> </div> <span>----------------------------------------------------</span></li>";
-            }
-            $("#hotList").html(str);
-        },
-        error:function () {
-            alert("报错")
+        var pageNows = $("#pageIndexId").val();
+        if(searchName !=""){
+            $.ajax({
+                url:"<%=request.getContextPath()%>/solr/getsolrList.do",
+                data:{"searchName":searchName,"pageNow":pageNows},
+                type:"post",
+                async:false,
+                dataType:"json",
+                success:function(result){
+                    //替换之前的职位展示
+                    var data = result.pageList;
+                    var str="";
+                    for (var i=0 ;i<data.length;i++){
+                        str+="<li class='clearfix'><div class='hot_pos_l'><div class='mb10'>职位:<b><a href='#' target='_blank'>"+data[i].zhiweiname+"</a></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 工作地点:<span class='c9'><b>"+data[i].city+"</b></span><br/><span><em class='c7'> 薪资情况:</em>"+data[i].xinzi+"</span>&nbsp;&nbsp;&nbsp;<span><em class='c7'>工作经验:</em>"+data[i].jingyan+"</span><span><em class='c7'><br/>最低学历： </em>"+data[i].xueli+"</span>&nbsp;&nbsp;&nbsp;<span><em class='c7'>公司名：</em>"+data[i].comname+"</span><br/>    <span><em class='c7'>性质:</em>"+data[i].xingzhi+"</span><div class='mb10 recompany'><div  class='jianli_apply'><a  href='javascript:void(0)' onclick='shenqing("+data[i].id+")'>立即申请</a></div></div>  </div> <span>----------------------------------------------------</span></li>";
+                    }
+                    str +="<center><input type='button' value='首页' onclick='homePage()'><input type='button' value='上一页' onclick='perPage(${result.pageNow})'><input type='button' value='下一页' onclick='nextPage(${result.pageNow})'><input type='button' value='尾页' onclick='lastPage(${result.pageCount})'></center>";
+                    $("#hotList").html(str);
+                },
+                error:function () {
+                    alert("报错")
 
+                }
+            })
+        }else{
+            //什么也不做
         }
-    })
     })
 
     $("#zhuxiao").click(function(){
@@ -389,6 +384,27 @@
 
             }
     })
+
+        //首页
+        function homePage(){
+            $("#pageIndexId").val(1);
+            $("#form_id").submit();
+        }
+        //上一页
+        function perPage(pageIndex){
+            $("#pageIndexId").val(pageIndex-1);
+            $("#form_id").submit();
+        }
+        //下一页
+        function nextPage(pageIndex){
+            $("#pageIndexId").val(pageIndex+1);
+            $("#form_id").submit();
+        }
+        //末页
+        function lastPage(pageTotal){
+            $("#pageIndexId").val(pageTotal);
+            $("#form_id").submit();
+        }
     })
 </script>
 
