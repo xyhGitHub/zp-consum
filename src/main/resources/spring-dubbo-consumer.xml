@@ -22,10 +22,11 @@
      <dubbo:application name="dubbo_consumer_api"  />
 
 	<!-- 使用zookeeper注册中心发现暴露的服务地址 192.168.116.1-->
-     <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+     <dubbo:registry address="N/A" />
 	<!--192.168.31.211-->
      <!-- 生成远程服务代理，可以和本地bean一样使用demoService，该interface需要与服务端暴露的服务interface保持一致，该id已注入Spring -->
-	<dubbo:reference id="userService" interface="com.four.service.IUserService"  check="false"  timeout="60000"/>
+
+<!--	<dubbo:reference id="userService" interface="com.four.service.IUserService"  check="false"  timeout="60000"/>
 	<dubbo:reference id="solrService" interface="com.four.service.SolrService"  check="false"  timeout="60000"/>
 	<dubbo:reference id="ossService" interface="com.four.service.IOssService"  check="false"  timeout="60000"/>
 	<dubbo:reference id="loginService" interface="com.four.service.ILoginService"  check="false"  timeout="60000"/>
@@ -41,5 +42,24 @@
 	<dubbo:reference id="usersService" interface="com.four.service.UsersService"   check="false" timeout="60000"/>
 	<dubbo:reference id="zhiweiService" interface="com.four.service.ZhiweiService"  check="false"  timeout="60000"/>
 	<dubbo:reference id="logService" interface="com.four.service.LogService"   timeout="60000" />
-	<dubbo:reference id="guanggaoService" interface="com.four.service.GuanggaoService"   timeout="60000" />
+	<dubbo:reference id="guanggaoService" interface="com.four.service.GuanggaoService"   timeout="60000" />-->
+
+	<dubbo:reference id="userService" interface="com.four.service.IUserService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="solrService" interface="com.four.service.SolrService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="ossService" interface="com.four.service.IOssService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="loginService" interface="com.four.service.ILoginService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="treeService" interface="com.four.service.IServiceTree"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="roleService" interface="com.four.service.RoleService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="companyService" interface="com.four.service.CompanyService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="noticeService" interface="com.four.service.INoticeService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="jianLiService" interface="com.four.service.JianLiService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="bosssService" interface="com.four.service.BosssService"   check="false" timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="gongsiService" interface="com.four.service.GongsiService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="newService" interface="com.four.service.NewService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="treesService" interface="com.four.service.TreesService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="usersService" interface="com.four.service.UsersService"   check="false" timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="zhiweiService" interface="com.four.service.ZhiweiService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="guanggaoService" interface="com.four.service.GuanggaoService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
+	<dubbo:reference id="logService" interface="com.four.service.LogService"   timeout="60000"  check="false" url="127.0.0.1:20880"/>
+
 </beans>
