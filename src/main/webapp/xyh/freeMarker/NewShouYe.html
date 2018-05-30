@@ -1,0 +1,407 @@
+<html>
+<script id="allmobilize" charset="utf-8" src="./style/js/allmobilize.min.js"></script>
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="alternate" media="handheld"  />
+<!-- end 云�?�?-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>拉勾�?�?��业的互联网招聘平�?/title>
+<meta property="qc:admins" content="23635710066417756375" />
+<meta content="拉勾网是3W旗下的互联网领域垂直招聘网站,互联网职业机会尽在拉勾网" name="description">
+<meta content="拉勾,拉勾�?拉勾招聘,拉钩, 拉钩�?,互联网招�?拉勾互联网招�? 移动互联网招�? 垂直互联网招�? 微信招聘, 微博招聘, 拉勾官网, 拉勾百科,跳槽, 高薪职位, 互联网圈�? IT招聘, 职场招聘, 猎头招聘,O2O招聘, LBS招聘, 社交招聘, 校园招聘, 校招,社会招聘,社招" name="keywords">
+<meta name="baidu-site-verification" content="QIQ6KC1oZ6" />
+
+<!-- <div class="web_root"  style="display:none">h</div> -->
+
+<link rel="stylesheet" type="text/css" href="./style/css/style.css"/>
+<link rel="stylesheet" type="text/css" href="./style/css/external.min.css"/>
+<link rel="stylesheet" type="text/css" href="./style/css/popup.css"/>
+<script src="./style/js/jquery.1.10.1.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="./style/js/jquery.lib.min.js"></script>
+<script src="./style/js/ajaxfileupload.js" type="text/javascript"></script>
+<script type="text/javascript" src="./style/js/additional-methods.js"></script>
+<!--[if lte IE 8]>
+<script type="text/javascript" src="./style/js/excanvas.js"></script>
+<link rel="stylesheet" type="text/css" href="./shouye/css/head.css"/>
+<link rel="stylesheet" type="text/css" href="./shouye/css/index.css"/>
+<link rel="stylesheet" type="text/css" href="./shouye/css/footer.css"/>
+
+<![endif]-->
+<script type="text/javascript">
+    var youdao_conv_id = 271546;
+</script>
+<script type="text/javascript" src="./style/js/conv.js"></script>
+</head>
+<style>
+    .jianli_apply {
+
+        display: block;
+
+        width: 60px;
+
+        height: 20px;
+
+        border: 1px solid #CCC;
+
+        background: #9c9d9e;
+
+        margin-top: 20px;
+    }
+
+</style>
+<style>
+    .ui-autocomplete{width:488px;background:#fafafa !important;position: relative;z-index:10;border: 2px solid #91cebe;}
+    .ui-autocomplete-category{font-size:16px;color:#999;width:50px;position: absolute;z-index:11; right: 0px;/*top: 6px; */text-align:center;border-top: 1px dashed #e5e5e5;padding:5px 0;}
+    .ui-menu-item{ *width:439px;vertical-align: middle;position: relative;margin: 0px;margin-right: 50px !important;background:#fff;border-right: 1px dashed #ededed;}
+    .ui-menu-item a{display:block;overflow:hidden;}
+</style>
+
+<body>
+С��撒发射分
+<div id="body">
+    <div id="header">
+        <div class="wrapper">
+            <a href="index.html" class="logo">
+                <img src="./style/images/logo.png" width="229" height="43" alt="拉勾招聘-专注互联网招�? />
+            </a>
+            <ul class="reset" id="navheader">
+                <li class="current"><a href="#">首页</a></li>
+                <li ><a href="jianli.jsp" rel="nofollow">我的�?��</a></li>
+            </ul>
+            <ul class="loginTop">
+                    <li><a href="LaGouLogin.jsp" rel="nofollow">登录</a></li>
+                    <li><a href="LaGouReg.jsp" rel="nofollow">注册</a></li>
+            </ul>
+        </div>
+    </div><!-- end #header -->
+    <div id="container">
+
+        <div id="sidebar">
+            <div class="mainNavs" id="jiazaileixing">
+            </div>
+            <script type="text/javascript">
+                $.ajax({
+                    url:"./zhiweiController/querycomtree.do",
+                    type:"post",
+                    async:false,
+                    dataType:"json",
+                    success:function(great){
+
+                        $.ajax({
+                            url:"./zhiweiController/querylittletree.do",
+                            type:"post",
+                            async:false,
+                            dataType:"json",
+                            success:function(little){
+                                var str = "";
+                                for (var i = 0; i < great.length; i++) {
+                                    str += "<ul class='index_type_ul'><li><span>"+great[i].name+"<b></b></span>";
+                                    str+="<div class='nav_type_list'><ul>";
+
+
+                                    for (var j = 0; j < little.length; j++) {
+
+                                        if(great[i].id==little[j].greatid){
+
+                                            str +="<li><a href='javascript:void(0)' onclick='chaxunShangpin("+little[j].id+")' target='_blank'>"+little[j].name+"</a></li>";
+
+                                        }
+                                    }
+
+                                    str+="</ul></div>";
+
+                                    str+="</li></ul>";
+
+                                }
+                                $("#jiazaileixing").html(str);
+                            },
+                            error:function () {
+                                alert("小类报错")
+
+                            }
+                        })
+
+                    },
+                    error:function () {
+                        alert("大类报错")
+
+                    }
+                });
+
+            </script>
+            <a class="subscribe" href="#" target="_blank">拉过勾的职位</a>
+        </div>
+        <div class="content">
+            <div id="search_box">
+                <ul id="searchType">
+                    <li data-searchtype="1" class="type_selected">职位</li>
+                </ul>
+                <div class="searchtype_arrow"></div>
+                <input type="text" id="search_input" name="" placeholder="请输入职位名称，如：java攻城�?  />
+                <input type="submit" id="search_button" value="搜索" />
+            </div>
+
+            <script type="text/javascript" src="./style/js/search.min.js"></script>
+            <dl class="hotSearch">
+                <dt>热门搜索�?/dt>
+                <dd><a href="#">Java</a></dd>
+                <dd><a href="#">PHP</a></dd>
+                <dd><a href="#">Android</a></dd>
+                <dd><a href="#">iOS</a></dd>
+                <dd><a href="#">前端</a></dd>
+                <dd><a href="#">产品经理</a></dd>
+                <dd><a href="#">UI</a></dd>
+                <dd><a href="#">运营</a></dd>
+                <dd><a href="#">BD</a></dd>
+                <dd><a href="#">实习</a></dd>
+            </dl>
+            <div id="home_banner">
+                <ul class="banner_bg">
+                    <li  class="banner_bg_1 current" >
+                        <a href="h/subject/s_buyfundation.html?utm_source=DH__lagou&utm_medium=banner&utm_campaign=haomai" target="_blank"><img src="./style/images/d05a2cc6e6c94bdd80e074eb05e37ebd.jpg" width="612" height="160" alt="好买基金—�?来了就给100�? /></a>
+                    </li>
+                    <li  class="banner_bg_2" >
+                        <a href="h/subject/s_worldcup.html?utm_source=DH__lagou&utm_medium=home&utm_campaign=wc" target="_blank"><img src="./style/images/c9d8a0756d1442caa328adcf28a38857.jpg" width="612" height="160" alt="世界杯放假看球，老板我也要！" /></a>
+                    </li>
+                    <li  class="banner_bg_3" >
+                        <a href="h/subject/s_xiamen.html?utm_source=DH__lagou&utm_medium=home&utm_campaign=xiamen" target="_blank"><img src="./style/images/d03110162390422bb97cebc7fd2ab586.jpg" width="612" height="160" alt="出北京记—�?第一站厦�? /></a>
+                    </li>
+                </ul>
+                <div class="banner_control">
+                    <em></em>
+                    <ul class="thumbs">
+                        <li  class="thumbs_1 current" >
+                            <i></i>
+                            <img src="./style/images/4469b1b83b1f46c7adec255c4b1e4802.jpg" width="113" height="42" />
+                        </li>
+                        <li  class="thumbs_2" >
+                            <i></i>
+                            <img src="./style/images/381b343557774270a508206b3a725f39.jpg" width="113" height="42" />
+                        </li>
+                        <li  class="thumbs_3" >
+                            <i></i>
+                            <img src="./style/images/354d445c5fd84f1990b91eb559677eb5.jpg" width="113" height="42" />
+                        </li>
+                    </ul>
+                </div>
+            </div><!--/#main_banner-->
+
+            <ul id="da-thumbs" class="da-thumbs">
+                <li >
+                    <a href="h/c/1650.html" target="_blank">
+                        <img src="./style/images/a254b11ecead45bda166afa8aaa9c8bc.jpg" width="113" height="113" alt="联想" />
+                        <div class="hot_info">
+                            <h2 title="联想">联想</h2>
+                            <em></em>
+                            <p title="世界因联想更美好">
+                                世界因联想更美好
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li >
+                    <a href="h/c/9725.html" target="_blank">
+                        <img src="./style/images/c75654bc2ab141df8218983cfe5c89f9.jpg" width="113" height="113" alt="淘米" />
+                        <div class="hot_info">
+                            <h2 title="淘米">淘米</h2>
+                            <em></em>
+                            <p title="将心注入 追求极致">
+                                将心注入 追求极致
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li >
+                    <a href="h/c/1914.html" target="_blank">
+                        <img src="./style/images/2bba2b71d0b0443eaea1774f7ee17c9f.png" width="113" height="113" alt="优酷土豆" />
+                        <div class="hot_info">
+                            <h2 title="优酷土豆">优酷土豆</h2>
+                            <em></em>
+                            <p title="专注于视频领域，是中国网络视频行业领军企�?>
+                                专注于视频领域，是中国网络视频行业领军企�?
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li >
+                    <a href="h/c/6630.html" target="_blank">
+                        <img src="./style/images/f4822a445a8b495ebad81fcfad3e40e2.jpg" width="113" height="113" alt="思特沃克" />
+                        <div class="hot_info">
+                            <h2 title="思特沃克">思特沃克</h2>
+                            <em></em>
+                            <p title="�?��全球信息�?��服务公司">
+                                �?��全球信息�?��服务公司
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li >
+                    <a href="h/c/2700.html" target="_blank">
+                        <img src="./style/images/5caf8f9631114bf990f87bb11360653e.png" width="113" height="113" alt="奇猫" />
+                        <div class="hot_info">
+                            <h2 title="奇猫">奇猫</h2>
+                            <em></em>
+                            <p title="专注于移动互联网、互联网产品研发">
+                                专注于移动互联网、互联网产品研发
+                            </p>
+                        </div>
+                    </a>
+                </li>
+                <li  class="last" >
+                    <a href="h/c/1335.html" target="_blank">
+                        <img src="./style/images/c0052c69ef4546c3b7d08366d0744974.jpg" width="113" height="113" alt="堆糖�? />
+                        <div class="hot_info">
+                            <h2 title="堆糖�?>堆糖�?/h2>
+                            <em></em>
+                            <p title="分享收集生活中的美好，遇见世界上的另外一个你">
+                                分享收集生活中的美好，遇见世界上的另外一个你
+                            </p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="reset hotabbing">
+                <li class="current">全部职位</li>
+            </ul>
+            <div id="hotList">
+                <ul class="hot_pos reset">
+                    <a href="list.html?city=%E5%85%A8%E5%9B%BD" class="btn fr" target="_blank">查看更多</a>
+                </ul>
+            </div>
+
+            <script type="text/javascript">
+                $.ajax({
+                    url:"./zhiweiController/queryzhiweishowlist.do",
+                    type:"post",
+                    dataType:"json",
+                    async:false,
+                    success:function(data){
+                        var str="";
+                        for (var i=0 ;i<data.length;i++){
+                            str+="<li class='clearfix'><div class='hot_pos_l'><div class='mb10'><a href='#' target='_blank'>"+data[i].name+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class='c9'>"+data[i].city+"</span> &nbsp;&nbsp;&nbsp;<span><em class='c7'> 薪资情况:</em>"+data[i].xinzi+"</span> &nbsp;&nbsp;&nbsp; <span><em class='c7'>工作经验:</em>"+data[i].jingyan+"</span> &nbsp;&nbsp;<br/><span><em class='c7'>�?��学历�?</em>"+data[i].xueli+"</span></div> <div class='hot_pos_r'><div class='mb10 recompany'><div  class='jianli_apply'><a  href='javascript:void(0)' onclick='shenqing("+data[i].id+")'>立即申请</a></div></div><span><em class='c7'>公司名：</em>"+data[i].comname+"</span><br/>    <span><em class='c7'>性质:</em>"+data[i].xingzhi+"</span> </div> <span>----------------------------------------------------</span></li>";
+                        }
+                        $("#hotList").html(str);
+
+                    },
+                    error:function () {
+                        alert("职位显示失败")
+
+                    }
+                })
+
+                function  shenqing(id) {
+                    alert(id)
+
+                }
+
+            </script>
+
+
+            <div class="clear"></div>
+            <div id="linkbox">
+                <dl>
+                    <dt>友情链接</dt>
+                    <dd>
+                        <a href="http://www.zhuqu.com/" target="_blank">住趣家居�?/a> <span>|</span>
+                        <a href="http://www.woshipm.com/" target="_blank">人人都是产品经理</a> <span>|</span>
+                        <a href="http://zaodula.com/" target="_blank">互联网er的早读课</a> <span>|</span>
+                        <a href="http://lieyunwang.com/" target="_blank">猎云�?/a> <span>|</span>
+                        <a href="http://www.ucloud.cn/" target="_blank">UCloud</a> <span>|</span>
+                        <a href="http://www.iconfans.com/" target="_blank">iconfans</a>  <span>|</span>
+                        <a href="http://www.html5dw.com/" target="_blank">html5梦工�?/a>   <span>|</span>
+                        <a href="http://www.sykong.com/" target="_blank">手游那点�?/a>
+
+                        <a href="http://www.php100.com/" target="_blank">php100</a> <span>|</span>
+                        <a href="http://www.uehtml.com/" target="_blank">uehtml</a> <span>|</span>
+                        <a href="http://www.w3cplus.com/" target="_blank">W3CPlus</a> <span>|</span>
+                        <a href="http://www.boxui.com/" target="_blank">盒子UI</a> <span>|</span>
+                        <a href="http://www.uimaker.com/" target="_blank">uimaker</a> <span>|</span>
+                        <a href="http://www.yixieshi.com/" target="_blank">互联网的�?���?/a> <span>|</span>
+                        <a href="http://www.chuanke.com/" target="_blank">传课�?/a> <span>|</span>
+                        <a href="http://www.eoe.cn/" target="_blank">安卓�?��</a> <span>|</span>
+                        <a href="http://www.eoeandroid.com/" target="_blank">安卓�?��论坛</a>
+                        <a href="http://hao.360.cn/" target="_blank" >360安全网址导航</a> <span>|</span>
+                        <a href="http://se.360.cn/" target="_blank" >360安全浏览�?/a> <span>|</span>
+                        <a href="http://www.hao123.com/" target="_blank" >hao123上网导航</a> <span>|</span>
+                        <a href="http://www.ycpai.com" target="_blank" >互联网创�?/a><span>|</span>
+                        <a href="http://www.zhongchou.cn" target="_blank" >众筹�?/a><span>|</span>
+                        <a href="http://www.marklol.com/" target="_blank" >马克互联�?/a><span>|</span>
+                        <a href="http://www.chaohuhr.com/" target="_blank" >巢湖英才�?/a>
+
+                        <a href="http://www.zhubajie.com/" target="_blank" >创意服务外包</a><span>|</span>
+                        <a href="http://www.thinkphp.cn/" target="_blank" >thinkphp</a><span>|</span>
+                        <a href="http://www.chuangxinpai.com/" target="_blank" >创新�?/a><span>|</span>
+
+                        <a href="http://w3cshare.com/" target="_blank" >W3Cshare</a><span>|</span>
+                        <a href="http://www.518lunwen.cn/" target="_blank" >论文发表�?/a><span>|</span>
+                        <a href="http://www.199it.com" target="_blank" >199it</a><span>|</span>
+
+                        <a href="http://www.shichangbu.com" target="_blank" >市场部网</a><span>|</span>
+                        <a href="http://www.meitu.com/" target="_blank" >美图公司</a><span>|</span>
+                        <a href="https://www.teambition.com/" target="_blank" >Teambition</a>
+                        <a href="http://oupeng.com/" target="_blank" >欧朋浏览�?/a><span>|</span>
+                        <a href="http://iwebad.com/" target="_blank">网络广告人社�?/a>
+                        <a href="h/af/flink.html" target="_blank" class="more">更多</a>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <script type="text/javascript" src="./style/js/Chart.min.js"></script>
+        <script type="text/javascript" src="./style/js/home.min.js"></script>
+        <script type="text/javascript" src="./style/js/count.js"></script>
+        <div class="clear"></div>
+        <input type="hidden" id="resubmitToken" value="" />
+        <a id="backtop" title="回到顶部" rel="nofollow"></a>
+    </div><!-- end #container -->
+</div><!-- end #body -->
+<div id="footer">
+    <div class="wrapper">
+        <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
+        <a href="h/af/zhaopin.html" target="_blank">互联网公司导�?/a>
+        <a href="http://e.weibo.com/lagou720" target="_blank" rel="nofollow">拉勾微博</a>
+        <a class="footer_qr" href="javascript:void(0)" rel="nofollow">拉勾微信<i></i></a>
+        <div class="copyright">&copy;2013-2014 Lagou <a target="_blank" href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP�?4023790�?2</a></div>
+    </div>
+</div>
+<script type="text/javascript" src="./style/js/core.min.js"></script>
+<script type="text/javascript" src="./style/js/popup.min.js"></script>
+<script>
+    $("#search_button").click(function(){
+        var searchName = $("#search_input").val();
+        $.ajax({
+            url:"./solr/getsolrList.do",
+            data:{"searchName":searchName},
+            type:"post",
+            async:false,
+            dataType:"json",
+            success:function(data){
+                //替换之前的职位展�?
+                var str="";
+                for (var i=0 ;i<data.length;i++){
+                    str+="<li class='clearfix'><div class='hot_pos_l'><div class='mb10'><a href='#' target='_blank'>"+data[i].zhiweiname+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class='c9'>地址:"+data[i].city+"</span> &nbsp;&nbsp;&nbsp;<span><em class='c7'> 薪资情况:</em>"+data[i].xinzi+"</span><br/> <span><em class='c7'>工作经验:</em>"+data[i].jingyan+"</span> &nbsp;&nbsp;<span><em class='c7'>�?��学历�?</em>"+data[i].xueli+"</span><span><em class='c7'>性质:</em>"+data[i].xingzhi+"</span></div> <div class='hot_pos_r'><div class='mb10 recompany'><div  class='jianli_apply'><a  href='javascript:void(0)' onclick='shenqing("+data[i].id+")'>立即申请</a></div></div></div> <span>----------------------------------------------------</span></li>";
+//                str+="<li class='clearfix'><div class='hot_pos_l'><div class='mb10'><a href='#' target='_blank'>"+data[i].zhiweiname+"</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class='c9'>"+data[i].city+"</span> &nbsp;&nbsp;&nbsp;<span><em class='c7'> 薪资情况:</em>"+data[i].xinzi+"</span><br/> <span><em class='c7'>工作经验:</em>"+data[i].jingyan+"</span> &nbsp;&nbsp;<span><em class='c7'>�?��学历�?</em>"+data[i].xueli+"</span></div> <div class='hot_pos_r'><div class='mb10 recompany'><div  class='jianli_apply'><a  href='javascript:void(0)' onclick='shenqing("+data[i].id+")'>立即申请</a></div></div><span><em class='c7'>公司名：</em>"+data[i].comname+"</span><br/>    <span><em class='c7'>性质:</em>"+data[i].xingzhi+"</span> </div> <span>----------------------------------------------------</span></li>";
+                }
+                $("#hotList").html(str);
+            },
+            error:function () {
+                alert("报错")
+            }
+        })
+    })
+
+    $("#zhuxiao").click(function(){
+        $.ajax({
+            url:"./loginController/zhuXiao.do",
+            type:"post",
+            success:function () {
+                location.href="LaGouLogin.jsp";
+            },
+            error:function () {
+
+            }
+        })
+    })
+</script>
+
+</body>
+</html>

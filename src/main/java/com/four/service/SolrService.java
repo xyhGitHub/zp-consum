@@ -7,9 +7,11 @@
  */  
 package com.four.service;
 
+
 import com.four.model.Zhiwei;
 import com.four.model.ZhiweiLittle;
 import com.four.model.PageModel;
+
 
 /** 
  * <pre>项目名称：ssmsolrdemo    
@@ -34,7 +36,9 @@ public interface SolrService {
 	 * @param zhiwei
 	 * @return</pre>
 	 */
+
 	PageModel<Zhiwei> getSolrList(PageModel pageModel, Zhiwei zhiwei) throws Exception;
+
 
 	/** <pre>deletesolr(这里用一句话描述这个方法的作用)   
 	 * 创建人：周录军     
