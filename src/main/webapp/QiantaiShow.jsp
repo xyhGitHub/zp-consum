@@ -426,14 +426,19 @@
                 async:false,
                 dataType:"json",
                 success:function(result){
-                    //替换之前的职位展示
-                    var data = result.pageList;
-                    var str="";
-                    for (var i=0 ;i<data.length;i++){
-                        str+="<li class='clearfix'><div class='hot_pos_l'><div class='mb10'>职位:<b><a href='#' target='_blank'>"+data[i].zhiweiname+"</a></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 工作地点:<span class='c9'><b>"+data[i].city+"</b></span><br/><span><em class='c7'> 薪资情况:</em>"+data[i].xinzi+"</span>&nbsp;&nbsp;&nbsp;<span><em class='c7'>工作经验:</em>"+data[i].jingyan+"</span><span><em class='c7'><br/>最低学历： </em>"+data[i].xueli+"</span>&nbsp;&nbsp;&nbsp;<span><em class='c7'>公司名：</em>"+data[i].comname+"</span><br/>    <span><em class='c7'>性质:</em>"+data[i].xingzhi+"</span><div class='mb10 recompany'><div  class='jianli_apply'><a  href='javascript:void(0)' onclick='shenqing("+data[i].id+")'>立即申请</a></div></div>  </div> <span>----------------------------------------------------</span></li>";
+                    if(result.pageList==""){
+                        var str = "没有找到您搜索的职位,请换一个试试";
+                        $("#hotList").html(str);
+                    }else{
+                        //替换之前的职位展示
+                        var data = result.pageList;
+                        var str="";
+                        for (var i=0 ;i<data.length;i++){
+                            str+="<li class='clearfix'><div class='hot_pos_l'><div class='mb10'>职位:<b><a href='#' target='_blank'>"+data[i].zhiweiname+"</a></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 工作地点:<span class='c9'><b>"+data[i].city+"</b></span><br/><span><em class='c7'> 薪资情况:</em>"+data[i].xinzi+"</span>&nbsp;&nbsp;&nbsp;<span><em class='c7'>工作经验:</em>"+data[i].jingyan+"</span><span><em class='c7'><br/>最低学历： </em>"+data[i].xueli+"</span>&nbsp;&nbsp;&nbsp;<span><em class='c7'>公司名：</em>"+data[i].comname+"</span><br/>    <span><em class='c7'>性质:</em>"+data[i].xingzhi+"</span><div class='mb10 recompany'><div  class='jianli_apply'><a  href='javascript:void(0)' onclick='shenqing("+data[i].id+")'>立即申请</a></div></div>  </div> <span>----------------------------------------------------</span></li>";
+                        }
+                        str +="<center><input type='button' value='首页' onclick='homePage()'><input type='button' value='上一页' onclick='perPage(${result.pageNow})'><input type='button' value='下一页' onclick='nextPage(${result.pageNow})'><input type='button' value='尾页' onclick='lastPage(${result.pageCount})'></center>";
+                        $("#hotList").html(str);
                     }
-                    str +="<center><input type='button' value='首页' onclick='homePage()'><input type='button' value='上一页' onclick='perPage(${result.pageNow})'><input type='button' value='下一页' onclick='nextPage(${result.pageNow})'><input type='button' value='尾页' onclick='lastPage(${result.pageCount})'></center>";
-                    $("#hotList").html(str);
                 },
                 error:function () {
                     alert("报错")
@@ -441,7 +446,7 @@
                 }
             })
         }else{
-            //什么也不做
+            location.reload();
         }
     })
 

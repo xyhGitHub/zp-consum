@@ -19,6 +19,32 @@
         var ctx = "h";
         console.log(1);
     </script>
+
+    <%--/*验证码*/--%>
+    <style>
+        .upload-awrp {
+            overflow: hidden;
+            margin: 120px 0;
+        }
+
+        .code {
+            font-family: Arial;
+            font-style: italic;
+            font-size: 30px;
+            border: 0;
+            padding: 2px 3px;
+            letter-spacing: 3px;
+            font-weight: bolder;
+            float: left;
+            cursor: pointer;
+            width: 130px;
+            height: 40px;
+            line-height: 60px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #6D6D72;
+        }
+    </style>
     <link rel="Shortcut Icon" href="h/images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="style/css/style.css"/>
 
@@ -58,9 +84,15 @@
             <input type="text" id="loginName" name="loginName" tabindex="1" placeholder="请输入手机号" style="width: 300px"/>
             <span class="error" style="display:none;" id="beError"></span>
             <input type="password" id="loginPwd" name="loginPwd" tabindex="2" placeholder="请输入密码" style="width: 300px"/>
-            <input type="password" id="loginPwd2"  tabindex="3" placeholder="请再次输入密码" style="width: 300px"/>
-            <label class="fl registerJianJu" for="checkbox">
-                <input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《拉勾用户协议》</a>
+                <input type="password" id="loginPwd2" name="loginPwd2" tabindex="3" placeholder="请再次输入密码" style="width: 300px"/>
+                <!--随机验证码-->
+                <div id="check-code" style="overflow: hidden;">
+                    <div class="code" id="data_code"></div>
+                    <input type="text" id="checkCode" name="checkCode" placeholder="请输入验证码" style="width: 150px"/>
+                    <span class="error" style="display:none;" id="codeError"></span>
+                </div>
+                <label class="fl registerJianJu" for="checkbox">
+            <input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《拉勾用户协议》</a>
             </label>
             <input type="submit" id="submitLogin" value="注 &nbsp; &nbsp; 册" />
 
@@ -79,6 +111,59 @@
     </div>
     <div class="login_box_btm"></div>
 </div>
+
+<%--<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>--%>
+<script type="text/javascript">
+    /**
+     * 验证码
+     * @param {Object} o 验证码长度
+     */
+    $.fn.code_Obj = function(o) {
+        var _this = $(this);
+        var options = {
+            code_l: o.codeLength,//验证码长度
+            codeChars: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+            ],
+            codeColors: ['#f44336', '#009688', '#cddc39', '#03a9f4', '#9c27b0', '#5e4444', '#9ebf9f', '#ffc8c4', '#2b4754', '#b4ced9', '#835f53', '#aa677e'],
+            code_Init: function() {
+                 code = "";
+                var codeColor = "";
+                var checkCode = _this.find("#data_code");
+                for(var i = 0; i < this.code_l; i++) {
+                    var charNum = Math.floor(Math.random() * 52);
+                    code += this.codeChars[charNum];
+                }
+                for(var i = 0; i < this.codeColors.length; i++) {
+                    var charNum = Math.floor(Math.random() * 12);
+                    codeColor = this.codeColors[charNum];
+                }
+                console.log(code);
+                if(checkCode) {
+                    checkCode.css('color', codeColor);
+                    checkCode.className = "code";
+                    checkCode.text(code);
+                    checkCode.attr('data-value', code);
+                }
+            }
+        };
+
+        options.code_Init();//初始化验证码
+        _this.find("#data_code").bind('click', function() {
+            options.code_Init();
+        });
+    };
+</script>
+<script type="text/javascript">
+    /**
+     * 验证码
+     * codeLength:验证码长度
+     */
+    $('#check-code').code_Obj({
+        codeLength: 5
+    });
+</script>
 
 <script type="text/javascript">
 
@@ -103,6 +188,13 @@
                     required: true,
                     rangelength: [6,16]
                 },
+                loginPwd2: {
+                    required: true,
+                    rangelength: [6,16]
+                },
+                checkCode: {
+                    required: true,
+                },
                 checkbox:{required:true}
             },
             messages: {
@@ -115,6 +207,13 @@
                 loginPwd: {
                     required: "请输入密码",
                     rangelength: "请输入6-16位密码，字母区分大小写"
+                },
+                loginPwd2: {
+                    required: "请输入确认密码",
+                    rangelength: "请输入6-16位密码，字母区分大小写"
+                },
+                checkCode: {
+                    required: "请输入验证码",
                 },
                 checkbox: {
                     required: "请接受拉勾用户协议"
@@ -147,9 +246,11 @@
                 var authType = $('#authType').val();
                 var signature = $('#signature').val();
                 var timestamp = $('#timestamp').val();
+                var checkCode = $('#checkCode').val();
 
                 $(form).find(":submit").attr("disabled", true);
 
+                if(code == checkCode){
                 $.ajax({
                     type:'POST',
                     data: $("#loginForm").serialize(),
@@ -185,6 +286,9 @@
                     }
                     $(form).find(":submit").attr("disabled", false);
                 });
+                }else{
+                    $('#codeError').text("验证码错误").show();
+                }
             }
         });
     });
