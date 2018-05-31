@@ -11,20 +11,20 @@
 package com.four.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.four.model.User;
-import com.four.model.Zhiwei;
-import com.four.model.ZhiweiGreat;
-import com.four.model.ZhiweiLittle;
+import com.four.model.*;
 import com.four.service.SolrService;
 import com.four.service.ZhiweiService;
 import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,6 +95,73 @@ public class ZhiweiController {
         return greatlist;
     }
 
+    /**
+     * 公司发布的职位显示
+     * @param request
+     * @return
+     */
+ @RequestMapping("selectJianLIlist")
+    @ResponseBody
+    public List<Zhiwei> selectJianLIlist(HttpServletRequest request){
+     JSONObject obj= new JSONObject();
+
+     LoginUser laGouUsers = (LoginUser) request.getSession().getAttribute("laGouComSession");
+     List<Zhiwei> zhiwei= zhiweiService.selectJianLIlist(Integer.valueOf(laGouUsers.getComid()));
+     obj.put("zhiwei", zhiwei.get(0)  );
+        return zhiwei;
+    }
+
+    /**
+     * 删除简历显示
+     * @param zhiweiid
+     * @param xiaoid
+     * @param daid
+     * @return
+     */
+   @RequestMapping("deleteJianLIById")
+   @ResponseBody
+   public  String deleteJianLIById(Integer zhiweiid,Integer xiaoid,Integer daid){
+        zhiweiService.deleteJianLIById(zhiweiid,xiaoid,daid);
+
+        return "成功";
+  }
+
+    /**简历页面
+     * 修改回显
+     * @return
+     */
+    @RequestMapping("updatajianli")
+    private String updatajianli(Integer zhiweiid, Integer xiaoid, Integer daid, HttpServletRequest request){
+
+//        ModelAndView mv = new ModelAndView();
+        Zhiwei zhiwei= zhiweiService.updatajianlihuixian(zhiweiid,xiaoid,daid);
+        request.getSession().setAttribute("zhiwei",zhiwei);
+        System.out.println(zhiwei);
+//        mv.addObject(zhiwei);
+//        mv.setViewName("UpdataZhiWei");
+       return  "UpdataZhiWei";
+  }
+
+//    // 修改回显
+//    @RequestMapping("/queryUserById")
+//    public String queryUserById(String id, HttpServletRequest request) {
+//        try {
+//
+//            User user = userService.queryUserById(id);
+//
+//            request.setAttribute("user", user);
+//
+//        } catch (Exception e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//        return "updateUser";
+//    }
+//
+
+
+
     @RequestMapping("querylittletree")
     @ResponseBody
     public  List<ZhiweiLittle> querylittletree( ){
@@ -131,7 +198,6 @@ public class ZhiweiController {
 
         //因此处表设计错误,无法新增索引,遂手动更新
 //        solrService.addsolr();
-
     }
 
     @RequestMapping("quaryTouDilist")

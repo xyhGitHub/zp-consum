@@ -1,9 +1,6 @@
 package com.four.service;
 
-import com.four.model.User;
-import com.four.model.Zhiwei;
-import com.four.model.ZhiweiGreat;
-import com.four.model.ZhiweiLittle;
+import com.four.model.*;
 
 import java.util.List;
 
@@ -24,4 +21,17 @@ public interface ZhiweiService {
     List<Zhiwei> queryzhiweishowlist();
 
     List<User> quaryTouDilist(Integer comid);
+
+    List<Zhiwei> selectJianLIlist(Integer comid);
+
+    void deleteJianLIById(Integer zhiweiid,Integer xiaoid,Integer daid);
+
+    /**
+     * 简历回显
+     * @param zhiweiid
+     * @param xiaoid
+     * @param daid
+     * @return
+     */
+    Zhiwei updatajianlihuixian(Integer zhiweiid, Integer xiaoid, Integer daid);
 }

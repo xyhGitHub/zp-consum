@@ -20,12 +20,13 @@
 <script src="style/js/additional-methods.js" type="text/javascript"></script>
 <body onload="checkLogin()">
 <script type="text/javascript">
-    var youdao_conv_id = 271546;
+    var youdao_conv_id = ${laGouComSession.comid};
 </script>
 <script src="style/js/conv.js" type="text/javascript"></script>
 <script src="style/js/ajaxCross.json" charset="UTF-8"></script>
 <div id="body">
     <input type="hidden" value="${laGouComSession.loginName}" id="ifLoginGs">
+    <input type="hidden" value="${laGouComSession.comid}" id="companyids">
     <div id="header">
         <div class="wrapper">
             <a class="logo" href="#">
@@ -36,7 +37,7 @@
                 <li class="current"><a href="companylist.jsp">公司</a></li>
                 <li><a target="_blank" href="">论坛</a></li>
                 <li>
-                    <a rel="nofollow" href="">简历管理</a>
+                    <a rel="nofollow" href="JianLiShow.jsp">简历管理</a>
                 </li>
                 <li><a rel="nofollow" href="creatzhiwei.jsp">发布职位</a></li>
             </ul>
@@ -62,29 +63,28 @@
                     <div style="background-color:#fff;" class="c_logo" id="editshow">
 
                         <a title="上传公司LOGO" id="logoShow" class="inline cboxElement" href="#logoUploader">
-                            <img width="190" height="190" alt="公司logo" src="${com.list.comphoto}">
+                            <img width="190" height="190" alt="公司logo" src="${gongSi.comphoto}">
 
                         </a>
                     </div>
                     <div class="c_box companyName">
-                        <h2 title="${com.list.comname}">${com.list.comname}</h2>
+                        <h2 title="${gongSi.comname}">${gongSi.comname}</h2>
 
                         <em class="unvalid"></em>
-                        <span class="va dn" id="shenhe" ></span>
+                        <a target="_blank" class="applyC" id="shenheid" href="renzheng.jsp">${gongSi.comshenhename}</a>
 
-                        <a target="_blank" class="applyC" href="renzheng.jsp">${com.list.comshenhe}</a>
-
-                        <div class="clear">${com.list.comshenhe}</div>
 
                         <form class="clear editDetail dn"  href="<%=request.getContextPath()%>/gongsiController/editgongshiname.do" id="editDetailForm">
-                            <input  type="text" placeholder="请输入公司简称" maxlength="15" value="${com.list.comshenhe}" name="comname" id="companyShortName">
-                        <br/>公司规模 <input type="text" placeholder="一句话描述公司优势，核心价值，限50字" maxlength="50" value="${com.list.comguimo}" name="comguimo" id="companyFeatures">
-                            <input type="hidden" value="${com.list.comid}"  name="comid">
+                            <input  type="text" placeholder="请输入公司简称" maxlength="15" value="${gongSi.comshenhename}" name="comname" id="companyShortName">
+                        <br/>公司规模 <input type="text" placeholder="一句话描述公司优势，核心价值，限50字" maxlength="50" value="${gongSi.comguimo}" name="comguimo" id="companyFeatures">
+                            <input type="hidden" value="${gongSi.comid}"  name="comid">
                             <input type="submit" value="保存" id="saveDetail" class="btn_small">
                             <a id="cancelDetail" class="btn_cancel_s" >取消</a>
                         </form>
 
-                        <div class="clear oneword"><img width="17" height="15" src="style/images/quote_l.png">&nbsp; <span>测试的发打发打发大范德萨发</span> &nbsp;<img width="17" height="15" src="style/images/quote_r.png"></div>
+                        <div class="clear oneword"><img width="17" height="15" src="style/images/quote_l.png">&nbsp; <span>${gongSi.comjieshao}</span> &nbsp;<img width="17" height="15" src="style/images/quote_r.png"></div>
+
+
                         <h3 class="dn">已选择标签</h3>
                         <ul style="overflow:auto" id="hasLabels" class="reset clearfix">
                             <li><span>年终分红</span></li>
@@ -95,7 +95,7 @@
                         </ul>
                         <div class="dn" id="addLabels">
                             <a id="changeLabels" class="change" href="javascript:void(0)">换一换</a>
-                            <input type="hidden" value="${laGouComSession.comid}" id="labelPageNo">
+                            <input type="hidden" value="1" id="labelPageNo">
                             <input type="submit" value="贴上" class="fr" id="add_label">
                             <input type="text" placeholder="添加自定义标签" name="label" id="label" class="label_form fr">
                             <div class="clear"></div>
@@ -103,7 +103,9 @@
                             <a id="saveLabels" class="btn_small" href="javascript:void(0)">保存</a>
                             <a id="cancelLabels" class="btn_cancel_s" href="javascript:void(0)">取消</a>
                         </div>
+
                     </div>
+
                     <a title="编辑基本信息" class="c_edit" id="editCompanyDetail" href="javascript:void(0);"></a>
                     <div class="clear"></div>
                 </div>
@@ -147,7 +149,7 @@
                             <h2><em></em>公司介绍</h2>
                             </dt>
                             <dd>
-                                <div class="c_intro">                                                                           ${com.list.comjieshao}
+                                <div class="c_intro">                                                                           ${gongSi.comjieshao}
                                 </div>
                                 <a title="编辑公司介绍" id="editIntro" class="c_edit" href="javascript:void(0)"></a>
                             </dd>
@@ -180,15 +182,15 @@
             <div class="content_r">
                 <div id="Tags">
                     <div id="c_tags_show" class="c_tags solveWrap">
-                        <table>
+                        <table >
                             <tbody><tr>
                                 <td width="45">地点</td>
-                                <td>  ${com.list.comaddress}</td>
+                                <td>  ${gongSi.comaddress}</td>
                             </tr>
 
                             <tr>
                                 <td>规模</td>
-                                <td>  ${com.list.comguimo}</td>
+                                <td>${gongSi.comguimo}</td>
                             </tr>
 
                             </tbody></table>
@@ -200,15 +202,15 @@
                                 <tbody><tr>
                                     <td>地点</td>
                                     <td>
-                                        <input type="text" placeholder="请输入地点" value="${com.list.comaddress}" name="comaddress" id="city">
+                                        <input type="text" placeholder="请输入地点" value="${gongSi.comaddress}" name="comaddress" id="city">
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>规模</td>
                                     <td>
-                                        <input type="hidden" value=" ${com.list.comguimo}" id="companySize" name="comguimo">
-                                        <input type="button" value="150-500人" id="select_sca" class="select_tags">
+                                        <input type="hidden" value=" ${gongSi.comguimo}" id="companySize" name="comguimo">
+                                        <input type="button" value=" ${gongSi.comguimo}" id="select_sca" class="select_tags">
                                         <div class="selectBox dn" id="box_sca" style="display: none;">
                                             <ul class="reset">
                                                 <li>少于15人</li>
@@ -267,15 +269,15 @@
                                                 大小：小于5M
                                             </em>
                                         </div>
-                                        <input type="text" placeholder="请输入创始人姓名" value="孙泰英" name="name">
-                                        <input type="text" placeholder="请输入创始人当前职位" value="ceo" name="position">
+                                        <input type="text" placeholder="请输入创始人姓名" value="${boss.renname}" name="name">
+                                        <input type="text" placeholder="请输入创始人当前职位" value="${boss.renzhiwei}" name="position">
                                         <input type="text" placeholder="请输入创始人新浪微博地址" value="http://weimob.weibo.com" name="weibo">
                                         <textarea placeholder="请输入创始人个人简介" maxlength="500" class="s_textarea" name="remark">写一个个人的查询，放到session，显示简介</textarea>
                                         <div class="word_count fr">你还可以输入 <span>500</span> 字</div>
                                         <div class="clear"></div>
                                         <input type="submit" value="保存" class="btn_small">
                                         <a class="btn_cancel_s member_delete" href="javascript:void(0)">删除</a>
-                                        <input type="hidden" value=" ${com.list.comid}" class="leader_id">
+                                        <input type="hidden" value=" ${gongSi.comid}" class="leader_id">
                                     </form>
                                 </div>
 
@@ -284,7 +286,7 @@
                                     <a title="编辑创始人" class="c_edit member_edit" href="javascript:void(0)"></a>
                                     <div class="m_portrait">
                                         <div></div>
-                                        <img width="120" height="120" alt=" ${com.list.comguimo}" src="style/images/leader_default.png">
+                                        <img width="120" height="120" alt=" ${gongSi.comguimo}" src="style/images/leader_default.png">
                                     </div>
                                     <div class="m_name">
                                         孙泰英
@@ -363,22 +365,22 @@
             <div style="width:650px;height:470px;" class="popup" id="logoUploader">
 
 
-                公司头像：<img width="190" height="190" alt="公司logo" src="${com.list.comphoto}">
+                公司头像：<img width="190" height="190" alt="公司logo" src="${gongSi.comphoto}">
 
                 <input type="file" id="file" name="image">
-                <input type="hidden" id="comid" value="${com.list.comid}" name="id">
+                <input type="hidden" id="comid" value="${gongSi.comid}" name="id">
 
                 <div id="show"></div>
 
             </div><!-- #logoUploader -->
         </div>
         <!------------------------------------- end ----------------------------------------->
-        <script type="text/javascript" src="<%=request.getContextPath()%>/jquery/uploadify/jquery.uploadify.min.js"></script>
-        <link  rel="stylesheet"  href="<%=request.getContextPath()%>/jquery/uploadify/uploadify.css"/>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/uploadify/jquery.uploadify.min.js"></script>
+        <link  rel="stylesheet"  href="<%=request.getContextPath()%>/uploadify/uploadify.css"/>
         <script type="text/javascript">
             $("#file").uploadify({
                 //插件自带  不可忽略的参数
-                'swf': '${pageContext.request.contextPath}/jquery/uploadify/uploadify.swf',
+                'swf': '${pageContext.request.contextPath}/uploadify/uploadify.swf',
                 //前台请求后台上传文件的url  不可忽略的参数
                 'uploader': '${pageContext.request.contextPath}/uploadController/uploadFile.do',
                 //给div的进度条加背景  参数为<div>id属性值  不可忽略
@@ -470,19 +472,39 @@
 
 <script type="text/javascript">
 
+    $(function () {
+        $.ajax({
+            url:"<%=request.getContextPath()%>/gongsiController/gongsilist.do",
+            type:"post",
+            dataType:"json",
+            async:true,
+            success:function(data){
+             alert("成了")
+
+            },
+            error:function () {
+                alert("公司查询错误")
+
+            }
+        });
+    })
+
     $.ajax({
-        url:"<%=request.getContextPath()%>/gongsiController/gongsilist.do",
+        url:"<%=request.getContextPath()%>/gongsiController/selectBossById.do",
         type:"post",
         dataType:"json",
         async:true,
         success:function(data){
+            alert("en ")
 
         },
         error:function () {
-            alert("错误")
+            alert("老板查询错误")
 
         }
     })
+
+
 
     /* 加载小类的所有商品 */
     $.ajax({
@@ -519,5 +541,5 @@
 
 </script>
 
-
+<div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div>
 </body></html>
