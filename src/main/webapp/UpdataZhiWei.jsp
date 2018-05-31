@@ -387,7 +387,6 @@
                             //图片加载完毕重绘infowindow
                             marker.openInfoWindow(infoWindow);
                         }
-
                         $('#lat').val(em.point.lat);
                         $('#lng').val(em.point.lng);
                     });
