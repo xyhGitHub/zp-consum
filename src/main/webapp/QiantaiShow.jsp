@@ -207,10 +207,6 @@
             <ul class="da-thumbs">
 
             </ul>
-            <ul class="da-thumbs">
-
-            </ul>
-           
             <ul class="reset hotabbing">
                 <li class="current">全部职位</li>
             </ul>
@@ -219,6 +215,7 @@
                     <a href="list.html?city=%E5%85%A8%E5%9B%BD" class="btn fr" target="_blank">查看更多</a>
                 </ul>
             </div>
+            <%--<center><input type='button' value='首页' onclick='homePage()'><input type='button' value='上一页' onclick='perPage(${result.pageNow})'><input type='button' value='下一页' onclick='nextPage(${result.pageNow})'><input type='button' value='尾页' onclick='lastPage(${result.pageCount})'></center>--%>
 
 
             <script type="text/javascript">
@@ -415,11 +412,15 @@
 <script type="text/javascript" src="style/js/popup.min.js"></script>
 <script>
 
-    $("#search_button").click(function(){
-        var searchName = $("#search_input").val();
-        var pageNows = $("#pageIndexId").val();
+    $("#search_button").click(function () {
+        search_button();
+    })
+
+    function search_button(){
+         searchName = $("#search_input").val();
+         pageNows = $("#pageIndexId").val();
         if(searchName !=""){
-            $.ajax({
+                $.ajax({
                 url:"<%=request.getContextPath()%>/solr/getsolrList.do",
                 data:{"searchName":searchName,"pageNow":pageNows},
                 type:"post",
@@ -436,7 +437,7 @@
                         for (var i=0 ;i<data.length;i++){
                             str+="<li class='clearfix'><div class='hot_pos_l'><div class='mb10'>职位:<b><a href='#' target='_blank'>"+data[i].zhiweiname+"</a></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 工作地点:<span class='c9'><b>"+data[i].city+"</b></span><br/><span><em class='c7'> 薪资情况:</em>"+data[i].xinzi+"</span>&nbsp;&nbsp;&nbsp;<span><em class='c7'>工作经验:</em>"+data[i].jingyan+"</span><span><em class='c7'><br/>最低学历： </em>"+data[i].xueli+"</span>&nbsp;&nbsp;&nbsp;<span><em class='c7'>公司名：</em>"+data[i].comname+"</span><br/>    <span><em class='c7'>性质:</em>"+data[i].xingzhi+"</span><div class='mb10 recompany'><div  class='jianli_apply'><a  href='javascript:void(0)' onclick='shenqing("+data[i].id+")'>立即申请</a></div></div>  </div> <span>----------------------------------------------------</span></li>";
                         }
-                        str +="<center><input type='button' value='首页' onclick='homePage()'><input type='button' value='上一页' onclick='perPage(${result.pageNow})'><input type='button' value='下一页' onclick='nextPage(${result.pageNow})'><input type='button' value='尾页' onclick='lastPage(${result.pageCount})'></center>";
+                        str +="<center><input type='button' value='首页' onclick='homePage()'><input type='button' value='上一页' onclick='perPage("+result.pageNow+")'><input type='button' value='下一页' onclick='nextPage("+result.pageNow+")'><input type='button' value='尾页' onclick='lastPage("+result.pageCount+")'></center>";
                         $("#hotList").html(str);
                     }
                 },
@@ -448,7 +449,7 @@
         }else{
             location.reload();
         }
-    })
+    }
 
     $("#zhuxiao").click(function(){
         $.ajax({
@@ -461,28 +462,29 @@
 
             }
     })
-
-        //首页
-        function homePage(){
-            $("#pageIndexId").val(1);
-            $("#form_id").submit();
-        }
-        //上一页
-        function perPage(pageIndex){
-            $("#pageIndexId").val(pageIndex-1);
-            $("#form_id").submit();
-        }
-        //下一页
-        function nextPage(pageIndex){
-            $("#pageIndexId").val(pageIndex+1);
-            $("#form_id").submit();
-        }
-        //末页
-        function lastPage(pageTotal){
-            $("#pageIndexId").val(pageTotal);
-            $("#form_id").submit();
-        }
     })
+
+
+    //首页
+    function homePage(){
+        $("#pageIndexId").val(1);
+        search_button();
+    }
+    //上一页
+    function perPage(pageIndex){
+        $("#pageIndexId").val(pageIndex-1);
+        search_button();
+    }
+    //下一页
+    function nextPage(pageIndex){
+        $("#pageIndexId").val(pageIndex+1);
+        search_button();
+    }
+    //末页
+    function lastPage(pageTotal){
+        $("#pageIndexId").val(pageTotal);
+        search_button();
+    }
 </script>
 
 <!-- <script src="style/js/wb.js" type="text/javascript" charset="utf-8"></script>

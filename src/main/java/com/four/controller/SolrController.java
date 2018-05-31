@@ -15,8 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 /**
  * <pre>项目名称：ssmsolrdemo
  * 类名称：SolrController
@@ -37,7 +35,7 @@ public class SolrController {
 
 	@RequestMapping("getsolrList")
 	@ResponseBody
-	public List<Zhiwei> getSolrList(String searchName,Integer pageNow,PageModel pageModel) throws Exception {
+	public PageModel<Zhiwei> getSolrList(String searchName,Integer pageNow,PageModel pageModel) throws Exception {
 
 		Zhiwei zhiweiLittle = new Zhiwei();
 		if(pageNow ==null) {
@@ -47,9 +45,9 @@ public class SolrController {
 
 		PageModel<Zhiwei> solrlist=	solrService.getSolrList(pageModel,zhiweiLittle);
 
-		List<Zhiwei> pageList = solrlist.getPageList();
+//		List<Zhiwei> pageList = solrlist.getPageList();
 
-		return  pageList;
+		return  solrlist;
 
 	}
 
