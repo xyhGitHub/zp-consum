@@ -17,7 +17,7 @@
 
 			<nav class="navbar navbar-default" align="center" style="background:pink;height:100px;">
                 <div class="container-fluid"  align="center">
-                         <h1 style="color:#FAFAD2"><center><b>欢迎登录勾手管理系统 <b></center></h1>
+                         <h1 style="color:#FAFAD2"><center><b>欢迎登录勾手管理系统 </b></center></h1>
                 </div>
 			</nav>
 	<%--<div class="container">
