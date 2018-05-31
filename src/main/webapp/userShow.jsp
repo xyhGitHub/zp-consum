@@ -388,7 +388,6 @@
 						data:$("#update_form").serialize(),
 						type:"post",
 						success:function(){
-// 							alert("修改成功")
 							$("#dialog_xg").dialog("close");
 							$("#ta").datagrid("reload");
 // 							$("#ta").datagrid("reload");

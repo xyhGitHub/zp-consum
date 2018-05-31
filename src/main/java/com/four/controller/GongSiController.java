@@ -13,6 +13,7 @@ package com.four.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.four.model.GongSi;
 import com.four.model.GongSiBoos;
+import com.four.model.LoginUser;
 import com.four.service.GongsiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,17 +43,32 @@ public class GongSiController {
 
         @RequestMapping("gongsilist")
         @ResponseBody
-        public JSONObject selectgongshilist(HttpServletRequest request){
-            JSONObject boj= new JSONObject();
-            List<GongSi>  list = gongsiService.selectgongsi();
-            for (int i=0;i<list.size();i++){
+        public GongSi selectgongshilist(HttpServletRequest request){
 
-            }
-            boj.put("list", list.get(0)  );
-            request.getSession().setAttribute("com",boj);
-          //  request.setAttribute("com",boj);
-            return boj;
+            LoginUser laGouUsers = (LoginUser) request.getSession().getAttribute("laGouComSession");
+            GongSi gongSi = gongsiService.selectgongsi(Integer.valueOf(laGouUsers.getComid()));
+         if (gongSi.getComshenhe() ==1 )  {
+             gongSi.setComshenhename("没通过审核");
+
+         }else {
+             gongSi.setComshenhename("通过审核");
+         }
+           request.getSession().setAttribute("gongSi",gongSi);
+
+
+            return gongSi;
         }
+
+//    @RequestMapping("selectBossById")
+//    @ResponseBody
+//    public GongSiBoos selectBossById(HttpServletRequest request){
+////
+////        LoginUser laGouUsers = (LoginUser) request.getSession().getAttribute("laGouComSession");
+////        GongSiBoos gongSiBoos  = gongsiService.selectBossById(Integer.valueOf(laGouUsers.getComid()));
+////        request.getSession().setAttribute("boss",gongSiBoos);
+////
+//        return gongSiBoos;
+//    }
 
     @RequestMapping("gongsilistu")
     @ResponseBody
@@ -71,7 +87,6 @@ public class GongSiController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         return map;
     }
 
@@ -139,6 +154,19 @@ public class GongSiController {
 
         return list;
     }
+
+
+    @RequestMapping("savebiaoqian")
+    @ResponseBody
+    public  String   savebiaoqian(GongSi gongSi){
+
+        gongsiService.savebiaoqian(gongSi);
+
+
+        return  "myhome";
+    }
+
+
 
 
 }

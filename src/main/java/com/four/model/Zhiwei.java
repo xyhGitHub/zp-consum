@@ -25,6 +25,8 @@ public class Zhiwei  implements Serializable{
     private static final long serialVersionUID = 3249773949331623106L;
     private  Integer id;
     private  Integer comid;
+    private  Integer daid;
+    private  Integer xiaoid;
     private  String zhiweiname;    //职位名字
     private  Integer zhiweigreatid;
     private  String xingzhi;
@@ -34,24 +36,41 @@ public class Zhiwei  implements Serializable{
     private  String xueli;
     private  String youhuo;
     private  String name;
-    private String comname;
+    private String  comname;
+    private String  daname;
+    private  String xiaoname;
 
-    @Override
-    public String toString() {
-        return "Zhiwei{" +
-                "id=" + id +
-                ", comid=" + comid +
-                ", zhiweiname='" + zhiweiname + '\'' +
-                ", zhiweigreatid=" + zhiweigreatid +
-                ", xingzhi='" + xingzhi + '\'' +
-                ", xinzi='" + xinzi + '\'' +
-                ", city='" + city + '\'' +
-                ", jingyan='" + jingyan + '\'' +
-                ", xueli='" + xueli + '\'' +
-                ", youhuo='" + youhuo + '\'' +
-                ", name='" + name + '\'' +
-                ", comname='" + comname + '\'' +
-                '}';
+    public String getDaname() {
+
+        return daname;
+    }
+
+    public void setDaname(String daname) {
+        this.daname = daname;
+    }
+
+    public String getXiaoname() {
+        return xiaoname;
+    }
+
+    public void setXiaoname(String xiaoname) {
+        this.xiaoname = xiaoname;
+    }
+
+    public Integer getDaid() {
+        return daid;
+    }
+
+    public void setDaid(Integer daid) {
+        this.daid = daid;
+    }
+
+    public Integer getXiaoid() {
+        return xiaoid;
+    }
+
+    public void setXiaoid(Integer xiaoid) {
+        this.xiaoid = xiaoid;
     }
 
     public Integer getId() {
@@ -148,5 +167,27 @@ public class Zhiwei  implements Serializable{
 
     public void setComname(String comname) {
         this.comname = comname;
+    }
+
+    @Override
+    public String toString() {
+        return "Zhiwei{" +
+                "id=" + id +
+                ", comid=" + comid +
+                ", daid=" + daid +
+                ", xiaoid=" + xiaoid +
+                ", zhiweiname='" + zhiweiname + '\'' +
+                ", zhiweigreatid=" + zhiweigreatid +
+                ", xingzhi='" + xingzhi + '\'' +
+                ", xinzi='" + xinzi + '\'' +
+                ", city='" + city + '\'' +
+                ", jingyan='" + jingyan + '\'' +
+                ", xueli='" + xueli + '\'' +
+                ", youhuo='" + youhuo + '\'' +
+                ", name='" + name + '\'' +
+                ", comname='" + comname + '\'' +
+                ", daname='" + daname + '\'' +
+                ", xiaoname='" + xiaoname + '\'' +
+                '}';
     }
 }
