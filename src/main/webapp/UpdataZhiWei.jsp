@@ -79,13 +79,7 @@
 
                     <form   id="jobForm1" >
                         <table class="btm">
-                            <tbody><tr>
-                                <td width="25"><span class="redstar">*</span></td>
-                                <td width="85">职位类别</td>
-                                <td>
-                                    <input type="text" id="zhiweigreatid" value="${zhiwei.daname}" name="zhiweigreatid">
-                                </td>
-                            </tr>
+                            <tbody>
                             <tr>
                                 <td><span class="redstar">*</span></td>
                                 <td>职位名称</td>
@@ -143,7 +137,7 @@
                                 <td width="85">工作经验</td>
                                 <td>
                                     <input type="hidden" id="experience" value="${zhiwei.jingyan}" name="jingyan">
-                                    <input type="button" value="${zhiwei.jingyan}" id="select_experience" class="selectr selectr_380">
+                                    <input type="button" value="${zhiwei.jingyan}" name="jingyan" id="select_experience" class="selectr selectr_380">
                                     <div class="boxUpDown boxUpDown_380 dn" id="box_experience" style="display: none;">
                                         <ul>
                                             <li>
@@ -175,8 +169,7 @@
                                 <td><span class="redstar">*</span></td>
                                 <td>学历要求</td>
                                 <td>
-                                    <input type="hidden" id="education" value="${zhiwei.xueli}" name="xueli">
-                                    <input type="button" value="${zhiwei.xueli}" id="select_education" class="selectr selectr_380">
+                                    <input type="button" value="${zhiwei.xueli}" name="xueli"   id="select_education" class="selectr selectr_380">
                                     <div class="boxUpDown boxUpDown_380 dn" id="box_education" style="display: none;">
                                         <ul>
                                             <li>
@@ -214,7 +207,7 @@
                                 <td><span class="redstar">*</span></td>
                                 <td>工作地址</td>
                                 <td>
-                                    <input type="text" placeholder="请输入详细的工作地址" value="${zhiwei.city}" name="positionAddress" class="input_520" id="positionAddress">
+                                    <input type="text" placeholder="请输入详细的工作地址" value="${zhiwei.city}" name="city" class="input_520" id="positionAddress">
                                     <input type="hidden" value="" name="positionLng" id="lng">
                                     <input type="hidden" value="" name="positionLat" id="lat">
                                     <div class="work_place f14">我们将在职位详情页以地图方式精准呈现给用户  <a id="mapPreview" href="javascript:;">预览地图</a></div>
