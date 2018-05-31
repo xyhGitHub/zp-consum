@@ -32,7 +32,6 @@
 	<dubbo:reference id="loginService" interface="com.four.service.ILoginService"  check="false"  timeout="60000"/>
 	<dubbo:reference id="treeService" interface="com.four.service.IServiceTree"  check="false"  timeout="60000"/>
 	<dubbo:reference id="roleService" interface="com.four.service.RoleService"  check="false"  timeout="60000"/>
-	<dubbo:reference id="companyService" interface="com.four.service.CompanyService"  check="false"  timeout="60000"/>
 	<dubbo:reference id="noticeService" interface="com.four.service.INoticeService"  check="false"  timeout="60000"/>
 	<dubbo:reference id="jianLiService" interface="com.four.service.JianLiService"  check="false"  timeout="60000"/>
 	<dubbo:reference id="bosssService" interface="com.four.service.BosssService"   check="false" timeout="60000"/>
@@ -50,7 +49,6 @@
 	<dubbo:reference id="loginService" interface="com.four.service.ILoginService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
 	<dubbo:reference id="treeService" interface="com.four.service.IServiceTree"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
 	<dubbo:reference id="roleService" interface="com.four.service.RoleService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
-	<dubbo:reference id="companyService" interface="com.four.service.CompanyService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
 	<dubbo:reference id="noticeService" interface="com.four.service.INoticeService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
 	<dubbo:reference id="jianLiService" interface="com.four.service.JianLiService"  check="false"  timeout="60000" url="127.0.0.1:20880"/>
 	<dubbo:reference id="bosssService" interface="com.four.service.BosssService"   check="false" timeout="60000" url="127.0.0.1:20880"/>
