@@ -35,7 +35,6 @@
             <ul id="navheader" class="reset">
                 <%--<li><a href="#">首页</a></li>--%>
                 <li class="current"><a href="companylist.jsp">公司</a></li>
-                <li><a target="_blank" href="">论坛</a></li>
                 <li>
                     <a rel="nofollow" href="JianLiShow.jsp">简历管理</a>
                 </li>
@@ -479,8 +478,6 @@
             dataType:"json",
             async:true,
             success:function(data){
-             alert("成了")
-
             },
             error:function () {
                 alert("公司查询错误")
@@ -495,8 +492,6 @@
         dataType:"json",
         async:true,
         success:function(data){
-            alert("en ")
-
         },
         error:function () {
             alert("老板查询错误")

@@ -37,10 +37,8 @@
                 <img width="229" height="43" alt="拉勾招聘-专注互联网招聘" src="style/images/logo.png">
             </a>
             <ul id="navheader" class="reset">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="companylist.html">公司</a></li>
-                <li><a target="_blank" href="http://www.lagou.com/toForum.html">论坛</a></li>
-                <li><a rel="nofollow" href="jianli.html">我的简历</a></li>
+                <li><a href="myhome.jsp">首页</a></li>
+                <li><a rel="nofollow" href="#">我的简历</a></li>
             </ul>
             <dl class="collapsible_menu">
                 <dt>
@@ -54,7 +52,7 @@
                 <dd class="btm"><a href="subscribe.html">我的订阅</a></dd>
                 <dd><a href="create.html">我要招人</a></dd>
                 <dd><a href="accountBind.html">帐号设置</a></dd>
-                <dd class="logout"><a rel="nofollow" href="login.html">退出</a></dd>
+                <dd class="logout"><a rel="nofollow" onclick="tuichu()">退出</a></dd>
             </dl>
             <div id="noticeTip">
                 <span class="bot"></span>
@@ -155,13 +153,21 @@
      * @param xiaoid
      */
 function bianji(zhiweiid,daid,xiaoid) {
+
+   window.location.href = "creatzhiwei.jsp?zhiweiid='id'";
     $.ajax({
         url:"<%=request.getContextPath()%>/zhiweiController/updatajianli.do?xiaoid="+xiaoid,
         type:"post",
-        data:{"zhiweiid":zhiweiid,"daid":daid},
-        success:function () {
-            window.open("UpdataZhiWei.jsp");
-        }
+        data:{"zhiweiid":id,"daid":daid},
+        datatype:"json",
+        async:"true",
+        success: function () {
+
+            alert("编辑成功")
+        },
+        error :function () {
+            alert("编辑错误")
+        },
 
     })
 }
@@ -188,6 +194,20 @@ function bianji(zhiweiid,daid,xiaoid) {
 
     })
 }
+
+    //注销
+    function tuichu() {
+        $.ajax({
+            url:"<%=request.getContextPath()%>/loginController/zhuXiaoGs.do",
+            type:"post",
+            success:function(data){
+                location.href="GsLaGouLogin.jsp";
+            },
+            error:function () {
+                alert("请重新注销")
+            }
+        })
+    }
 </script>
 
 <div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div></div></body></html>

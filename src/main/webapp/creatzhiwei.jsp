@@ -34,23 +34,22 @@
                 <img width="229" height="43" alt="拉勾招聘-专注互联网招聘" src="style/images/logo.png">
             </a>
             <ul id="navheader" class="reset">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="companylist.html">公司</a></li>
+                <li><a href="myhome.jsp">首页</a></li>
                 <li>
-                    <a rel="nofollow" href="">简历管理</a>
+                    <a rel="nofollow" href="JianLiShow.jsp">简历管理</a>
                 </li>
-                <li class="current"><a rel="nofollow" href="create.html">发布职位</a></li>
+                <li class="current"><a rel="nofollow" href="creatzhiwei.jsp">发布职位</a></li>
             </ul>
             <dl class="collapsible_menu">
                 <dt>
+                    <span>${laGouComSession.loginName}&nbsp;</span>
+                    <span class="red dn" id="noticeDot-1"></span>
                     <i></i>
                 </dt>
-                <dd style="display: none;"><a href="positions.html">我发布的职位</a></dd>
-                <dd style="display: none;"><a href="positions.html">我收到的简历</a></dd>
-                <dd class="btm" style="display: none;"><a href="myhome.html">我的公司主页</a></dd>
-                <dd style="display: none;"><a href="jianli.html">我要找工作</a></dd>
+                <dd style="display: none;"><a href="JianLiShow.jsp">我收到的简历</a></dd>
+                <dd class="btm" style="display: none;"><a href="myhome.jsp">我的公司主页</a></dd>
                 <dd style="display: none;"><a href="accountBind.html">帐号设置</a></dd>
-                <dd class="logout" style="display: none;"><a rel="nofollow" href="login.html">退出</a></dd>
+                <dd class="logout"><a rel="nofollow" onclick="tuichu()">退出</a></dd>
             </dl>
         </div>
     </div><!-- end #header -->
@@ -544,6 +543,20 @@
             })
         })
 
+
+        //注销
+        function tuichu() {
+            $.ajax({
+                url:"<%=request.getContextPath()%>/loginController/zhuXiaoGs.do",
+                type:"post",
+                success:function(data){
+                    location.href="GsLaGouLogin.jsp";
+                },
+                error:function () {
+                    alert("请重新注销")
+                }
+            })
+        }
 </script>
 
 <script src="style/js/core.min.js" type="text/javascript"></script>
