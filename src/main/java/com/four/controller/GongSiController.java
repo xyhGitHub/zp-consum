@@ -10,7 +10,6 @@
  */
 package com.four.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.four.model.GongSi;
 import com.four.model.GongSiBoos;
 import com.four.model.LoginUser;
@@ -59,16 +58,16 @@ public class GongSiController {
             return gongSi;
         }
 
-//    @RequestMapping("selectBossById")
-//    @ResponseBody
-//    public GongSiBoos selectBossById(HttpServletRequest request){
-////
-////        LoginUser laGouUsers = (LoginUser) request.getSession().getAttribute("laGouComSession");
-////        GongSiBoos gongSiBoos  = gongsiService.selectBossById(Integer.valueOf(laGouUsers.getComid()));
-////        request.getSession().setAttribute("boss",gongSiBoos);
-////
-//        return gongSiBoos;
-//    }
+    @RequestMapping("selectBossById")
+    @ResponseBody
+    public GongSiBoos selectBossById(HttpServletRequest request){
+
+        LoginUser laGouUsers = (LoginUser) request.getSession().getAttribute("laGouComSession");
+        GongSiBoos gongSiBoos  = gongsiService.selectBossById(Integer.valueOf(laGouUsers.getComid()));
+        request.getSession().setAttribute("boss",gongSiBoos);
+
+        return gongSiBoos;
+    }
 
     @RequestMapping("gongsilistu")
     @ResponseBody
@@ -87,6 +86,7 @@ public class GongSiController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
         return map;
     }
 
