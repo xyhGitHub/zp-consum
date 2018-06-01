@@ -21,7 +21,7 @@
 
     <!-- <div class="web_root"  style="display:none">h</div> -->
 
-    <link rel="Shortcut Icon" href="h/images/favicon.ico">
+    <link href="http://www.lagou.com/images/favicon.ico" rel="Shortcut Icon">
     <link rel="stylesheet" type="text/css" href="style/css/style.css"/>
 
     <script src="style/js/jquery.1.10.1.min.js" type="text/javascript"></script>

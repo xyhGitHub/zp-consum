@@ -219,79 +219,129 @@
                     required: "请接受拉勾用户协议"
                 }
             },
-            errorPlacement:function(label, element){/*
-             if(element.attr("type") == "radio"){
-             label.insertAfter($(element).parents('ul')).css('marginTop','-20px');
-             }else if(element.attr("type") == "checkbox"){
-             label.inserresult.contenttAfter($(element).parent()).css('clear','left');
-             }else{
-             label.insertAfter(element);
-             } */
-                /*modify nancy*/
-                if(element.attr("userType") == "radio"){
-                    label.insertAfter($(element).parents('ul')).css('marginTop','-20px');
-                }else if(element.attr("userType") == "checkbox"){
-                    label.insertAfter($(element).parent()).css('clear','left');
-                }else{
-                    label.insertAfter(element);
-                };
-            },
-            submitHandler:function(form){
-                var userType =$('input[userType="radio"]:checked',form).val();
-                var loginName =$('#loginName').val();
-                var loginPwd =$('#loginPwd').val();
-                var resubmitToken = $('#resubmitToken').val();
+            <%--errorPlacement:function(label, element){/*--%>
+             <%--if(element.attr("type") == "radio"){--%>
+             <%--label.insertAfter($(element).parents('ul')).css('marginTop','-20px');--%>
+             <%--}else if(element.attr("type") == "checkbox"){--%>
+             <%--label.inserresult.contenttAfter($(element).parent()).css('clear','left');--%>
+             <%--}else{--%>
+             <%--label.insertAfter(element);--%>
+             <%--} */--%>
+                <%--/*modify nancy*/--%>
+                <%--if(element.attr("userType") == "radio"){--%>
+                    <%--label.insertAfter($(element).parents('ul')).css('marginTop','-20px');--%>
+                <%--}else if(element.attr("userType") == "checkbox"){--%>
+                    <%--label.insertAfter($(element).parent()).css('clear','left');--%>
+                <%--}else{--%>
+                    <%--label.insertAfter(element);--%>
+                <%--};--%>
+            <%--},--%>
+            <%--submitHandler:function(form){--%>
+                <%--var userType =$('input[userType="radio"]:checked',form).val();--%>
+                <%--var loginName =$('#loginName').val();--%>
+                <%--var loginPwd =$('#loginPwd').val();--%>
+                <%--var resubmitToken = $('#resubmitToken').val();--%>
 
-                var callback = $('#callback').val();
-                var authType = $('#authType').val();
-                var signature = $('#signature').val();
-                var timestamp = $('#timestamp').val();
-                var checkCode = $('#checkCode').val();
+                <%--var callback = $('#callback').val();--%>
+                <%--var authType = $('#authType').val();--%>
+                <%--var signature = $('#signature').val();--%>
+                <%--var timestamp = $('#timestamp').val();--%>
+                <%--var checkCode = $('#checkCode').val();--%>
 
-                $(form).find(":submit").attr("disabled", true);
+                <%--$(form).find(":submit").attr("disabled", true);--%>
 
-                if(code == checkCode){
-                $.ajax({
-                    type:'POST',
-                    data: $("#loginForm").serialize(),
-                    url:"<%=request.getContextPath()%>/loginController/laGouReg.do",
-                    dataType:'json',
-                    success:function (data) {
-                        if(data==0){
-                            alert("注册失败");
-                        }else if(data==1){
-                            $.ajax({
-                                url:"<%=request.getContextPath()%>/loginController/updateComIdByName.do",
-                                data:{loginName:loginName},
-                                success:function () {
-                                    location.href="<%=request.getContextPath()%>/GsLaGouLogin.jsp";
-                                },
-                                error:function () {
-                                    alert("修改id失败");
-                                }
+                <%--if(code == checkCode){--%>
+                <%--$.ajax({--%>
+                    <%--type:'POST',--%>
+                    <%--data: $("#loginForm").serialize(),--%>
+                    <%--url:"<%=request.getContextPath()%>/loginController/laGouReg.do",--%>
+                    <%--dataType:'json',--%>
+                    <%--success:function (data) {--%>
+                        <%--if(data==0){--%>
+                            <%--alert("注册失败");--%>
+                        <%--}else if(data==1){--%>
+                            <%--$.ajax({--%>
+                                <%--url:"<%=request.getContextPath()%>/loginController/updateComIdByName.do",--%>
+                                <%--data:{loginName:loginName},--%>
+                                <%--success:function () {--%>
+                                    <%--location.href="<%=request.getContextPath()%>/GsLaGouLogin.jsp";--%>
+                                <%--},--%>
+                                <%--error:function () {--%>
+                                    <%--alert("修改id失败");--%>
+                                <%--}--%>
 
-                            })
-                        }
-                    },
-                    error:function () {
+                            <%--})--%>
+                        <%--}--%>
+                    <%--},--%>
+                    <%--error:function () {--%>
 
-                        alert("注册失败");
-                    }
-                }).done(function(result) {
-                    $('#resubmitToken').val(result.resubmitToken);
-                    if(result.success){
-                        window.location.href=result.content;
-                    }else{
-                        $('#beError').text(result.msg).show();
-                    }
-                    $(form).find(":submit").attr("disabled", false);
-                });
-                }else{
-                    $('#codeError').text("验证码错误").show();
-                }
-            }
+                        <%--alert("注册失败");--%>
+                    <%--}--%>
+                <%--}).done(function(result) {--%>
+                    <%--$('#resubmitToken').val(result.resubmitToken);--%>
+                    <%--if(result.success){--%>
+                        <%--window.location.href=result.content;--%>
+                    <%--}else{--%>
+                        <%--$('#beError').text(result.msg).show();--%>
+                    <%--}--%>
+                    <%--$(form).find(":submit").attr("disabled", false);--%>
+                <%--});--%>
+                <%--}else{--%>
+                    <%--$('#codeError').text("验证码错误").show();--%>
+                <%--}--%>
+            <%--}--%>
         });
     });
+
+    function submitLogin() {
+        //验证表单
+        var loginName = $('#loginName').val();
+        var loginPwd = $('#loginPwd').val();
+        var checkCode = $('#checkCode').val();
+        alert(checkCode);
+        alert(code);
+        alert(code == checkCode)
+        if (code == checkCode) {
+            alert("成")
+            $.ajax({
+                type: 'POST',
+                data: $("#loginForm").serialize(),
+                url: "<%=request.getContextPath()%>/loginController/laGouReg.do",
+                dataType: 'json',
+                success: function (data) {
+                    if (data == 0) {
+                        alert("注册失败");
+                    } else if (data == 1) {
+                        $.ajax({
+                            url: "<%=request.getContextPath()%>/loginController/updateUserIdByName.do",
+                            data: {loginName: loginName},
+                            success: function () {
+                                location.href = "<%=request.getContextPath()%>/LaGouLogin.jsp";
+                            },
+                            error: function () {
+                                alert("修改失败");
+                            }
+
+                        })
+                    }
+                },
+                error: function () {
+
+                    alert("注册失败");
+                }
+            }).done(function (result) {
+                $('#resubmitToken').val(result.resubmitToken);
+                if (result.success) {
+                    window.location.href = result.content;
+                } else {
+                    $('#beError').text(result.msg).show();
+                }
+                $(form).find(":submit").attr("disabled", false);
+            });
+        }else{
+            $('#codeError').text("验证码错误").show();
+        }
+    }
 </script>
 </body>
 </html>
