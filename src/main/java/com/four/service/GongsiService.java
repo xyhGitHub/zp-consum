@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface GongsiService {
 
-    List<GongSi> selectgongsi();
+    GongSi selectgongsi(Integer comid);
 
     List<GongSi> querygongsi(GongSi gongsi, Integer offset, Integer limit);
 
@@ -29,4 +29,8 @@ public interface GongsiService {
     void gongsieditphoto(Integer comid, String photo);
 
     List<GongSi> querysshowbyidzhiwei();
+
+    void savebiaoqian(GongSi gongSi);
+
+    GongSiBoos selectBossById(Integer comid);
 }
