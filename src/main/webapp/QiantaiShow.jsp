@@ -207,6 +207,7 @@
             <ul class="da-thumbs">
 
             </ul>
+
             <ul class="reset hotabbing">
                 <li class="current">全部职位</li>
             </ul>
