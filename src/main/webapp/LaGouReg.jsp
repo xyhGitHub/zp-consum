@@ -287,9 +287,6 @@
         var loginName = $('#loginName').val();
         var loginPwd = $('#loginPwd').val();
         var checkCode = $('#checkCode').val();
-        alert(checkCode);
-        alert(code);
-        alert(code == checkCode)
         if (code == checkCode) {
             alert("成")
             $.ajax({

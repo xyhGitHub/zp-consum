@@ -94,13 +94,13 @@
                 <label class="fl registerJianJu" for="checkbox">
             <input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《拉勾用户协议》</a>
             </label>
-            <input type="submit" id="submitLogin" value="注 &nbsp; &nbsp; 册" />
 
-            <input type="hidden" id="callback" name="callback" value=""/>
-            <input type="hidden" id="authType" name="authType" value=""/>
-            <input type="hidden" id="signature" name="signature" value=""/>
-            <input type="hidden" id="timestamp" name="timestamp" value=""/>
+                <input type="hidden" id="callback" name="callback" value=""/>
+                <input type="hidden" id="authType" name="authType" value=""/>
+                <input type="hidden" id="signature" name="signature" value=""/>
+                <input type="hidden" id="timestamp" name="timestamp" value=""/>
         </form>
+        <input type="submit" id="submitLogin" onclick="submitLogin()" value="注 &nbsp; &nbsp; 册" />
         <div class="login_right">
             <div>已有企业帐号 ?</div>
             <a  href="GsLaGouLogin.jsp"  class="registor_now">直接登录</a>
@@ -298,9 +298,6 @@
         var loginName = $('#loginName').val();
         var loginPwd = $('#loginPwd').val();
         var checkCode = $('#checkCode').val();
-        alert(checkCode);
-        alert(code);
-        alert(code == checkCode)
         if (code == checkCode) {
             alert("成")
             $.ajax({
