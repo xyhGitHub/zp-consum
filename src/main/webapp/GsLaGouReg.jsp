@@ -299,7 +299,6 @@
         var loginPwd = $('#loginPwd').val();
         var checkCode = $('#checkCode').val();
         if (code == checkCode) {
-            alert("成")
             $.ajax({
                 type: 'POST',
                 data: $("#loginForm").serialize(),
