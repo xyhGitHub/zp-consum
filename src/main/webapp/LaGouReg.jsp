@@ -82,8 +82,12 @@
                 <%--</li>--%>
             <%--</ul>--%>
             <input type="text" id="loginName" name="loginName" tabindex="1" placeholder="请输入常用邮箱地址/手机号" style="width: 300px"/><span class="error" style="display:none;" id="beError"></span>
-            <input type="password" id="loginPwd" name="loginPwd" tabindex="2" placeholder="请输入密码" style="width: 300px"/>
-            <input type="password" id="loginPwd2" name="loginPwd2" tabindex="3" placeholder="请再次输入密码" style="width: 300px"/>
+                <span class="error" style="display:none;" id="nameError"></span>
+                <input type="password" id="loginPwd" name="loginPwd" tabindex="2" placeholder="请输入密码" style="width: 300px"/>
+                <span class="error" style="display:none;" id="pwdError"></span>
+                <input type="password" id="loginPwd2" name="loginPwd2" tabindex="3" placeholder="请再次输入密码" style="width: 300px"/>
+                <span class="error" style="display:none;" id="pwd2Error"></span>
+
                 <!--随机验证码-->
                 <div id="check-code" style="overflow: hidden;">
                     <div class="code" id="data_code"></div>
@@ -93,8 +97,9 @@
                 <label class="fl registerJianJu" for="checkbox">
                     <input type="checkbox" id="checkbox" name="checkbox" checked  class="checkbox valid" />我已阅读并同意<a href="h/privacy.html" target="_blank">《拉勾用户协议》</a>
                 </label>
+                <input type="button" id="submitLogin" onclick="submitlogin()" value="注 &nbsp; &nbsp; 册" />
         </form>
-        <input type="submit" id="submitLogin" onclick="submitLogin()" value="注 &nbsp; &nbsp; 册" />
+
         <div class="login_right">
             <div>已有拉勾帐号</div>
             <a  href="LaGouLogin.jsp"  class="registor_now">直接登录</a>
@@ -282,11 +287,23 @@
     });
 
 
-    function submitLogin() {
+    function submitlogin() {
         //验证表单
         var loginName = $('#loginName').val();
         var loginPwd = $('#loginPwd').val();
         var checkCode = $('#checkCode').val();
+        if(loginName == ""){
+            $('#nameError').text("不能为空").show();
+        }
+        if(loginPwd == ""){
+            $('#pwdError').text("不能为空").show();
+        }
+        if(loginPwd2 == ""){
+            $('#pwd2Error').text("不能为空").show();
+        }
+        if(checkCode == ""){
+            $('#codeError').text("验证码不能为空").show();
+        }
         if (code == checkCode) {
             $.ajax({
                 type: 'POST',
@@ -311,7 +328,6 @@
                     }
                 },
                 error: function () {
-
                     alert("注册失败");
                 }
             }).done(function (result) {
