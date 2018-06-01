@@ -75,7 +75,7 @@
 
                         <form class="clear editDetail dn"  href="<%=request.getContextPath()%>/gongsiController/editgongshiname.do" id="editDetailForm">
                             <input  type="text" placeholder="请输入公司简称" maxlength="15" value="${gongSi.comshenhename}" name="comname" id="companyShortName">
-                        <br/>公司规模 <input type="text" placeholder="一句话描述公司优势，核心价值，限50字" maxlength="50" value="${gongSi.comguimo}" name="comguimo" id="companyFeatures">
+                            <br/>公司规模 <input type="text" placeholder="一句话描述公司优势，核心价值，限50字" maxlength="50" value="${gongSi.comguimo}" name="comguimo" id="companyFeatures">
                             <input type="hidden" value="${gongSi.comid}"  name="comid">
                             <input type="submit" value="保存" id="saveDetail" class="btn_small">
                             <a id="cancelDetail" class="btn_cancel_s" >取消</a>
@@ -285,14 +285,17 @@
                                     <a title="编辑创始人" class="c_edit member_edit" href="javascript:void(0)"></a>
                                     <div class="m_portrait">
                                         <div></div>
-                                        <img width="120" height="120" alt=" ${gongSi.comguimo}" src="style/images/leader_default.png">
+                                        <img width="120" height="120" alt="0.0" src="${boss.renphoto}">
                                     </div>
                                     <div class="m_name">
-                                        孙泰英
+                                        ${boss.renname}
                                         <a target="_blank" class="weibo" href="http://weimob.weibo.com"></a>
                                     </div>
-                                    <div class="m_position">ceo</div>
-                                    <div class="m_intro">发放的发达范德萨范德萨范德萨发的复大发大水发生的</div>
+
+                                    <div class="m_position">
+                                        职位:${boss.renzhiwei}
+                                    </div>
+                                    <div class="m_intro">简介:${boss.jianjie}</div>
                                 </div>
 
                             </div><!-- end .member_wrap -->
@@ -402,11 +405,11 @@
                 'fileExt': '*.jpg;*.jpeg;*.gif;*.png;*.doc;*.docx;*.xls;*.xlsx;*.pdf;*.txt',
                 'onUploadSuccess' : function(file, data, response) {
                     var html = ' <img width="190" height="190" alt="公司logo"src='+data+'>';
-                   var comid= $("#comid").val(); //取value值
+                    var comid= $("#comid").val(); //取value值
 //                    alert(data)
-                        $("#show").append(html);
+                    $("#show").append(html);
                     $("[name='fileid']").val(data);
-                        var photo =data;
+                    var photo =data;
                     $.ajax({
                         url:"<%=request.getContextPath()%>/gongsiController/gongsieditphoto.do?comid="+comid,
                         data:{"photo":photo},
@@ -414,7 +417,7 @@
                         dataType :"json",
                         success:function(){
                             alert("修改图片成功")
-                       //     BootstrapDialog.closeAll();
+                            //     BootstrapDialog.closeAll();
                         },
                         error:function () {
                             alert("错误")
@@ -519,7 +522,7 @@
 
 
 
-        //注销
+    //注销
     function tuichu() {
         $.ajax({
             url:"<%=request.getContextPath()%>/loginController/zhuXiaoGs.do",
