@@ -55,9 +55,10 @@
 
 <br/><br/>
 <div class="input-group col-md-6" style="margin-top:0px positon:relative">
-    <input type="text" class="form-control"placeholder="请输入字段名" / >
+    <input type="text" class="form-control"placeholder="请输入字段名" id="nn"/>
     <span class="input-group-btn">
-               <button class="btn btn-info btn-search">查找</button>
+               <button class="btn btn-info btn-search" onclick="queryBrand()">查找</button>
+       <button type="button" class=" btn btn-info btn-search " style="margin-left:3px" onclick="clearsearch()">清空搜索条件</button>
                <button class="btn btn-info btn-search" style="margin-left:3px" data-toggle="modal" id="exportExcepButton">导出EXCEL</button><%--data-target="#exportExcelDialog"--%>
                <%--<button class="btn btn-info btn-search" style="margin-left:3px">导出DOC</button>--%>
         <button type="button" class="btn btn-info btn-search " style="margin-left:3px" data-toggle="modal" data-target="#myaddModal">新增</button>
@@ -95,7 +96,11 @@
                             <td style="width: 130px;"><label><input type="checkbox" style="margin-left:7px" name="check" value="guangGaoHeight;宽度">宽度</label></td>
                             <td style="width: 130px;"><label><input type="checkbox" style="margin-left:7px" name="check" value="guangGaoprice;金额">金额</label></td>
                             <td style="width: 130px;"><label><input type="checkbox" style="margin-left:7px" name="check" value="guangGaoNum;位序号">位序号</label></td>
-                            <td style="width: 130px;"><label><input type="checkbox" style="margin-left:7px" name="check" value="guangGaoGuanWang;目标网址">目标网址</label></td>
+                            <td style="width: 130px;">
+                                <label><input type="radio" style="margin-left:7px" name="check" value="1">上架</label>
+                                <label><input type="radio" style="margin-left:7px" name="check" value="2">下架</label>
+
+                            </td>
                             <td style="width: 130px;"><label><input type="checkbox" style="margin-left:7px" name="check" value="guangGaoStatus;上架状态">上架状态</label></td>
                             <td style="width: 130px;"><label><input type="checkbox" style="margin-left:7px" name="check" value="guangGaoNum;序号">序号</label></td>
                         </tr>
@@ -118,25 +123,107 @@
                     <h4 class="form-signin-heading">新增广告</h4>
                 </div>
                 <div class="modal-body">
-                    <input type="text" name="guangGaoName"   class="form-control" id="guangGaoName" placeholder="广告名称"  required autofocus><br>
-                    <input type="text" name="guangGaoShuoMing"   class="form-control" id="guangGaoShuoMing" placeholder="广告说明"  required autofocus><br>
-                    <input type="text" name="guangGaoStart"   class="form-control" id="guangGaoStart" placeholder="广告起始时间"  required autofocus><br>
-                    <input type="text" name="guangGaoEnd"   class="form-control" id="guangGaoEnd" placeholder="广告结束时间"  required autofocus><br>
-                    <label>  广告图片：</label><input type="file" name="guangGaoPhotoOss"   class="projectfile" id="guangGaoPhotoOss" placeholder="广告图片" value=""  required autofocus><br>
-                   <input type="hidden" name="guangGaoPhoto" id="guangGaoPhotoid"/>
-                    <input type="text" name="guangGaoWidth"   class="form-control" id="guangGaoWidth" placeholder="广告长度(单位px)"  required autofocus><br>
-                    <input type="text" name="guangGaoHeight"   class="form-control" id="guangGaoHeight" placeholder="广告宽度(单位px)"  required autofocus><br>
-                    <input type="text" name="guangGaoprice"   class="form-control" id="guangGaoprice" placeholder="广告金额"  required autofocus><br>
-                    <input type="text" name="guangGaoNum"   class="form-control" id="guangGaoNum" placeholder="广告位序号"  required autofocus><br>
-                    <%--<input type="text" name="guangGaoGuanWang"   class="form-control" id="guangGaoGuanWang" placeholder="广告目标网址"  required autofocus>--%>
-                    <div class="btn-group">
-                        <%--<input  type="search" class="form-control">--%>
-                        <input type="text" name="guangGaoGuanWang"   class="form-control" id="searchinput" placeholder="广告目标网址,点击可以测试是否可用哦,例如:http://www.baidu.com" value="http://" required autofocus>
-                        <span id="searchclear" class="	glyphicon glyphicon-send"></span>
+                    <div class="input-group">
+                        <span class="input-group-addon">广告名称</span>
+                        <input type="text" name="guangGaoName"   class="form-control" id="guangGaoName" placeholder="请填入广告名称"  required autofocus>
                     </div>
                     <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">广告说明</span>
+                        <input type="text" name="guangGaoShuoMing"   class="form-control" id="guangGaoShuoMing" placeholder="请填入广告说明"  required autofocus>
+                    </div>
                     <br>
-                    <input type="text" name="guangGaoStatus"   class="form-control" id="guangGaoStatus" placeholder="广告上架状态"  required autofocus><br>
+                    <div class="input-group">
+                        <span class="input-group-addon">广告起始时间</span>
+                        <!--指定 date标记-->
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type="text" name="guangGaoStart"   class="form-control" id="guangGaoStart" placeholder="请填入广告起始时间"  required autofocus style="width:420px">
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div><!--指定 date标记END-->
+
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon">广告结束时间</span>
+                        <!--指定 date标记-->
+                        <div class='input-group date' id='datetimepicker2'>
+                            <input type="text" name="guangGaoEnd"   class="form-control" id="guangGaoEnd" placeholder="请填入广告结束时间"  required autofocus style="width:420px"><br>
+                            <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div> <!--指定 date标记END-->
+
+                    </div>
+                    <br>
+
+
+
+
+                    <input type="hidden" name="guangGaoPhoto" id="guangGaoPhotoid"/>
+                     广告图片：</label><input type="file" name="guangGaoPhotoOss"   class="projectfile" id="guangGaoPhotoOss" placeholder="广告图片" value=""  required autofocus><br>
+                    <div class="input-group">
+                        <span class="input-group-addon">广告长度(单位px)</span>
+                        <input type="text" name="guangGaoWidth"   class="form-control" id="guangGaoWidth" placeholder="请填入广告长度(单位px)"  required autofocus><br>
+                    </div>
+                    <br>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">广告宽度(单位px)</span>
+                        <input type="text" name="guangGaoHeight"   class="form-control" id="guangGaoHeight" placeholder="请填入广告宽度(单位px)"  required autofocus><br>
+                    </div>
+                    <br>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">广告金额</span>
+                        <input type="text" name="guangGaoprice"   class="form-control" id="guangGaoprice" placeholder="请填入广告金额"  required autofocus><br>
+                    </div>
+                    <br>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">广告位置编号</span>
+                        <input type="text" name="guangGaoNum"   class="form-control" id="guangGaoNum" placeholder="请填入广告位置"  required autofocus><br>
+                    </div>
+                    <br>
+
+
+
+
+
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" id="searchclear">测试网络</button>
+                      </span>
+                        <input type="text" name="guangGaoGuanWang"   class="form-control" id="searchinput" placeholder="请填入广告目标网址,例如:http://www.baidu.com" value="http://" required autofocus style="width:488px"/>
+                    </div>
+
+
+
+
+
+                    <%--<input type="text" name="guangGaoGuanWang"   class="form-control" id="guangGaoGuanWang" placeholder="广告目标网址"  required autofocus>--%>
+                    <%--<div class="btn-group">
+                        &lt;%&ndash;<input  type="search" class="form-control">&ndash;%&gt;
+
+                        <span class="	glyphicon glyphicon-send"></span>
+                    </div>--%>
+                    <br>
+                    <div class="input-group" data-toggle="buttons">
+                        <%--<span class="input-group-btn">广告上架状态</span>--%>
+                        <label class="btn btn-default active">
+                            <input type="radio" disabled>广告上架状态：
+                        </label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label><input type="radio" style="margin-left:7px" name="guangGaoStatus" value="1">上架</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label><input type="radio" style="margin-left:7px" name="guangGaoStatus" value="2">下架</label>
+                    </div>
+
+
+                    <br>
+                    <%--<input type="text" name="guangGaoStatus"   class="form-control" id="guangGaoStatus" placeholder="广告上架状态"  required autofocus>--%>
+<br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
@@ -163,28 +250,117 @@
                 </div>
                <div class="modal-body">
                     <input type="hidden" name="guangGaoId" value="" id="guanggaoupdateid"/>
-                    <input type="text" name="guangGaoName"   class="form-control" id="guangGaoNameXiu" placeholder="广告名称" value="" required autofocus><br>
-                    <input type="text" name="guangGaoShuoMing"   class="form-control" id="guangGaoShuoMing2" placeholder="广告说明" value=""  required autofocus><br>
-                    <input type="text" name="guangGaoStart"   class="form-control" id="guangGaoStart2" placeholder="广告起始时间" value=""  required autofocus><br>
-                    <input type="text" name="guangGaoEnd"   class="form-control" id="guangGaoEnd2" placeholder="广告结束时间" value=""  required autofocus><br>
-                    <label>  广告图片：</label>
+                   <div class="input-group">
+                       <span class="input-group-addon">广告名称</span>
+                       <input type="text" name="guangGaoName"   class="form-control" id="guangGaoNameXiu" placeholder="请填入广告名称" value="" required autofocus>
+                   </div>
+                   <br>
+
+                   <div class="input-group">
+                       <span class="input-group-addon">广告说明</span>
+                       <input type="text" name="guangGaoShuoMing"   class="form-control" id="guangGaoShuoMing2" placeholder="请填入请填入广告说明" value=""  required autofocus>
+                   </div>
+                   <br>
+                   <div class="input-group">
+                       <span class="input-group-addon">广告起始时间</span>
+                       <!--指定 date标记-->
+                       <div class='input-group date' id='datetimepicker3'>
+                           <input type="text" name="guangGaoStart"   class="form-control" id="guangGaoStart2" placeholder="请填入广告起始时间" value=""  required autofocus style="width:420px">
+                           <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                       </div><!--指定 date标记END-->
+
+                   </div>
+                   <br>
+                   <div class="input-group">
+                       <span class="input-group-addon">广告结束时间</span>
+
+                       <!--指定 date标记-->
+                       <div class='input-group date' id='datetimepicker4'>
+                           <input type="text" name="guangGaoEnd"   class="form-control" id="guangGaoEnd2" placeholder="请填入广告结束时间" value=""  required autofocus style="width:420px">
+                           <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                       </div> <!--指定 date标记END-->
+
+                   </div>
+                   <br>
+
+
+
+
+                   <label>  广告图片：</label>
                    <input type="file" name="guangGaoPhotoOss" id="uploadfiy"   class="projectfile"  placeholder="广告图片" value=""  required autofocus>
                    <input type="hidden" name="guangGaoPhoto" id="guangGaoPhotoUploadfiy"/>
                    <div id="fileQueue"></div>
                    <div id="show"></div>
                    <br>
-                    <input type="text" name="guangGaoWidth"   class="form-control" id="guangGaoWidth2" value="" placeholder="广告长度(单位px)"  required autofocus><br>
-                    <input type="text" name="guangGaoHeight"   class="form-control" id="guangGaoHeight2" value="" placeholder="广告宽度(单位px)"  required autofocus><br>
-                    <input type="text" name="guangGaoprice"   class="form-control" id="guangGaoprice2" value="" placeholder="广告金额"  required autofocus><br>
-                    <input type="text" name="guangGaoNum"   class="form-control" id="guangGaoNum2" value="" placeholder="广告位序号"  required autofocus><br>
-                    <div class="btn-group">
+
+
+                   <div class="input-group">
+                       <span class="input-group-addon">广告长度(单位px)</span>
+                       <input type="text" name="guangGaoWidth"   class="form-control" id="guangGaoWidth2" value="" placeholder="请填入广告长度(单位px)"  required autofocus><br>
+                   </div>
+                   <br>
+
+                   <div class="input-group">
+                       <span class="input-group-addon">广告宽度(单位px)</span>
+                       <input type="text" name="guangGaoHeight"   class="form-control" id="guangGaoHeight2" value="" placeholder="请填入广告宽度(单位px)"  required autofocus><br>
+                   </div>
+                   <br>
+
+                   <div class="input-group">
+                       <span class="input-group-addon">广告金额</span>
+                       <input type="text" name="guangGaoprice"   class="form-control" id="guangGaoprice2" value="" placeholder="请填入广告金额"  required autofocus><br>
+                   </div>
+                   <br>
+
+                   <div class="input-group">
+                       <span class="input-group-addon">广告位置编号</span>
+                       <input type="text" name="guangGaoNum"   class="form-control" id="guangGaoNum2" value="" placeholder="请填入广告位序号"  required autofocus><br>
+                   </div>
+                   <br>
+
+                   <div class="input-group">
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button" id="searchclear2">测试网络</button>
+                      </span>
+                       <input type="text" name="guangGaoGuanWang"   class="form-control" id="guangGaoGuanWang2"  style="width:488px" value="" placeholder="广告目标网址,点击可以测试是否可用哦,例如:http://www.baidu.com" value="http://" required autofocus>
+                   </div>
+
+
+
+
+
+
+
+
+
+
+                   <div class="btn-group">
                         <%--<input  type="search" class="form-control">--%>
-                        <input type="text" name="guangGaoGuanWang"   class="form-control" id="guangGaoGuanWang2" value="" placeholder="广告目标网址,点击可以测试是否可用哦,例如:http://www.baidu.com" value="http://" required autofocus>
-                        <span id="searchclear2" class="	glyphicon glyphicon-send"></span>
+
+                        <%--<span  class="	glyphicon glyphicon-send"></span>--%>
                     </div>
                     <br>
-                    <br>
-                    <input type="text" name="guangGaoStatus"   class="form-control" id="guangGaoStatus2" value="" placeholder="广告上架状态"  required autofocus><br>
+
+                   <div class="input-group" data-toggle="buttons">
+                       <%--<span class="input-group-btn">广告上架状态</span>--%>
+                       <label class="btn btn-default active">
+                           <input type="radio" disabled>广告上架状态：
+                       </label>
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <label><input type="radio" style="margin-left:7px" name="guangGaoStatus" value="1">上架</label>
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <label><input type="radio" style="margin-left:7px" name="guangGaoStatus" value="2">下架</label>
+                   </div>
+
+
+                   <br>
+                    <%--<input type="text" name="guangGaoStatus"   class="form-control" id="guangGaoStatus2" value="" placeholder="广告上架状态"  required autofocus><br>--%>
+                <%--   <label><input type="radio" style="margin-left:7px" name="guangGaoStatus" value="1">上架</label>
+                   <label><input type="radio" style="margin-left:7px" name="guangGaoStatus" value="2">下架</label><br>--%>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" data-dismiss="modal">关闭</button>
@@ -202,35 +378,71 @@
     #searchinput {
         width: 570px;
     }
-    #guangGaoGuanWang2 {
-        width:570px;
-    }
-    #searchclear {
-        position: absolute;
-        right: 5px;
-        top: 0;
-        bottom: 0;
-        height: 14px;
-        margin: auto;
-        font-size: 14px;
-        cursor: pointer;
-        color: #ccc;
-    }
-    #searchclear2 {
-        position: absolute;
-        right: 5px;
-        top: 0;
-        bottom: 0;
-        height: 14px;
-        margin: auto;
-        font-size: 14px;
-        cursor: pointer;
-        color: #ccc;
-    }
+
+
+
 </style>
+<link href="<%=request.getContextPath()%>/jquery/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="<%=request.getContextPath()%>/jquery/bootstrap-datetimepicker-master/js/moment-develop/min/moment-with-locales.js"></script>
+<script src="<%=request.getContextPath()%>/jquery/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js"></script>
+<script src="<%=request.getContextPath()%>/jquery/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 
 <script>
-    //导出excel
+
+        $(function(){
+
+           $("#datetimepicker1").datetimepicker({
+                format:'yyyy/mm/dd',
+                language:'zh-CN',
+                minView: "month",
+                todayBtn:  1,
+                autoclose: 1,
+            }).on('show', function (ev) {//在控件显示时就触发事件
+                var etime = $("#guangGaoEnd").val();//获取结束时间ID
+                $("#datetimepicker1").datetimepicker('setEndDate', etime);//给开始控件设置一个结束的日期。//开始时间DIV的ID
+            });
+            $("#datetimepicker2").datetimepicker({
+                format:'yyyy/mm/dd',
+                language:'zh-CN',
+                minView: "month",
+                todayBtn:  1,
+                autoclose: 1,
+            }).on('show', function (ev) {
+                var stime = $("#guangGaoStart").val();
+                $("#datetimepicker2").datetimepicker('setStartDate', stime);//给结束控件设置一个开始日期
+            });
+           $("#datetimepicker3").datetimepicker({
+                format:'yyyy/mm/dd',
+                language:'zh-CN',
+                minView: "month",
+                todayBtn:  1,
+                autoclose: 1,
+            }).on('show', function (ev) {//在控件显示时就触发事件
+                var etime = $("#guangGaoEnd2").val();//获取结束时间ID
+                $("#datetimepicker3").datetimepicker('setEndDate', etime);//给开始控件设置一个结束的日期。//开始时间DIV的ID
+            });
+            $("#datetimepicker4").datetimepicker({
+                format:'yyyy/mm/dd',
+                language:'zh-CN',
+                minView: "month",
+                todayBtn:  1,
+                autoclose: 1,
+            }).on('show', function (ev) {
+                var stime = $("#guangGaoStart2").val();
+                $("#datetimepicker4").datetimepicker('setStartDate', stime);//给结束控件设置一个开始日期
+            });
+
+
+    })
+
+
+
+
+
+
+
+
+        //导出excel
     $("#exportExcepButton").click(function (){
 //        alert("进来了")
         //询问框
@@ -281,16 +493,19 @@
 
     //修改的方法
     function   update(){
+        alert($("#fg").serialize())
         $.ajax({
             url:"<%=request.getContextPath()%>/guanggaoController/updateGuangGaoById.do",
             type:"post",
             data:$("#fg").serialize(),
             success:function(result){
-                $('#myModal2').modal('hide');
+                $("#advertlist").bootstrapTable('refreshOptions',{pageNumber : 1});
                 $('.modal-backdrop').remove();
+                $('#myModal2').modal('hide');
                 $('body').removeClass('modal-open');
                 layer.alert('修改成功!老板', {icon: 6});
-               $("#advertlist").bootstrapTable('refreshOptions',{pageNumber : 1});
+//                $("#advertlist").bootstrapTable('load', json);
+//                $("").bootstrapTable('refreshOptions',{pageNumber : 1});
                /* $('#myModal2').on('hidden.bs.modal', '.modal', function () {
                     console.log("进来了")
                     $(this).removeData('bs.modal');
@@ -318,6 +533,30 @@
     $("#searchclear").click(function(){
 //        alert(999)
         var val = $("#searchinput").val();
+        $.ajax({
+            url:"<%=request.getContextPath()%>/guanggaoController/testGuangGaoAddress.do",
+            type:"post",
+            data:{"guangGaoAddess":val},
+            dataType:"text",
+//                    dataType:"json",
+            async:false,
+            success:function(testflag){
+                if(testflag==200){
+                    layer.alert('测试通过,可以访问', {icon: 6});
+                }else{
+                    layer.alert('可能有些问题,请再仔细确认哦', {icon: 6});
+                }
+            },
+            error:function(){
+                layer.alert('可能有些问题,请再仔细确认哦', {icon: 6});
+            }
+        });
+
+
+    });
+    $("#searchclear2").click(function(){
+//        alert(999)
+        var val = $("#guangGaoGuanWang2").val();
         $.ajax({
             url:"<%=request.getContextPath()%>/guanggaoController/testGuangGaoAddress.do",
             type:"post",
@@ -415,13 +654,16 @@
             async:false,
             success:function(delflag){
                 if(delflag=="addDataSuccess"){
-                    $('#myModal2').modal('hide');
-                    $('.modal-backdrop').remove();
+                    $("#advertlist").bootstrapTable('refreshOptions',{pageNumber : 1});
+                    $('#myModal2').modal('hide');//再次打开会出bug
+                    //
+                    $("#myModal2").remove();
+
                     $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
                     layer.alert('添加成功.恭喜恭喜', {icon: 6});
                     //关闭弹框
                     $('#myaddModal').modal('hide');
-                    $("#advertlist").bootstrapTable('refreshOptions',{pageNumber : 1});
 //                    $('#myaddModal').on('hide.bs.modal', function () {
 //                        alert('模态框关闭了');
 //                    });
@@ -441,19 +683,19 @@
                 pagination: true,//显示分页条
                 pageNumber: 1,//初始化 页数
                 pageSize: 3,//初始化 条数
-                pageList: [3, 6, 9],//初始化 可选择的条数
+                pageList:  [ 15, 20, 50, 100, 200, 500,'ALL' ],//初始化 可选择的条数
                 paginationLoop: false,//关闭分页的无限循环
                 height: 550,//table的高度
                 undefinedText: "--",//有数据为空时 显示的内容
                 striped: true,//斑马线
-//                showFooter:true,//表格底部角
+//                showFooter: true,//表格底部角
                 showColumns: true,//显示选择展示列的按钮
                 showRefresh: true,//刷新按钮
                 showToggle: true,//切换显示格式
                 cardView: false,                    //是否显示showToggle
                 showPaginationSwitch: true,//展示所有数据 和分页数据的切换按钮
                 detailView: true,//列的详细页
-                /*detailFormatter:function(index,row){
+                /*detailFormatter: function(index,row){
                     //格式化详细页
                     return '<a href="#">'+row.bname+'</a>';
                 },*/
@@ -499,7 +741,17 @@
                     {field:"guangGaoprice",title:"广告价格"},
                     {field:"guangGaoNum",title:"广告位置编号"},
                     {field:"guangGaoGuanWang",title:"广告目标网址"},
-                    {field:"guangGaoStatus",title:"广告上架状态"},
+                    {field:"guangGaoStatus",title:"广告上架状态",
+                        formatter:function(value,row,index){
+                        if(value==1){
+                            return "上架";
+
+                        }else{
+
+                            return "下架";
+                        }
+                        }
+                    },
                     { field:'ID',
                         title: '操作',
                         width: '150',
@@ -547,7 +799,7 @@
         }
         //修改方法
    function updateGuangGaoByModel(obj){
-//            alert(obj.guangGaoId);
+       setTimeout(function(){
        console.info(obj)
     $("#guanggaoupdateid").val(obj.guangGaoId);
     $("#guangGaoNameXiu").val(obj.guangGaoName);
@@ -560,7 +812,8 @@
     $("#guangGaoGuanWang2").val(obj.guangGaoGuanWang);
     $("#guangGaoWidth2").val(obj.guangGaoWidth);
     $("#guangGaoHeight2").val(obj.guangGaoHeight);
-    $("#guangGaoStatus2").val(obj.guangGaoStatus);
+    $("[name='guangGaoStatus']").val([obj.guangGaoStatus]);
+       },500);
    }
         //尝试一下oss下载图片
     function downloadById(guangGaoPhoto){
@@ -602,6 +855,40 @@
                 });
             });
 
+        }
+        //批量删除
+    function upCheck() {
+        var arr = $("#advertlist").bootstrapTable("getSelections");
+        var ids = [];
+        if (arr != '') {
+            for (var i = 0; i < arr.length; i++) {
+                ids.push(arr[i].guangGaoId)
+            }
+        }
+
+//alert(ids)
+        $.ajax({
+            url: "<%=request.getContextPath()%>/guanggaoController/deleteGuangGaoAll.do",
+            type: "post",
+            //如果Post是string数组或者int数组，则ajax中traditional: true,如果Post是对象数组，则ajax中traditional: false,否则对象将为空
+            traditional: true,
+            data: {"ids": ids},
+            success: function (result) {
+                if (result == "deleteDataSuccess") {
+                    layer.alert('删除成功!恭喜', {icon: 6});
+                    $("#advertlist").bootstrapTable('refreshOptions',{pageNumber : 1});
+                }
+            }
+        })
+    }
+        function  queryBrand(){
+
+            $("#advertlist").bootstrapTable('refresh',{query:{sname:$("#nn").val()}});
+
+        }
+        function clearsearch(){
+            //刷新表格
+            $("#advertlist").bootstrapTable('refreshOptions',{pageNumber : 1});
         }
 </script>
 
